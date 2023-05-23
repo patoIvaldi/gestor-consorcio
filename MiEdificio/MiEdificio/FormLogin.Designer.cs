@@ -31,13 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
             pb_logo = new PictureBox();
             groupBox1 = new GroupBox();
+            uC_textbox1 = new UC_textbox();
+            uC_tb_password1 = new UC_tb_password();
             btn_ingresar = new Button();
             cb_idioma = new ComboBox();
-            label1 = new Label();
-            tb_usuario = new TextBox();
             pb_iconoUsuario = new PictureBox();
             lbl_pie = new Label();
-            uC_tb_password1 = new UC_tb_password();
             ((System.ComponentModel.ISupportInitialize)pb_logo).BeginInit();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pb_iconoUsuario).BeginInit();
@@ -56,17 +55,36 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(uC_textbox1);
             groupBox1.Controls.Add(uC_tb_password1);
             groupBox1.Controls.Add(btn_ingresar);
             groupBox1.Controls.Add(cb_idioma);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(tb_usuario);
             groupBox1.Controls.Add(pb_iconoUsuario);
             groupBox1.Location = new Point(290, 188);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(213, 250);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
+            // 
+            // uC_textbox1
+            // 
+            uC_textbox1.ETIQUETA = "Usuario:";
+            uC_textbox1.Location = new Point(19, 84);
+            uC_textbox1.Name = "uC_textbox1";
+            uC_textbox1.REQUERIDO = true;
+            uC_textbox1.Size = new Size(176, 46);
+            uC_textbox1.TabIndex = 8;
+            uC_textbox1.TEXT_BOX = "";
+            // 
+            // uC_tb_password1
+            // 
+            uC_tb_password1.ETIQUETA = "Contraseña:";
+            uC_tb_password1.Location = new Point(19, 128);
+            uC_tb_password1.Name = "uC_tb_password1";
+            uC_tb_password1.REQUERIDO = true;
+            uC_tb_password1.Size = new Size(177, 45);
+            uC_tb_password1.TabIndex = 3;
+            uC_tb_password1.TEXT_BOX = "";
             // 
             // btn_ingresar
             // 
@@ -85,24 +103,6 @@
             cb_idioma.Name = "cb_idioma";
             cb_idioma.Size = new Size(89, 23);
             cb_idioma.TabIndex = 6;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(22, 80);
-            label1.Name = "label1";
-            label1.Size = new Size(52, 15);
-            label1.TabIndex = 3;
-            label1.Text = "Usuario:";
-            label1.Click += label1_Click;
-            // 
-            // tb_usuario
-            // 
-            tb_usuario.Location = new Point(22, 98);
-            tb_usuario.Name = "tb_usuario";
-            tb_usuario.Size = new Size(170, 23);
-            tb_usuario.TabIndex = 1;
             // 
             // pb_iconoUsuario
             // 
@@ -123,16 +123,6 @@
             lbl_pie.Size = new Size(222, 13);
             lbl_pie.TabIndex = 2;
             lbl_pie.Text = "Powered by Ceiba - Buenos Aires, Argentina - ";
-            // 
-            // uC_tb_password1
-            // 
-            uC_tb_password1.ETIQUETA = "Contraseña";
-            uC_tb_password1.Location = new Point(19, 128);
-            uC_tb_password1.Name = "uC_tb_password1";
-            uC_tb_password1.REQUERIDO = true;
-            uC_tb_password1.Size = new Size(177, 45);
-            uC_tb_password1.TabIndex = 3;
-            uC_tb_password1.TEXT_BOX = "";
             // 
             // FormLogin
             // 
@@ -157,7 +147,6 @@
             Resize += Login_Resize;
             ((System.ComponentModel.ISupportInitialize)pb_logo).EndInit();
             groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pb_iconoUsuario).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -167,12 +156,11 @@
 
         private PictureBox pb_logo;
         private GroupBox groupBox1;
-        private Label label1;
-        private TextBox tb_usuario;
         private PictureBox pb_iconoUsuario;
         private ComboBox cb_idioma;
         private Button btn_ingresar;
         private Label lbl_pie;
         private UC_tb_password uC_tb_password1;
+        private UC_textbox uC_textbox1;
     }
 }

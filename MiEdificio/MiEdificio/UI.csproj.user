@@ -7,6 +7,12 @@
     <Compile Update="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UC_button.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UC_tb_numerico.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="UC_tb_password.cs">
       <SubType>UserControl</SubType>
     </Compile>

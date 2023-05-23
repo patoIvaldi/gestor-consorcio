@@ -1,6 +1,6 @@
 ﻿namespace UI
 {
-    partial class UC_textbox
+    partial class UC_button
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -28,43 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
-            label1 = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
-            // textBox1
+            // button1
             // 
-            textBox1.Location = new Point(3, 18);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(170, 23);
-            textBox1.TabIndex = 3;
-            textBox1.TextChanged += textBox1_TextChanged;
+            button1.BackColor = Color.FromArgb(255, 192, 128);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            button1.ForeColor = Color.FromArgb(64, 64, 64);
+            button1.Location = new Point(3, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(99, 23);
+            button1.TabIndex = 0;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(3, 1);
-            label1.Name = "label1";
-            label1.Size = new Size(40, 15);
-            label1.TabIndex = 2;
-            label1.Text = "label1";
-            // 
-            // UC_textbox
+            // UC_button
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(textBox1);
-            Controls.Add(label1);
-            Name = "UC_textbox";
-            Size = new Size(176, 46);
+            Controls.Add(button1);
+            Name = "UC_button";
+            Size = new Size(105, 30);
+            Load += UC_button_Load;
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private TextBox textBox1;
-        private Label label1;
+        private Button button1;
     }
 }

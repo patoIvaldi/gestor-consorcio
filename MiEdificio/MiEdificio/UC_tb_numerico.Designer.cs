@@ -1,6 +1,6 @@
 ﻿namespace UI
 {
-    partial class UC_textbox
+    partial class UC_tb_numerico
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -50,14 +50,15 @@
             label1.TabIndex = 2;
             label1.Text = "label1";
             // 
-            // UC_textbox
+            // UC_tb_numerico
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(textBox1);
             Controls.Add(label1);
-            Name = "UC_textbox";
+            Name = "UC_tb_numerico";
             Size = new Size(176, 46);
+            Load += UC_tb_numerico_Load;
             ResumeLayout(false);
             PerformLayout();
         }
