@@ -1,0 +1,17 @@
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\bin\Debug\net6.0-windows\Services.deps.json
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\bin\Debug\net6.0-windows\Services.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\bin\Debug\net6.0-windows\Services.pdb
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\obj\Debug\net6.0-windows\Services.csproj.AssemblyReference.cache
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\obj\Debug\net6.0-windows\Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\obj\Debug\net6.0-windows\Services.AssemblyInfoInputs.cache
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\obj\Debug\net6.0-windows\Services.AssemblyInfo.cs
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\obj\Debug\net6.0-windows\Services.csproj.CoreCompileInputs.cache
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\obj\Debug\net6.0-windows\Services.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\obj\Debug\net6.0-windows\refint\Services.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\obj\Debug\net6.0-windows\Services.pdb
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\obj\Debug\net6.0-windows\ref\Services.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\bin\Debug\net6.0-windows\BE.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\bin\Debug\net6.0-windows\Interfaces.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\bin\Debug\net6.0-windows\BE.pdb
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\bin\Debug\net6.0-windows\Interfaces.pdb
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Services\obj\Debug\net6.0-windows\Services.csproj.CopyComplete

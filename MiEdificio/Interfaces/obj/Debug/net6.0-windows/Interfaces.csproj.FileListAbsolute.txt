@@ -1,0 +1,12 @@
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\bin\Debug\net6.0-windows\Interfaces.deps.json
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\bin\Debug\net6.0-windows\Interfaces.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\bin\Debug\net6.0-windows\Interfaces.pdb
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\obj\Debug\net6.0-windows\Interfaces.csproj.AssemblyReference.cache
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\obj\Debug\net6.0-windows\Interfaces.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\obj\Debug\net6.0-windows\Interfaces.AssemblyInfoInputs.cache
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\obj\Debug\net6.0-windows\Interfaces.AssemblyInfo.cs
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\obj\Debug\net6.0-windows\Interfaces.csproj.CoreCompileInputs.cache
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\obj\Debug\net6.0-windows\Interfaces.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\obj\Debug\net6.0-windows\refint\Interfaces.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\obj\Debug\net6.0-windows\Interfaces.pdb
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\Interfaces\obj\Debug\net6.0-windows\ref\Interfaces.dll
