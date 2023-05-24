@@ -58,6 +58,7 @@
             Controls.Add(label1);
             Name = "UC_textbox";
             Size = new Size(176, 46);
+            Load += UC_textbox_Load;
             ResumeLayout(false);
             PerformLayout();
         }

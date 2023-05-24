@@ -58,5 +58,9 @@ namespace UI
             return validacionOK;
         }
 
+        private void UC_tb_password_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

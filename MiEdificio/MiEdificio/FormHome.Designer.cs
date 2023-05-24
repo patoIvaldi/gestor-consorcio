@@ -34,27 +34,18 @@
             usuariosToolStripMenuItem = new ToolStripMenuItem();
             crearModificarToolStripMenuItem = new ToolStripMenuItem();
             desbloquearToolStripMenuItem = new ToolStripMenuItem();
-            perfilesToolStripMenuItem = new ToolStripMenuItem();
-            crearModificarToolStripMenuItem1 = new ToolStripMenuItem();
-            asignarToolStripMenuItem = new ToolStripMenuItem();
-            idiomasToolStripMenuItem = new ToolStripMenuItem();
-            backupToolStripMenuItem = new ToolStripMenuItem();
-            restoreToolStripMenuItem = new ToolStripMenuItem();
-            bitácoraToolStripMenuItem = new ToolStripMenuItem();
-            deEventosToolStripMenuItem = new ToolStripMenuItem();
-            deCambiosToolStripMenuItem = new ToolStripMenuItem();
             altasToolStripMenuItem = new ToolStripMenuItem();
             generarExpensaToolStripMenuItem = new ToolStripMenuItem();
             usuarioToolStripMenuItem = new ToolStripMenuItem();
             cambiarClaveToolStripMenuItem = new ToolStripMenuItem();
+            cerrarSesiónToolStripMenuItem = new ToolStripMenuItem();
             reservasToolStripMenuItem = new ToolStripMenuItem();
             reservarSUMToolStripMenuItem = new ToolStripMenuItem();
             gestionesToolStripMenuItem = new ToolStripMenuItem();
             pagarExpensaToolStripMenuItem = new ToolStripMenuItem();
+            visualizarDocumentoToolStripMenuItem = new ToolStripMenuItem();
             reportesToolStripMenuItem = new ToolStripMenuItem();
             ayudaToolStripMenuItem = new ToolStripMenuItem();
-            cerrarSesiónToolStripMenuItem = new ToolStripMenuItem();
-            visualizarDocumentoToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -69,7 +60,7 @@
             // 
             // adminToolStripMenuItem
             // 
-            adminToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, perfilesToolStripMenuItem, idiomasToolStripMenuItem, backupToolStripMenuItem, restoreToolStripMenuItem, bitácoraToolStripMenuItem });
+            adminToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem });
             adminToolStripMenuItem.Name = "adminToolStripMenuItem";
             adminToolStripMenuItem.Size = new Size(55, 20);
             adminToolStripMenuItem.Text = "Admin";
@@ -92,62 +83,6 @@
             desbloquearToolStripMenuItem.Name = "desbloquearToolStripMenuItem";
             desbloquearToolStripMenuItem.Size = new Size(180, 22);
             desbloquearToolStripMenuItem.Text = "Desbloquear";
-            // 
-            // perfilesToolStripMenuItem
-            // 
-            perfilesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { crearModificarToolStripMenuItem1, asignarToolStripMenuItem });
-            perfilesToolStripMenuItem.Name = "perfilesToolStripMenuItem";
-            perfilesToolStripMenuItem.Size = new Size(180, 22);
-            perfilesToolStripMenuItem.Text = "Perfiles";
-            // 
-            // crearModificarToolStripMenuItem1
-            // 
-            crearModificarToolStripMenuItem1.Name = "crearModificarToolStripMenuItem1";
-            crearModificarToolStripMenuItem1.Size = new Size(180, 22);
-            crearModificarToolStripMenuItem1.Text = "Crear / Modificar";
-            // 
-            // asignarToolStripMenuItem
-            // 
-            asignarToolStripMenuItem.Name = "asignarToolStripMenuItem";
-            asignarToolStripMenuItem.Size = new Size(180, 22);
-            asignarToolStripMenuItem.Text = "Asignar";
-            // 
-            // idiomasToolStripMenuItem
-            // 
-            idiomasToolStripMenuItem.Name = "idiomasToolStripMenuItem";
-            idiomasToolStripMenuItem.Size = new Size(180, 22);
-            idiomasToolStripMenuItem.Text = "Idiomas";
-            // 
-            // backupToolStripMenuItem
-            // 
-            backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-            backupToolStripMenuItem.Size = new Size(180, 22);
-            backupToolStripMenuItem.Text = "Backup";
-            // 
-            // restoreToolStripMenuItem
-            // 
-            restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
-            restoreToolStripMenuItem.Size = new Size(180, 22);
-            restoreToolStripMenuItem.Text = "Restore";
-            // 
-            // bitácoraToolStripMenuItem
-            // 
-            bitácoraToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { deEventosToolStripMenuItem, deCambiosToolStripMenuItem });
-            bitácoraToolStripMenuItem.Name = "bitácoraToolStripMenuItem";
-            bitácoraToolStripMenuItem.Size = new Size(180, 22);
-            bitácoraToolStripMenuItem.Text = "Bitácora";
-            // 
-            // deEventosToolStripMenuItem
-            // 
-            deEventosToolStripMenuItem.Name = "deEventosToolStripMenuItem";
-            deEventosToolStripMenuItem.Size = new Size(180, 22);
-            deEventosToolStripMenuItem.Text = "De Eventos";
-            // 
-            // deCambiosToolStripMenuItem
-            // 
-            deCambiosToolStripMenuItem.Name = "deCambiosToolStripMenuItem";
-            deCambiosToolStripMenuItem.Size = new Size(180, 22);
-            deCambiosToolStripMenuItem.Text = "De Cambios";
             // 
             // altasToolStripMenuItem
             // 
@@ -175,6 +110,12 @@
             cambiarClaveToolStripMenuItem.Size = new Size(180, 22);
             cambiarClaveToolStripMenuItem.Text = "Cambiar clave";
             // 
+            // cerrarSesiónToolStripMenuItem
+            // 
+            cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
+            cerrarSesiónToolStripMenuItem.Size = new Size(180, 22);
+            cerrarSesiónToolStripMenuItem.Text = "Cerrar sesión";
+            // 
             // reservasToolStripMenuItem
             // 
             reservasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { reservarSUMToolStripMenuItem });
@@ -201,6 +142,12 @@
             pagarExpensaToolStripMenuItem.Size = new Size(189, 22);
             pagarExpensaToolStripMenuItem.Text = "Pagar expensa";
             // 
+            // visualizarDocumentoToolStripMenuItem
+            // 
+            visualizarDocumentoToolStripMenuItem.Name = "visualizarDocumentoToolStripMenuItem";
+            visualizarDocumentoToolStripMenuItem.Size = new Size(189, 22);
+            visualizarDocumentoToolStripMenuItem.Text = "Visualizar Documento";
+            // 
             // reportesToolStripMenuItem
             // 
             reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
@@ -212,18 +159,6 @@
             ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
             ayudaToolStripMenuItem.Size = new Size(53, 20);
             ayudaToolStripMenuItem.Text = "Ayuda";
-            // 
-            // cerrarSesiónToolStripMenuItem
-            // 
-            cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
-            cerrarSesiónToolStripMenuItem.Size = new Size(180, 22);
-            cerrarSesiónToolStripMenuItem.Text = "Cerrar sesión";
-            // 
-            // visualizarDocumentoToolStripMenuItem
-            // 
-            visualizarDocumentoToolStripMenuItem.Name = "visualizarDocumentoToolStripMenuItem";
-            visualizarDocumentoToolStripMenuItem.Size = new Size(189, 22);
-            visualizarDocumentoToolStripMenuItem.Text = "Visualizar Documento";
             // 
             // FormHome
             // 
@@ -255,15 +190,6 @@
         private ToolStripMenuItem usuariosToolStripMenuItem;
         private ToolStripMenuItem crearModificarToolStripMenuItem;
         private ToolStripMenuItem desbloquearToolStripMenuItem;
-        private ToolStripMenuItem perfilesToolStripMenuItem;
-        private ToolStripMenuItem crearModificarToolStripMenuItem1;
-        private ToolStripMenuItem asignarToolStripMenuItem;
-        private ToolStripMenuItem idiomasToolStripMenuItem;
-        private ToolStripMenuItem backupToolStripMenuItem;
-        private ToolStripMenuItem restoreToolStripMenuItem;
-        private ToolStripMenuItem bitácoraToolStripMenuItem;
-        private ToolStripMenuItem deEventosToolStripMenuItem;
-        private ToolStripMenuItem deCambiosToolStripMenuItem;
         private ToolStripMenuItem altasToolStripMenuItem;
         private ToolStripMenuItem generarExpensaToolStripMenuItem;
         private ToolStripMenuItem usuarioToolStripMenuItem;

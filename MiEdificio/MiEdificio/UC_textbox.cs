@@ -46,15 +46,20 @@ namespace UI
         public Boolean validar()
         {
             Boolean validacionOK = true;
-            //textBox1.BackColor = Color.White;
+            textBox1.BackColor = Color.White;
 
-            //if (this.requerido && string.IsNullOrWhiteSpace(textBox1.Text))
-            //{
-            //    validacionOK = false;
-            //    textBox1.BackColor = Color.Red;
-            //}
+            if (this.requerido && string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                validacionOK = false;
+                textBox1.BackColor = Color.Red;
+            }
 
             return validacionOK;
+        }
+
+        private void UC_textbox_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

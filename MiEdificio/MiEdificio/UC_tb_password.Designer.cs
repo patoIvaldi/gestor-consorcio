@@ -58,6 +58,7 @@
             Controls.Add(label1);
             Name = "UC_tb_password";
             Size = new Size(176, 46);
+            Load += UC_tb_password_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
             pb_logo = new PictureBox();
             groupBox1 = new GroupBox();
-            uC_textbox1 = new UC_textbox();
-            uC_tb_password1 = new UC_tb_password();
+            tb_usuario = new UC_textbox();
+            tb_password = new UC_tb_password();
             btn_ingresar = new Button();
             cb_idioma = new ComboBox();
             pb_iconoUsuario = new PictureBox();
@@ -55,8 +55,8 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(uC_textbox1);
-            groupBox1.Controls.Add(uC_tb_password1);
+            groupBox1.Controls.Add(tb_usuario);
+            groupBox1.Controls.Add(tb_password);
             groupBox1.Controls.Add(btn_ingresar);
             groupBox1.Controls.Add(cb_idioma);
             groupBox1.Controls.Add(pb_iconoUsuario);
@@ -66,25 +66,25 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             // 
-            // uC_textbox1
+            // tb_usuario
             // 
-            uC_textbox1.ETIQUETA = "Usuario:";
-            uC_textbox1.Location = new Point(19, 84);
-            uC_textbox1.Name = "uC_textbox1";
-            uC_textbox1.REQUERIDO = true;
-            uC_textbox1.Size = new Size(176, 46);
-            uC_textbox1.TabIndex = 8;
-            uC_textbox1.TEXT_BOX = "";
+            tb_usuario.ETIQUETA = "Usuario:";
+            tb_usuario.Location = new Point(19, 84);
+            tb_usuario.Name = "tb_usuario";
+            tb_usuario.REQUERIDO = true;
+            tb_usuario.Size = new Size(176, 46);
+            tb_usuario.TabIndex = 8;
+            tb_usuario.TEXT_BOX = "";
             // 
-            // uC_tb_password1
+            // tb_password
             // 
-            uC_tb_password1.ETIQUETA = "Contraseña:";
-            uC_tb_password1.Location = new Point(19, 128);
-            uC_tb_password1.Name = "uC_tb_password1";
-            uC_tb_password1.REQUERIDO = true;
-            uC_tb_password1.Size = new Size(177, 45);
-            uC_tb_password1.TabIndex = 3;
-            uC_tb_password1.TEXT_BOX = "";
+            tb_password.ETIQUETA = "Contraseña:";
+            tb_password.Location = new Point(19, 128);
+            tb_password.Name = "tb_password";
+            tb_password.REQUERIDO = true;
+            tb_password.Size = new Size(177, 45);
+            tb_password.TabIndex = 3;
+            tb_password.TEXT_BOX = "";
             // 
             // btn_ingresar
             // 
@@ -160,7 +160,7 @@
         private ComboBox cb_idioma;
         private Button btn_ingresar;
         private Label lbl_pie;
-        private UC_tb_password uC_tb_password1;
-        private UC_textbox uC_textbox1;
+        private UC_tb_password tb_password;
+        private UC_textbox tb_usuario;
     }
 }
