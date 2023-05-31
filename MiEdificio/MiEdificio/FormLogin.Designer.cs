@@ -141,7 +141,7 @@
             MinimizeBox = false;
             Name = "FormLogin";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "MiEdificio";
+            Text = "MiEdificio - Login";
             WindowState = FormWindowState.Maximized;
             Load += Login_Load;
             Resize += Login_Resize;

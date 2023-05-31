@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using System.Configuration;
 using System.Data;
 
 namespace DAL
@@ -20,7 +21,8 @@ namespace DAL
             Boolean exitoso = false;
 
             conexion = new SqlConnection();
-            conexion.ConnectionString = @"Data Source=BANGHOB-QHNN3C1\SQLEXPRESS; Initial Catalog=AEROPUERTO; Integrated Security=SSPI";
+            conexion.ConnectionString = @"Data Source=.\SQLEXPRESS; Initial Catalog=MiEdificio; Integrated Security=True; MultipleActiveResultSets=True; Trust Server Certificate=True;";
+            //conexion.ConnectionString = ConfigurationManager.ConnectionStrings["MiEdificio"].ConnectionString;
 
             try
             {
@@ -34,6 +36,7 @@ namespace DAL
             {
                 e.ToString();
                 exitoso = false;
+                cerrar();
             }
             return exitoso;
         }
@@ -42,12 +45,13 @@ namespace DAL
         public void cerrar()
         {
             conexion.Close();
+            conexion.Dispose();
             conexion = null;
             GC.Collect();
         }
 
        // metodo que crea el comando para ejecutar en la BD
-        private SqlCommand crearComando(string Sql, List<IDbDataParameter> parametros = null,
+        private SqlCommand crearComando(string Sql, List<SqlParameter> parametros = null,
             CommandType tipo = CommandType.StoredProcedure)
         {
 
@@ -63,7 +67,7 @@ namespace DAL
         }
 
         //metodo que modifica los datos en la BD, retorna la cantidad de registros afectados
-        public int escribir(string Sql, List<IDbDataParameter> parametros = null)
+        public int escribir(string Sql, List<SqlParameter> parametros = null)
         {
 
             int resultado = 0;
@@ -84,18 +88,19 @@ namespace DAL
         }
 
         //metodo que lee en la BD y completa un dataTable
-        public DataTable leer(string Sql, List<IDbDataParameter> parametros = null)
+        public DataTable leer(string Sql, List<SqlParameter> parametros = null)
         {
+            abrir();
             SqlDataAdapter ad = new SqlDataAdapter();
             ad.SelectCommand = crearComando(Sql, parametros);
             DataTable tabla = new DataTable();
             ad.Fill(tabla);
-
+            cerrar();
             return tabla;
         }
 
         //metodo que crea un parametro del tipo STRING
-        public IDbDataParameter crearParametro(string nom, string valor)
+        public SqlParameter crearParametro(string nom, string valor)
         {
             SqlParameter par = new SqlParameter(nom, valor);
             par.DbType = DbType.String;
@@ -103,7 +108,7 @@ namespace DAL
         }
 
         //metodo que crea un parametro del tipo INT32 entero corto
-        public IDbDataParameter crearParametro(string nom, int valor)
+        public SqlParameter crearParametro(string nom, int valor)
         {
             SqlParameter par = new SqlParameter(nom, valor);
             par.DbType = DbType.Int32;
@@ -111,7 +116,7 @@ namespace DAL
         }
 
         //metodo que crea un parametro del tipo DATE
-        public IDbDataParameter crearParametro(string nom, DateTime valor)
+        public SqlParameter crearParametro(string nom, DateTime valor)
         {
             SqlParameter par = new SqlParameter(nom, valor.Date);
             par.DbType = DbType.Date;
@@ -119,7 +124,7 @@ namespace DAL
         }
 
         //metodo que crea un parametro del tipo INT64 entero largo
-        public IDbDataParameter crearParametro(string nom, Int64 valor)
+        public SqlParameter crearParametro(string nom, Int64 valor)
         {
             SqlParameter par = new SqlParameter(nom, valor);
             par.DbType = DbType.Int64;
@@ -127,7 +132,7 @@ namespace DAL
         }
 
         //metodo que crea un parametro del tipo BOOL para los flags
-        public IDbDataParameter crearParametro(string nom, bool valor)
+        public SqlParameter crearParametro(string nom, bool valor)
         {
             SqlParameter par = new SqlParameter(nom, valor);
             par.DbType = DbType.Boolean;

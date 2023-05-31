@@ -77,6 +77,7 @@
             crearModificarToolStripMenuItem.Name = "crearModificarToolStripMenuItem";
             crearModificarToolStripMenuItem.Size = new Size(180, 22);
             crearModificarToolStripMenuItem.Text = "Crear / Modificar";
+            crearModificarToolStripMenuItem.Click += crearModificarToolStripMenuItem_Click;
             // 
             // desbloquearToolStripMenuItem
             // 
@@ -115,6 +116,7 @@
             cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
             cerrarSesiónToolStripMenuItem.Size = new Size(180, 22);
             cerrarSesiónToolStripMenuItem.Text = "Cerrar sesión";
+            cerrarSesiónToolStripMenuItem.Click += cerrarSesiónToolStripMenuItem_Click;
             // 
             // reservasToolStripMenuItem
             // 
@@ -126,7 +128,7 @@
             // reservarSUMToolStripMenuItem
             // 
             reservarSUMToolStripMenuItem.Name = "reservarSUMToolStripMenuItem";
-            reservarSUMToolStripMenuItem.Size = new Size(180, 22);
+            reservarSUMToolStripMenuItem.Size = new Size(146, 22);
             reservarSUMToolStripMenuItem.Text = "Reservar SUM";
             // 
             // gestionesToolStripMenuItem

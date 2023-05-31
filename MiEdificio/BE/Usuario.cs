@@ -20,6 +20,13 @@ namespace BE
             this.contrasenia = pass;
         }
 
+       // private int id;
+        //public int ID
+        //{
+          //  get { return id; }
+            //set { id = value; }
+        //}
+
         private int cantIntentos;
 
         public int CANT_INTENTOS
@@ -59,6 +66,14 @@ namespace BE
             set { username = value; }
         }
 
+        //private Idioma idiomaPreferido;
+
+        //public Idioma IDIOMA_PREFERIDO
+        //{
+        //    get { return username; }
+        //    set { username = value; }
+        //}
+
         private Persona persona;
 
         public Persona PERSONA
@@ -67,13 +82,13 @@ namespace BE
             set { persona = value; }
         }
 
-        //private Idioma idiomaPreferido;
+        private Perfil perfil;
 
-        //public Idioma IDIOMA_PREFERIDO
-        //{
-        //    get { return username; }
-        //    set { username = value; }
-        //}
+        public Perfil PERFIL
+        {
+            get { return perfil; }
+            set { perfil = value; }
+        }
 
 
     }

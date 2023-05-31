@@ -64,16 +64,17 @@ namespace UI
 
                     if (IniciarLogin(usuario))
                     {
-                        FormHome form = new FormHome();
-                        form.ShowDialog();
+                        FormHome form = new FormHome(this);
+                        form.Show(this);
                         Limpiar();
-                        this.Close();
+                        this.Hide();
                     }
                     else
                     {
                         MessageBox.Show("Error, credenciales incorrectas.");
                     }
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Error, complete todos los campos requeridos.");
                 }
@@ -86,13 +87,17 @@ namespace UI
 
         private Boolean IniciarLogin(Usuario user)
         {
-            if (user.USERNAME.Equals("admin") && user.CONTRASENIA.Equals("admin"))
-            {
-                return true;
-            }
-        
+            Boolean existe = false;
 
-            return false;
+            //En base al username y pass, busco la entidad en la BD.
+            user = BLL.UsuarioBLL.Instance.Login(user);
+
+            if (user != null)
+            {
+                existe = true;
+            }
+
+            return existe;
         }
 
         //limpieza de inputs
