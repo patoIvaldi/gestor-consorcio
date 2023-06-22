@@ -11,6 +11,11 @@ namespace BE
 
         private List<Rol> _permisos;
 
+        public Perfil()
+        {
+            _permisos = new List<Rol>();
+        }
+
         public Perfil(string desc) : base(desc)
         {
             _permisos = new List<Rol>();

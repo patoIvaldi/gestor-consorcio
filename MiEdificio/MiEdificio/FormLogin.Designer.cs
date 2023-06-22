@@ -103,6 +103,7 @@
             cb_idioma.Name = "cb_idioma";
             cb_idioma.Size = new Size(89, 23);
             cb_idioma.TabIndex = 6;
+            cb_idioma.SelectedIndexChanged += cb_idioma_SelectedIndexChanged;
             // 
             // pb_iconoUsuario
             // 

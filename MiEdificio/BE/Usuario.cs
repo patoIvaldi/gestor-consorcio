@@ -90,6 +90,17 @@ namespace BE
             set { perfil = value; }
         }
 
+        private Boolean estaBloqueado;
 
+        public Boolean ESTA_BLOQUEADO
+        {
+            get { return estaBloqueado; }
+            set { estaBloqueado = value; }
+        }
+
+        public override string ToString()
+        {
+            return this.USERNAME.Trim() + " - " + this.MAIL.Trim();
+        }
     }
 }

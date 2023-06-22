@@ -33,9 +33,9 @@ namespace BE
             set { apellido = value; }
         }
 
-        private DateTime fechaDeNacimiento;
+        private DateTime? fechaDeNacimiento;
 
-        public DateTime FECHA_NACIMIENTO
+        public DateTime? FECHA_NACIMIENTO
         {
             get { return fechaDeNacimiento; }
             set { fechaDeNacimiento = value; }
@@ -46,7 +46,7 @@ namespace BE
         //calculo de la edad
         public int EDAD
         {
-            get { return DateTime.Today.Year - fechaDeNacimiento.Year; }
+            get { return fechaDeNacimiento is null?0:DateTime.Today.Year - fechaDeNacimiento.Value.Year; }
         }
 
     }

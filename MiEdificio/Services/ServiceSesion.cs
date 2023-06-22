@@ -64,5 +64,13 @@ namespace Services
             }
         }
 
+        private ServiceIdioma idiomaSeleccionado;
+
+        public ServiceIdioma IdiomaSeleccionado
+        {
+            get { return idiomaSeleccionado; }
+            set { idiomaSeleccionado = value; }
+        }
+
     }
 }

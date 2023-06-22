@@ -9,6 +9,11 @@ namespace BE
     public abstract class Rol
     {
 		
+		public Rol()
+		{
+
+		}
+
 		public Rol(string desc)
 		{ 
 			descripcion = desc;

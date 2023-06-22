@@ -14,7 +14,7 @@ namespace MiEdificio
 
         private void Home_Load(object sender, EventArgs e)
         {
-
+            //this.ControlBox = false;
         }
 
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
@@ -28,6 +28,11 @@ namespace MiEdificio
         {
             FormABMUsuario formUsuario = new FormABMUsuario();
             formUsuario.ShowDialog();
+        }
+
+        private void FormHome_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
     }
 }

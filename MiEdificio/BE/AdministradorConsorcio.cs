@@ -14,8 +14,8 @@ namespace BE
 
         }
 
-        public AdministradorConsorcio(string cuit,DateTime fechaFin,
-            DateTime fechaInicio,string nombreEmpre, string razonSocial)
+        public AdministradorConsorcio(string cuit,DateTime? fechaFin,
+            DateTime? fechaInicio,string nombreEmpre, string razonSocial)
         {
             this.cuit = cuit;
             this.razonSocial = razonSocial;
@@ -33,17 +33,17 @@ namespace BE
             set { cuit = value; }
         }
 
-        private DateTime fechaFinConcesion;
+        private DateTime? fechaFinConcesion;
 
-        public DateTime FECHA_FIN_CONCESION
+        public DateTime? FECHA_FIN_CONCESION
         {
             get { return fechaFinConcesion; }
             set { fechaFinConcesion = value; }
         }
 
-        private DateTime fechaInicioConcesion;
+        private DateTime? fechaInicioConcesion;
 
-        public DateTime FECHA_INICIO_CONCESION
+        public DateTime? FECHA_INICIO_CONCESION
         {
             get { return fechaInicioConcesion; }
             set { fechaInicioConcesion = value; }

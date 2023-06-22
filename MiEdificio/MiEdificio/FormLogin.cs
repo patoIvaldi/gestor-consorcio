@@ -1,5 +1,6 @@
 ﻿using BE;
 using MiEdificio;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UI.Properties;
 
 namespace UI
 {
@@ -27,6 +29,11 @@ namespace UI
         private void Login_Load(object sender, EventArgs e)
         {
             lbl_pie.Text = lbl_pie.Text + DateTime.Now.Year.ToString();
+
+            //recupero los idiomas configurados y los cargo en la pantalla
+            cb_idioma.DataSource = null;
+            cb_idioma.DataSource = BLL.IdiomaBLL.INSTANCE.Listar();
+            cb_idioma.DisplayMember = "DESCRIPCION";
         }
 
         private void Login_Resize(object sender, EventArgs e)
@@ -60,7 +67,7 @@ namespace UI
                 if (validarControles())
                 {
                     BE.Usuario usuario = new BE.Usuario(
-                        tb_usuario.TEXT_BOX, tb_password.TEXT_BOX);
+                        tb_usuario.TEXT_BOX.Trim(), tb_password.TEXT_BOX.Trim());
 
                     if (IniciarLogin(usuario))
                     {
@@ -90,7 +97,8 @@ namespace UI
             Boolean existe = false;
 
             //En base al username y pass, busco la entidad en la BD.
-            user = BLL.UsuarioBLL.Instance.Login(user);
+            user = BLL.UsuarioBLL.Instance.Login(user,
+                (ServiceIdioma)cb_idioma.SelectedItem);
 
             if (user != null)
             {
@@ -128,6 +136,12 @@ namespace UI
                 }
             }
             return validacionOK;
+        }
+
+        private void cb_idioma_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //BE.Idioma idiomaElegido = cb_idioma.SelectedItem;
+            
         }
     }
 }

@@ -71,6 +71,7 @@ namespace DAL
         {
 
             int resultado = 0;
+            abrir();
 
             SqlCommand cmd = crearComando(Sql, parametros);
 
@@ -82,6 +83,10 @@ namespace DAL
             {
                 e.ToString();
                 resultado = -1;
+            }
+            finally
+            {
+                cerrar();
             }
 
             return resultado;
@@ -116,9 +121,9 @@ namespace DAL
         }
 
         //metodo que crea un parametro del tipo DATE
-        public SqlParameter crearParametro(string nom, DateTime valor)
+        public SqlParameter crearParametro(string nom, DateTime? valor)
         {
-            SqlParameter par = new SqlParameter(nom, valor.Date);
+            SqlParameter par = new SqlParameter(nom, valor.HasValue?(object)valor.Value.Date:DBNull.Value);
             par.DbType = DbType.Date;
             return par;
         }

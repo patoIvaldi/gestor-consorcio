@@ -69,20 +69,20 @@
             // 
             usuariosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { crearModificarToolStripMenuItem, desbloquearToolStripMenuItem });
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            usuariosToolStripMenuItem.Size = new Size(180, 22);
+            usuariosToolStripMenuItem.Size = new Size(119, 22);
             usuariosToolStripMenuItem.Text = "Usuarios";
             // 
             // crearModificarToolStripMenuItem
             // 
             crearModificarToolStripMenuItem.Name = "crearModificarToolStripMenuItem";
-            crearModificarToolStripMenuItem.Size = new Size(180, 22);
+            crearModificarToolStripMenuItem.Size = new Size(164, 22);
             crearModificarToolStripMenuItem.Text = "Crear / Modificar";
             crearModificarToolStripMenuItem.Click += crearModificarToolStripMenuItem_Click;
             // 
             // desbloquearToolStripMenuItem
             // 
             desbloquearToolStripMenuItem.Name = "desbloquearToolStripMenuItem";
-            desbloquearToolStripMenuItem.Size = new Size(180, 22);
+            desbloquearToolStripMenuItem.Size = new Size(164, 22);
             desbloquearToolStripMenuItem.Text = "Desbloquear";
             // 
             // altasToolStripMenuItem
@@ -95,7 +95,7 @@
             // generarExpensaToolStripMenuItem
             // 
             generarExpensaToolStripMenuItem.Name = "generarExpensaToolStripMenuItem";
-            generarExpensaToolStripMenuItem.Size = new Size(180, 22);
+            generarExpensaToolStripMenuItem.Size = new Size(161, 22);
             generarExpensaToolStripMenuItem.Text = "Generar expensa";
             // 
             // usuarioToolStripMenuItem
@@ -108,13 +108,13 @@
             // cambiarClaveToolStripMenuItem
             // 
             cambiarClaveToolStripMenuItem.Name = "cambiarClaveToolStripMenuItem";
-            cambiarClaveToolStripMenuItem.Size = new Size(180, 22);
+            cambiarClaveToolStripMenuItem.Size = new Size(149, 22);
             cambiarClaveToolStripMenuItem.Text = "Cambiar clave";
             // 
             // cerrarSesiónToolStripMenuItem
             // 
             cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
-            cerrarSesiónToolStripMenuItem.Size = new Size(180, 22);
+            cerrarSesiónToolStripMenuItem.Size = new Size(149, 22);
             cerrarSesiónToolStripMenuItem.Text = "Cerrar sesión";
             cerrarSesiónToolStripMenuItem.Click += cerrarSesiónToolStripMenuItem_Click;
             // 
@@ -178,6 +178,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MiEdificio";
             WindowState = FormWindowState.Maximized;
+            FormClosing += FormHome_FormClosing;
             Load += Home_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

@@ -16,6 +16,15 @@ namespace BE
             set { nroTelefono = value;}
         }
 
+        private string nroDepartamento;
+
+        public string NRO_DEPARTAMENTO
+        {
+            get { return nroDepartamento; }
+            set { nroDepartamento = value; }
+        }
+
+
         public Propietario()
         {
 

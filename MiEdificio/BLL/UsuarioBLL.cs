@@ -1,4 +1,7 @@
-﻿using DAL;
+﻿using BE;
+using DAL;
+using Microsoft.VisualBasic.ApplicationServices;
+using Services;
 
 namespace BLL
 {
@@ -27,10 +30,11 @@ namespace BLL
             }
         }
 
-        public BE.Usuario Login(BE.Usuario user)
+        public BE.Usuario Login(BE.Usuario user, ServiceIdioma idiomaElegido)
         {
             user = usuarioDAL.ValidateUser(
-                Services.ServiceEncriptador.Instance.Encriptar(user));
+                Services.ServiceEncriptador.Instance.Encriptar(user)
+                ,idiomaElegido);
 
             if (user != null)
             {
@@ -46,6 +50,52 @@ namespace BLL
             Services.ServiceSesion.Instance.CerrarSesion();
         }
 
+        //metodo que realiza el cambio de contraseña del usuario
+        public Boolean cambiarPassword(BE.Usuario userModif)
+        {
+            return usuarioDAL.cambiarPassword(
+                Services.ServiceEncriptador.Instance.Encriptar(userModif));
+        }
 
+        public Boolean bloquearDesbloquearUsuario()
+        {
+            //me llega por param el usuario a bloquear/desbloq
+
+            //evaluo...
+            //si esta bloqueado lo desbloqueo, sino lo bloqueo
+            return false;        
+        }
+
+        public int marcarIntentoFallido()
+        {
+            //recupero los intentos que tiene
+            //le sumo uno
+            //llego a los 3? bloqueo
+            //sino no hago nada
+            //retorno cantidad de intentos fallidos hasta el momento.
+            return 0;
+        }
+
+        //metodo que busca todos los usuarios en la BD
+        public List<BE.Usuario> listarUsuarios()
+        {
+            return usuarioDAL.listar(string.Empty);
+        }
+
+        public Boolean insertarOEditarUsuario(BE.Usuario usuario)
+        {
+            int registro = 0;
+
+            if (usuarioDAL.listar(usuario.USERNAME).Count > 0)
+            {
+                registro = usuarioDAL.Editar(usuario);
+            }
+            else
+            {
+                registro = usuarioDAL.Insertar(usuario);
+            }
+
+            return registro > 0 ? true:false; 
+        }
     }
 }

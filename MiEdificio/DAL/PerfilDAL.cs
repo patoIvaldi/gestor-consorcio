@@ -12,6 +12,7 @@ namespace DAL
     {
         Acceso acceso = new Acceso();
 
+        //Metodo que obtiene todos los permisos del perfil
         public BE.Perfil ObtenerPermisos(BE.Perfil perfil)
         {
             try
@@ -73,6 +74,22 @@ namespace DAL
             {
 
             }
+        }
+
+        //Metodo que obtiene el perfil del usuario
+        public BE.Perfil ObtenerPerfilUsuario(BE.Usuario u)
+        {
+            BE.Perfil p = new BE.Perfil();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@username", u.USERNAME));
+            DataTable tabla = acceso.leer("OBTENER_PERFIL_USUARIO", parametros);
+            foreach (DataRow registro in tabla.Rows)
+            {
+                p.ID_TIPO = int.Parse(registro["id_rol"].ToString());
+                p.DESCRIPCION = registro["Descripcion"].ToString();
+            }
+            
+            return ObtenerPermisos(p);
         }
 
 
