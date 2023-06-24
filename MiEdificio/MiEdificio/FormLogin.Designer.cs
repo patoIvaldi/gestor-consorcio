@@ -70,6 +70,7 @@
             // 
             tb_usuario.ETIQUETA = "Usuario:";
             tb_usuario.Location = new Point(19, 84);
+            tb_usuario.MAX_LENGTH = 20;
             tb_usuario.Name = "tb_usuario";
             tb_usuario.REQUERIDO = true;
             tb_usuario.Size = new Size(176, 46);
@@ -80,6 +81,7 @@
             // 
             tb_password.ETIQUETA = "Contraseña:";
             tb_password.Location = new Point(19, 128);
+            tb_password.MAX_LENGTH = 20;
             tb_password.Name = "tb_password";
             tb_password.REQUERIDO = true;
             tb_password.Size = new Size(177, 45);

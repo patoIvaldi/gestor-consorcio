@@ -29,6 +29,15 @@ namespace Services
             }
         }
 
+        private Boolean esEstandar;
+
+        public Boolean ES_ESTANDAR
+        {
+            get { return esEstandar; }
+            set { esEstandar = value; }
+        }
+
+
         public override string ToString()
         {
             return descripcion;

@@ -9,14 +9,14 @@ namespace BE
     public class Idioma
     {
 
-		public Idioma(Image img)
+		public Idioma()
 		{
-			Image imagenOriginal = img;
-            int nuevaAnchura = 20;
-            int nuevaAltura = 15;
-            Image imagenRedimensionada = new Bitmap(imagenOriginal, nuevaAnchura, nuevaAltura);
+			//Image imagenOriginal = img;
+            //int nuevaAnchura = 20;
+            //int nuevaAltura = 15;
+            //Image imagenRedimensionada = new Bitmap(imagenOriginal, nuevaAnchura, nuevaAltura);
 
-			this.icono = imagenRedimensionada;
+			//this.icono = imagenRedimensionada;
         }
 
 		private char id;
@@ -35,17 +35,17 @@ namespace BE
 			set { descripcion = value; }
 		}
 
-		private Image icono;
+		//private Image icono;
 
-		public Image ICONO
-		{
-			get { return icono; }
+		//public Image ICONO
+		//{
+			//get { return icono; }
 			//set { icono = value; }
-		}
+		//}
 
         public override string ToString()
         {
-			return this.icono + " - " + this.descripcion;
+			return this.id + " - " + this.descripcion;
         }
 
     }

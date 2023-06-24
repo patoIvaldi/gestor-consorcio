@@ -33,5 +33,15 @@ namespace BLL
         {
             return idiomaDAL.Listar();
         }
+
+        public Boolean Agregar(Services.ServiceIdioma nuevo)
+        {
+            return idiomaDAL.InsertarOModificar(nuevo) > 0;
+        }
+
+        public Boolean Borrar(Services.ServiceIdioma idioma)
+        {
+            return idiomaDAL.Borrar(idioma) > 0;
+        }
     }
 }

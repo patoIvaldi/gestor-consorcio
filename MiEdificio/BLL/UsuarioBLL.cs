@@ -51,19 +51,15 @@ namespace BLL
         }
 
         //metodo que realiza el cambio de contraseña del usuario
-        public Boolean cambiarPassword(BE.Usuario userModif)
-        {
-            return usuarioDAL.cambiarPassword(
-                Services.ServiceEncriptador.Instance.Encriptar(userModif));
-        }
+        //public Boolean cambiarPassword(BE.Usuario userModif)
+        //{
+            //return usuarioDAL.cambiarPassword(
+              //  Services.ServiceEncriptador.Instance.Encriptar(userModif));
+        //}
 
-        public Boolean bloquearDesbloquearUsuario()
+        public Boolean bloquearDesbloquearUsuario(string username)
         {
-            //me llega por param el usuario a bloquear/desbloq
-
-            //evaluo...
-            //si esta bloqueado lo desbloqueo, sino lo bloqueo
-            return false;        
+            return usuarioDAL.desbloquearUsuario(username);        
         }
 
         public int marcarIntentoFallido()
@@ -86,7 +82,7 @@ namespace BLL
         {
             int registro = 0;
 
-            if (usuarioDAL.listar(usuario.USERNAME).Count > 0)
+            if (existeUsuario(usuario.USERNAME))
             {
                 registro = usuarioDAL.Editar(usuario);
             }
@@ -96,6 +92,11 @@ namespace BLL
             }
 
             return registro > 0 ? true:false; 
+        }
+
+        public Boolean existeUsuario(string username)
+        {
+            return !string.IsNullOrEmpty(username)?usuarioDAL.listar(username).Count > 0:false;
         }
     }
 }

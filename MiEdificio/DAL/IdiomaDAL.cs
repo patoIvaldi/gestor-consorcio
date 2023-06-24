@@ -1,10 +1,13 @@
-﻿using Services;
+﻿using BE;
+using Microsoft.Data.SqlClient;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DAL
 {
@@ -23,9 +26,46 @@ namespace DAL
                 ServiceIdioma idioma = new ServiceIdioma();
                 idioma.ID = registro["id"].ToString();
                 idioma.DESCRIPCION = registro["Descripcion"].ToString();
+                idioma.ES_ESTANDAR = Boolean.Parse(registro["estandar"].ToString());
                 idiomas.Add(idioma);
             }
             return idiomas;
+        }
+
+        public int InsertarOModificar(Services.ServiceIdioma nuevo)
+        {
+            int modificados = 0;
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@id", nuevo.ID));
+            parametros.Add(acceso.crearParametro("@descripcion", nuevo.DESCRIPCION));
+            parametros.Add(acceso.crearParametro("@es_estandar", nuevo.ES_ESTANDAR));
+
+            if (existe(nuevo.ID))
+            {
+               modificados = acceso.escribir("EDITAR_IDIOMA", parametros);
+            }
+            else
+            {
+                modificados = acceso.escribir("INSERTAR_IDIOMA", parametros);
+            }
+
+            return modificados;
+        }
+
+        public Boolean existe(string idABuscar)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@id", idABuscar));
+            DataTable tabla = acceso.leer("LISTAR_IDIOMA", parametros);
+            return tabla.Rows.Count > 0;
+        }
+
+        public int Borrar(Services.ServiceIdioma nuevo)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@id", nuevo.ID));
+            return acceso.escribir("BORRAR_IDIOMA", parametros); ;
         }
 
     }

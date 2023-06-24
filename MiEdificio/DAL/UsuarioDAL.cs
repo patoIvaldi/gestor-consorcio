@@ -1,5 +1,6 @@
 ﻿using BE;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic.ApplicationServices;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -32,9 +33,6 @@ namespace DAL
                     perfil.ID_TIPO = int.Parse(registro["id_rol"].ToString());
                     userIni.PERFIL = perfil;
 
-                    //Services.Serv_Idioma idioma = new Servicios.Serv_Idioma();
-                    //idioma.ID_Idioma = int.Parse(registro["id_idioma"].ToString());
-                    //idioma.Descripcion = registro["DescripcionIdioma"].ToString();
                     Services.ServiceSesion.Instance.IdiomaSeleccionado = idiomaElegido;
 
                     //cargo la info del usuario
@@ -83,6 +81,12 @@ namespace DAL
                         userIni.PERSONA.FECHA_NACIMIENTO = DateTime.Parse(
                             registro["fecha_nacimiento"].ToString());
                     }
+
+                    if (!string.IsNullOrEmpty(registro["fecha_alta"].ToString()))
+                    {
+                        userIni.FECHA_ALTA = DateTime.Parse(
+                            registro["fecha_alta"].ToString());
+                    }
                 }
             }
             else
@@ -93,12 +97,11 @@ namespace DAL
             return userIni;
         }
 
-        public Boolean cambiarPassword(BE.Usuario user)
+        public Boolean desbloquearUsuario(string username)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(acceso.crearParametro("@Username", user.USERNAME.Trim()));
-            parametros.Add(acceso.crearParametro("@Password", user.CONTRASENIA.Trim()));
-            int modificados = acceso.escribir("CAMBIAR_PASSWORD", parametros);
+            parametros.Add(acceso.crearParametro("@Username", username.Trim()));
+            int modificados = acceso.escribir("DESBLOQUEAR_USUARIO", parametros);
 
             return modificados != 0 ? true: false;
         }
@@ -120,6 +123,7 @@ namespace DAL
 
             List<BE.Usuario> usuarios = new List<BE.Usuario>();
             PerfilDAL gestorPerfil = new PerfilDAL();
+            IdiomaDAL gestorIdioma = new IdiomaDAL();
             foreach (DataRow registro in tabla.Rows)
             {
                 //cargo la info del usuario
@@ -156,8 +160,8 @@ namespace DAL
                 else
                 {
                     BE.Propietario prop = new BE.Propietario();
-                    prop.NRO_DEPARTAMENTO = registro["nro_departamento"].ToString();
-                    prop.NRO_TELEFONO = Int64.Parse(registro["telefono"].ToString());
+                    if (!string.IsNullOrEmpty(registro["nro_departamento"].ToString())){prop.NRO_DEPARTAMENTO = registro["nro_departamento"].ToString();}
+                    if (!string.IsNullOrEmpty(registro["telefono"].ToString())) { prop.NRO_TELEFONO = Int64.Parse(registro["telefono"].ToString());}
 
                     user.PERSONA = prop;
                 }
@@ -173,6 +177,12 @@ namespace DAL
                         registro["fecha_nacimiento"].ToString());
                 }
 
+                if (!string.IsNullOrEmpty(registro["fecha_alta"].ToString()))
+                {
+                    user.FECHA_ALTA = DateTime.Parse(
+                        registro["fecha_alta"].ToString());
+                }
+
                 usuarios.Add(user);
             }
             return usuarios;
@@ -186,11 +196,12 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@username", u.USERNAME.Trim()));
             parametros.Add(acceso.crearParametro("@nombre", u.PERSONA.NOMBRE.Trim()));
             parametros.Add(acceso.crearParametro("@apellido", u.PERSONA.APELLIDO.Trim()));
-            //parametros.Add(acceso.crearParametro("@password", u.CONTRASENIA));
+            parametros.Add(acceso.crearParametro("@password", !string.IsNullOrEmpty(u.CONTRASENIA)?u.CONTRASENIA:null));
             parametros.Add(acceso.crearParametro("@mail", u.MAIL));
             parametros.Add(acceso.crearParametro("@establoqueado", u.ESTA_BLOQUEADO));
             parametros.Add(acceso.crearParametro("@dni", u.PERSONA.DNI));
             parametros.Add(acceso.crearParametro("@fechanac", u.PERSONA.FECHA_NACIMIENTO));
+            parametros.Add(acceso.crearParametro("@rol", u.PERFIL.ID_TIPO));
             if (u.PERSONA is BE.Propietario)
             {
                 parametros.Add(acceso.crearParametro("@nrodepto", ((BE.Propietario)u.PERSONA).NRO_DEPARTAMENTO));
@@ -203,6 +214,7 @@ namespace DAL
                 parametros.Add(acceso.crearParametro("@fechafincon", ((BE.AdministradorConsorcio)u.PERSONA).FECHA_FIN_CONCESION));
                 parametros.Add(acceso.crearParametro("@empresa", ((BE.AdministradorConsorcio)u.PERSONA).NOMBRE_EMPRESA));
                 parametros.Add(acceso.crearParametro("@razonsocial", ((BE.AdministradorConsorcio)u.PERSONA).RAZON_SOCIAL));
+                parametros.Add(acceso.crearParametro("@cuit", ((BE.AdministradorConsorcio)u.PERSONA).CUIT));
             }
                 return acceso.escribir("EDITAR_USUARIO", parametros);
         }
@@ -214,14 +226,15 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@username", u.USERNAME.Trim()));
             parametros.Add(acceso.crearParametro("@nombre", u.PERSONA.NOMBRE.Trim()));
             parametros.Add(acceso.crearParametro("@apellido", u.PERSONA.APELLIDO.Trim()));
-            parametros.Add(acceso.crearParametro("@password", u.CONTRASENIA.Trim()));
+            parametros.Add(acceso.crearParametro("@password", u.CONTRASENIA));
             parametros.Add(acceso.crearParametro("@mail", u.MAIL));
             parametros.Add(acceso.crearParametro("@establoqueado", u.ESTA_BLOQUEADO));
             parametros.Add(acceso.crearParametro("@dni", u.PERSONA.DNI));
             parametros.Add(acceso.crearParametro("@fechanac",u.PERSONA.FECHA_NACIMIENTO));
+            parametros.Add(acceso.crearParametro("@rol",u.PERFIL.ID_TIPO));
             if (u.PERSONA is BE.Propietario)
             {
-                parametros.Add(acceso.crearParametro("@nrodepto", ((BE.Propietario)u.PERSONA).NRO_DEPARTAMENTO.Trim()));
+                parametros.Add(acceso.crearParametro("@nrodepto", ((BE.Propietario)u.PERSONA).NRO_DEPARTAMENTO));
                 parametros.Add(acceso.crearParametro("@telefono", ((BE.Propietario)u.PERSONA).NRO_TELEFONO));
 
             }
@@ -230,8 +243,8 @@ namespace DAL
                 parametros.Add(acceso.crearParametro("@cuit", ((BE.AdministradorConsorcio)u.PERSONA).CUIT));
                 parametros.Add(acceso.crearParametro("@fechainicon", ((BE.AdministradorConsorcio)u.PERSONA).FECHA_INICIO_CONCESION));
                 parametros.Add(acceso.crearParametro("@fechafincon", ((BE.AdministradorConsorcio)u.PERSONA).FECHA_FIN_CONCESION));
-                parametros.Add(acceso.crearParametro("@empresa", ((BE.AdministradorConsorcio)u.PERSONA).NOMBRE_EMPRESA.Trim()));
-                parametros.Add(acceso.crearParametro("@razonsocial", ((BE.AdministradorConsorcio)u.PERSONA).RAZON_SOCIAL.Trim()));
+                parametros.Add(acceso.crearParametro("@empresa", ((BE.AdministradorConsorcio)u.PERSONA).NOMBRE_EMPRESA));
+                parametros.Add(acceso.crearParametro("@razonsocial", ((BE.AdministradorConsorcio)u.PERSONA).RAZON_SOCIAL));
             }
             return acceso.escribir("INSERTAR_USUARIO", parametros);
         }

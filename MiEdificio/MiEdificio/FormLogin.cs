@@ -30,6 +30,11 @@ namespace UI
         {
             lbl_pie.Text = lbl_pie.Text + DateTime.Now.Year.ToString();
 
+            enlazar();
+        }
+
+        public void enlazar()
+        {
             //recupero los idiomas configurados y los cargo en la pantalla
             cb_idioma.DataSource = null;
             cb_idioma.DataSource = BLL.IdiomaBLL.INSTANCE.Listar();
@@ -141,7 +146,7 @@ namespace UI
         private void cb_idioma_SelectedIndexChanged(object sender, EventArgs e)
         {
             //BE.Idioma idiomaElegido = cb_idioma.SelectedItem;
-            
+
         }
     }
 }

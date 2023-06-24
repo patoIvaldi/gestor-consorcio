@@ -42,6 +42,13 @@ namespace UI
             set { textBox1.Text = value; }
         }
 
+        public int MAX_LENGTH
+        {
+            get { return textBox1.MaxLength; }
+            set { textBox1.MaxLength = value; }
+        }
+
+
         //metodo que valida que el campo venga completo en caso de ser requerido
         public Boolean validar()
         {

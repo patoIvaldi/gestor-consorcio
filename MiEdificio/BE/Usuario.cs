@@ -48,6 +48,7 @@ namespace BE
         public DateTime FECHA_ALTA
         {
             get { return fechaAlta; }
+            set { fechaAlta = value; }
         }
 
         private string mail;
@@ -70,8 +71,8 @@ namespace BE
 
         //public Idioma IDIOMA_PREFERIDO
         //{
-        //    get { return username; }
-        //    set { username = value; }
+           // get { return idiomaPreferido; }
+            //set { idiomaPreferido = value; }
         //}
 
         private Persona persona;

@@ -45,7 +45,7 @@
             uC_tb_telefono = new UC_tb_numerico();
             uC_tb_nroDepto = new UC_textbox();
             cb_esAdmin = new CheckBox();
-            groupBox1 = new GroupBox();
+            gb_campos3 = new GroupBox();
             uC_dttm_finConcesion = new UC_dttmPicker();
             uC_dttm_inicioConcesion = new UC_dttmPicker();
             uC_tb_razonSocial = new UC_textbox();
@@ -53,7 +53,7 @@
             uC_tb_cuit = new UC_tb_numerico();
             gb_campos.SuspendLayout();
             gb_campos2.SuspendLayout();
-            groupBox1.SuspendLayout();
+            gb_campos3.SuspendLayout();
             SuspendLayout();
             // 
             // gb_campos
@@ -80,14 +80,15 @@
             uC_dttm_fechaNac.REQUERIDO = false;
             uC_dttm_fechaNac.Size = new Size(176, 50);
             uC_dttm_fechaNac.TabIndex = 7;
-            uC_dttm_fechaNac.VALOR = new DateTime(0L);
+            uC_dttm_fechaNac.VALOR = new DateTime(2023, 6, 22, 0, 0, 0, 0);
             // 
             // uC_tb_username
             // 
             uC_tb_username.ETIQUETA = "Username:";
-            uC_tb_username.Location = new Point(6, 194);
+            uC_tb_username.Location = new Point(6, 190);
+            uC_tb_username.MAX_LENGTH = 20;
             uC_tb_username.Name = "uC_tb_username";
-            uC_tb_username.REQUERIDO = false;
+            uC_tb_username.REQUERIDO = true;
             uC_tb_username.Size = new Size(176, 46);
             uC_tb_username.TabIndex = 6;
             uC_tb_username.TEXT_BOX = "";
@@ -95,7 +96,8 @@
             // uC_tb_password2
             // 
             uC_tb_password2.ETIQUETA = "Nueva contraseña:";
-            uC_tb_password2.Location = new Point(6, 292);
+            uC_tb_password2.Location = new Point(6, 286);
+            uC_tb_password2.MAX_LENGTH = 20;
             uC_tb_password2.Name = "uC_tb_password2";
             uC_tb_password2.REQUERIDO = false;
             uC_tb_password2.Size = new Size(200, 46);
@@ -106,8 +108,9 @@
             // 
             uC_tb_dni.ETIQUETA = "DNI:";
             uC_tb_dni.Location = new Point(6, 97);
+            uC_tb_dni.MAX_LENGTH = 9;
             uC_tb_dni.Name = "uC_tb_dni";
-            uC_tb_dni.REQUERIDO = false;
+            uC_tb_dni.REQUERIDO = true;
             uC_tb_dni.Size = new Size(200, 46);
             uC_tb_dni.TabIndex = 3;
             uC_tb_dni.TEXT_BOX = "";
@@ -115,7 +118,8 @@
             // uC_tb_mail
             // 
             uC_tb_mail.ETIQUETA = "Mail:";
-            uC_tb_mail.Location = new Point(6, 246);
+            uC_tb_mail.Location = new Point(6, 238);
+            uC_tb_mail.MAX_LENGTH = 50;
             uC_tb_mail.Name = "uC_tb_mail";
             uC_tb_mail.REQUERIDO = false;
             uC_tb_mail.Size = new Size(200, 46);
@@ -126,8 +130,9 @@
             // 
             uC_tb_apellido.ETIQUETA = "Apellido:";
             uC_tb_apellido.Location = new Point(6, 56);
+            uC_tb_apellido.MAX_LENGTH = 20;
             uC_tb_apellido.Name = "uC_tb_apellido";
-            uC_tb_apellido.REQUERIDO = false;
+            uC_tb_apellido.REQUERIDO = true;
             uC_tb_apellido.Size = new Size(200, 45);
             uC_tb_apellido.TabIndex = 1;
             uC_tb_apellido.TEXT_BOX = "";
@@ -136,8 +141,9 @@
             // 
             uC_tb_nombre.ETIQUETA = "Nombre:";
             uC_tb_nombre.Location = new Point(6, 14);
+            uC_tb_nombre.MAX_LENGTH = 20;
             uC_tb_nombre.Name = "uC_tb_nombre";
-            uC_tb_nombre.REQUERIDO = false;
+            uC_tb_nombre.REQUERIDO = true;
             uC_tb_nombre.Size = new Size(200, 47);
             uC_tb_nombre.TabIndex = 0;
             uC_tb_nombre.TEXT_BOX = "";
@@ -154,7 +160,7 @@
             // 
             // btn_guardar
             // 
-            btn_guardar.Location = new Point(128, 386);
+            btn_guardar.Location = new Point(128, 385);
             btn_guardar.Name = "btn_guardar";
             btn_guardar.Size = new Size(75, 36);
             btn_guardar.TabIndex = 2;
@@ -164,7 +170,7 @@
             // 
             // btn_limpiar
             // 
-            btn_limpiar.Location = new Point(28, 386);
+            btn_limpiar.Location = new Point(28, 385);
             btn_limpiar.Name = "btn_limpiar";
             btn_limpiar.Size = new Size(75, 36);
             btn_limpiar.TabIndex = 3;
@@ -180,6 +186,7 @@
             btn_desbloquear.TabIndex = 4;
             btn_desbloquear.Text = "Desbloquear usuario";
             btn_desbloquear.UseVisualStyleBackColor = true;
+            btn_desbloquear.Click += btn_desbloquear_Click;
             // 
             // gb_campos2
             // 
@@ -196,6 +203,7 @@
             // 
             uC_tb_telefono.ETIQUETA = "Telefono:";
             uC_tb_telefono.Location = new Point(6, 56);
+            uC_tb_telefono.MAX_LENGTH = 15;
             uC_tb_telefono.Name = "uC_tb_telefono";
             uC_tb_telefono.REQUERIDO = false;
             uC_tb_telefono.Size = new Size(176, 46);
@@ -206,6 +214,7 @@
             // 
             uC_tb_nroDepto.ETIQUETA = "Nro Departamento:";
             uC_tb_nroDepto.Location = new Point(6, 14);
+            uC_tb_nroDepto.MAX_LENGTH = 3;
             uC_tb_nroDepto.Name = "uC_tb_nroDepto";
             uC_tb_nroDepto.REQUERIDO = false;
             uC_tb_nroDepto.Size = new Size(190, 44);
@@ -224,19 +233,19 @@
             cb_esAdmin.UseVisualStyleBackColor = true;
             cb_esAdmin.CheckedChanged += cb_esAdmin_CheckedChanged;
             // 
-            // groupBox1
+            // gb_campos3
             // 
-            groupBox1.Controls.Add(uC_dttm_finConcesion);
-            groupBox1.Controls.Add(uC_dttm_inicioConcesion);
-            groupBox1.Controls.Add(uC_tb_razonSocial);
-            groupBox1.Controls.Add(uC_tb_empresa);
-            groupBox1.Controls.Add(uC_tb_cuit);
-            groupBox1.Location = new Point(230, 125);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(215, 215);
-            groupBox1.TabIndex = 6;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Información administrador:";
+            gb_campos3.Controls.Add(uC_dttm_finConcesion);
+            gb_campos3.Controls.Add(uC_dttm_inicioConcesion);
+            gb_campos3.Controls.Add(uC_tb_razonSocial);
+            gb_campos3.Controls.Add(uC_tb_empresa);
+            gb_campos3.Controls.Add(uC_tb_cuit);
+            gb_campos3.Location = new Point(230, 125);
+            gb_campos3.Name = "gb_campos3";
+            gb_campos3.Size = new Size(215, 215);
+            gb_campos3.TabIndex = 6;
+            gb_campos3.TabStop = false;
+            gb_campos3.Text = "Información administrador:";
             // 
             // uC_dttm_finConcesion
             // 
@@ -246,7 +255,7 @@
             uC_dttm_finConcesion.REQUERIDO = false;
             uC_dttm_finConcesion.Size = new Size(107, 62);
             uC_dttm_finConcesion.TabIndex = 4;
-            uC_dttm_finConcesion.VALOR = new DateTime(0L);
+            uC_dttm_finConcesion.VALOR = new DateTime(2023, 6, 22, 0, 0, 0, 0);
             // 
             // uC_dttm_inicioConcesion
             // 
@@ -256,12 +265,13 @@
             uC_dttm_inicioConcesion.REQUERIDO = false;
             uC_dttm_inicioConcesion.Size = new Size(105, 52);
             uC_dttm_inicioConcesion.TabIndex = 3;
-            uC_dttm_inicioConcesion.VALOR = new DateTime(0L);
+            uC_dttm_inicioConcesion.VALOR = new DateTime(2023, 6, 22, 0, 0, 0, 0);
             // 
             // uC_tb_razonSocial
             // 
             uC_tb_razonSocial.ETIQUETA = "Razón social:";
             uC_tb_razonSocial.Location = new Point(6, 103);
+            uC_tb_razonSocial.MAX_LENGTH = 20;
             uC_tb_razonSocial.Name = "uC_tb_razonSocial";
             uC_tb_razonSocial.REQUERIDO = false;
             uC_tb_razonSocial.Size = new Size(193, 45);
@@ -272,6 +282,7 @@
             // 
             uC_tb_empresa.ETIQUETA = "Nombre empresa:";
             uC_tb_empresa.Location = new Point(6, 58);
+            uC_tb_empresa.MAX_LENGTH = 20;
             uC_tb_empresa.Name = "uC_tb_empresa";
             uC_tb_empresa.REQUERIDO = false;
             uC_tb_empresa.Size = new Size(193, 47);
@@ -282,6 +293,7 @@
             // 
             uC_tb_cuit.ETIQUETA = "CUIT:";
             uC_tb_cuit.Location = new Point(6, 16);
+            uC_tb_cuit.MAX_LENGTH = 12;
             uC_tb_cuit.Name = "uC_tb_cuit";
             uC_tb_cuit.REQUERIDO = false;
             uC_tb_cuit.Size = new Size(193, 48);
@@ -295,7 +307,7 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.White;
             ClientSize = new Size(669, 450);
-            Controls.Add(groupBox1);
+            Controls.Add(gb_campos3);
             Controls.Add(gb_campos2);
             Controls.Add(btn_desbloquear);
             Controls.Add(cb_esAdmin);
@@ -312,7 +324,7 @@
             Load += FormABMUsuario_Load;
             gb_campos.ResumeLayout(false);
             gb_campos2.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
+            gb_campos3.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -335,7 +347,7 @@
         private UC_tb_numerico uC_tb_telefono;
         private UC_textbox uC_tb_nroDepto;
         private CheckBox cb_esAdmin;
-        private GroupBox groupBox1;
+        private GroupBox gb_campos3;
         private UC_dttmPicker uC_dttm_finConcesion;
         private UC_dttmPicker uC_dttm_inicioConcesion;
         private UC_textbox uC_tb_razonSocial;
