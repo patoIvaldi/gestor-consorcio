@@ -101,13 +101,20 @@ namespace UI
         {
             Boolean existe = false;
 
-            //En base al username y pass, busco la entidad en la BD.
-            user = BLL.UsuarioBLL.Instance.Login(user,
-                (ServiceIdioma)cb_idioma.SelectedItem);
-
-            if (user != null)
+            if (!BLL.UsuarioBLL.Instance.esUsuarioBloqueado(user.USERNAME))
             {
-                existe = true;
+                //En base al username y pass, busco la entidad en la BD.
+                user = BLL.UsuarioBLL.Instance.Login(user,
+                    (ServiceIdioma)cb_idioma.SelectedItem);
+
+                if (user != null)
+                {
+                    existe = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("El usuario se encuentra bloqueado, contactar a un administrador.");
             }
 
             return existe;

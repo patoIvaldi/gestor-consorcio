@@ -35,7 +35,9 @@ namespace MiEdificio
 
         private void FormHome_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            BLL.UsuarioBLL.Instance.Logout();
+            login.enlazar();
+            login.Show();
         }
 
         //menu para cambiar la clave del usuario
@@ -52,10 +54,46 @@ namespace MiEdificio
             formUsuario.ShowDialog();
         }
 
+        //menu ABM idioma
         private void idiomasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormIdioma formIdioma = new FormIdioma();
             formIdioma.ShowDialog();
+        }
+
+        //menu ABM perfil
+        private void crearModificarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FormABMPerfil formPerfil = new FormABMPerfil();
+            formPerfil.ShowDialog();
+        }
+
+        //menu asignar perfil a usuario
+        private void asignarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAsignarPerfil formAsignarPerfil = new FormAsignarPerfil();
+            formAsignarPerfil.ShowDialog();
+        }
+
+        //menu pagar expensas
+        private void pagarExpensaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormPagarExpensas formPagar = new FormPagarExpensas(1);
+            formPagar.ShowDialog();
+        }
+
+        //menu visualizar documento
+        private void visualizarDocumentoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormPagarExpensas formPagar = new FormPagarExpensas(2);
+            formPagar.ShowDialog();
+        }
+
+        //menu generar expensa
+        private void generarExpensaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormGenerarExpensa formGenerar = new FormGenerarExpensa();
+            formGenerar.ShowDialog();
         }
     }
 }

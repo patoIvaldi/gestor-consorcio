@@ -122,5 +122,10 @@ namespace UI
                 uc_tb_id.Enabled = false;
             }
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

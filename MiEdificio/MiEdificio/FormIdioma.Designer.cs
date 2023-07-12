@@ -54,6 +54,7 @@
             groupBox1.Size = new Size(397, 131);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
+            groupBox1.Enter += groupBox1_Enter;
             // 
             // btn_borrar
             // 
@@ -61,7 +62,7 @@
             btn_borrar.Name = "btn_borrar";
             btn_borrar.Size = new Size(74, 27);
             btn_borrar.TabIndex = 5;
-            btn_borrar.Text = "Borrar";
+            btn_borrar.Text = "Eliminar";
             btn_borrar.UseVisualStyleBackColor = true;
             btn_borrar.Click += btn_borrar_Click;
             // 

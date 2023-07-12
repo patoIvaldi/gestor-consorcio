@@ -131,6 +131,7 @@ namespace DAL
                 user.USERNAME = registro["username"].ToString().Trim();
                 user.ESTA_BLOQUEADO = bool.Parse(registro["esta_bloqueado"].ToString());
                 user.MAIL = registro["mail"].ToString();
+                user.CANT_INTENTOS = int.Parse(registro["cant_intentos"].ToString());
 
                 //cargo el perfil y los permisos
                 user.PERFIL = gestorPerfil.ObtenerPerfilUsuario(user);
@@ -247,6 +248,15 @@ namespace DAL
                 parametros.Add(acceso.crearParametro("@razonsocial", ((BE.AdministradorConsorcio)u.PERSONA).RAZON_SOCIAL));
             }
             return acceso.escribir("INSERTAR_USUARIO", parametros);
+        }
+
+        public Boolean sumarIntentoErroneo(string username)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@Username", username.Trim()));
+            int modificados = acceso.escribir("SUMAR_INTENTO", parametros);
+
+            return modificados != 0 ? true : false;
         }
 
     }

@@ -162,3 +162,43 @@ AS
 BEGIN
     UPDATE IDIOMA SET esta_borrado = 'true' WHERE id = @id;
 END;
+
+
+ALTER TABLE expensa
+ADD CONSTRAINT UC_periodo_dni UNIQUE (periodo,dni);
+
+	/*declare @id int
+	set @id = (SELECT ISNULL(MAX(id),0)+1 FROM EXPENSA)
+	INSERT INTO EXPENSA (id,fecha_emision,monto,periodo,estado,dni,primer_vencimiento,segundo_vencimiento)
+	VALUES (@id,@fechaEmision,@monto,@periodo,@estado,@dni,@fvencimiento,@svencimiento);*/
+
+CREATE PROC [dbo].[INSERTAR_SEGMENTO]
+@descripcion varchar(30),@monto float,@idExpensa int
+AS
+BEGIN
+	declare @id int
+	set @id = (SELECT ISNULL(MAX(id),0)+1 FROM SEGMENTO)
+	INSERT INTO SEGMENTO(id,descripcion,monto,id_expensa)
+	VALUES (@id,@descripcion,@monto,@idExpensa);
+END;
+
+
+
+select * from expensa;
+select * from SEGMENTO;
+select * from PERSONA;
+
+select id,estado,fecha_emision from EXPENSA where dni = '999999999' and periodo = '07/2023';
+
+
+CREATE PROC [dbo].[SALDAR_EXPENSA]
+@idPago int,@idExpensa int
+AS
+BEGIN
+	INSERT INTO EXPENSA_PAGO(id_expensa,id_pago)
+	VALUES (@idExpensa,@idPago);
+
+	UPDATE EXPENSA set estado = 'true' where id = @idExpensa;
+END;
+
+select * from EXPENSA;

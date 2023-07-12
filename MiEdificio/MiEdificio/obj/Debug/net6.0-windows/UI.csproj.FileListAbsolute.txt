@@ -59,3 +59,7 @@ C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\o
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.genruntimeconfig.cache
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\ref\UI.dll
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormIdioma.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormABMPerfil.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormAsignarPerfil.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormPagarExpensas.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormGenerarExpensa.resources

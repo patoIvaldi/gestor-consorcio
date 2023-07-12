@@ -144,5 +144,12 @@ namespace DAL
             return par;
         }
 
+        public SqlParameter crearParametro(string nom, float valor)
+        {
+            SqlParameter par = new SqlParameter(nom, valor);
+            par.DbType = DbType.Single;
+            return par;
+        }
+
     }
 }

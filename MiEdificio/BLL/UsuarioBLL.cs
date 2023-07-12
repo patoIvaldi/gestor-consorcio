@@ -30,19 +30,36 @@ namespace BLL
             }
         }
 
-        public BE.Usuario Login(BE.Usuario user, ServiceIdioma idiomaElegido)
+        public BE.Usuario Login(BE.Usuario userIn, ServiceIdioma idiomaElegido)
         {
-            user = usuarioDAL.ValidateUser(
-                Services.ServiceEncriptador.Instance.Encriptar(user)
+            BE.Usuario userOut = usuarioDAL.ValidateUser(
+                Services.ServiceEncriptador.Instance.Encriptar(userIn)
                 ,idiomaElegido);
 
-            if (user != null)
+            if (userOut != null)
             {
-                user.PERFIL = PerfilBLL.Instance.ObtenerPermisos(user.PERFIL);
-                Services.ServiceSesion.Instance.IniciarSesion(user);
+                userOut.PERFIL = PerfilBLL.Instance.ObtenerPermisos(userOut.PERFIL);
+                Services.ServiceSesion.Instance.IniciarSesion(userOut);
+
+            } //camino por usuarios que hayan ingresado mal la contraseña
+            else
+            {
+                BE.Usuario userBuscado = usuarioDAL.listar(userIn.USERNAME).FirstOrDefault();
+
+                //busco por username solamente
+                if (userBuscado != null)
+                {
+                    //si existe usuario, le sumo un intento erroneo
+                    usuarioDAL.sumarIntentoErroneo(userBuscado.USERNAME);
+
+                    if((userBuscado.CANT_INTENTOS + 1) > 3 && !userBuscado.ESTA_BLOQUEADO)
+                    {
+                        bloquearDesbloquearUsuario(userBuscado.USERNAME);
+                    }
+                }
             }
 
-            return user;
+            return userOut;
         }
 
         public void Logout()
@@ -97,6 +114,13 @@ namespace BLL
         public Boolean existeUsuario(string username)
         {
             return !string.IsNullOrEmpty(username)?usuarioDAL.listar(username).Count > 0:false;
+        }
+
+        public Boolean esUsuarioBloqueado(string username)
+        {
+            BE.Usuario usuario = usuarioDAL.listar(username).FirstOrDefault();
+
+            return usuario != null ? usuario.ESTA_BLOQUEADO : false;
         }
     }
 }
