@@ -38,6 +38,8 @@
             btn_pagar = new Button();
             lbl_monto = new Label();
             btn_imprimir = new Button();
+            lbl_saldoImpago_txt = new Label();
+            btn_imprimirExpensa = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_propietarios).BeginInit();
             groupBox2.SuspendLayout();
@@ -94,6 +96,7 @@
             dgv_pagos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_pagos.Size = new Size(669, 185);
             dgv_pagos.TabIndex = 0;
+            dgv_pagos.CellClick += dgv_pagos_CellClick;
             // 
             // groupBox3
             // 
@@ -127,12 +130,13 @@
             btn_pagar.TabIndex = 3;
             btn_pagar.Text = "Pagar";
             btn_pagar.UseVisualStyleBackColor = true;
+            btn_pagar.Click += btn_pagar_Click;
             // 
             // lbl_monto
             // 
             lbl_monto.AutoSize = true;
             lbl_monto.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl_monto.Location = new Point(183, 538);
+            lbl_monto.Location = new Point(268, 541);
             lbl_monto.Name = "lbl_monto";
             lbl_monto.Size = new Size(0, 30);
             lbl_monto.TabIndex = 5;
@@ -143,8 +147,28 @@
             btn_imprimir.Name = "btn_imprimir";
             btn_imprimir.Size = new Size(105, 35);
             btn_imprimir.TabIndex = 6;
-            btn_imprimir.Text = "Imprimir";
+            btn_imprimir.Text = "Imprimir Pago";
             btn_imprimir.UseVisualStyleBackColor = true;
+            btn_imprimir.Click += btn_imprimir_Click;
+            // 
+            // lbl_saldoImpago_txt
+            // 
+            lbl_saldoImpago_txt.AutoSize = true;
+            lbl_saldoImpago_txt.Location = new Point(129, 548);
+            lbl_saldoImpago_txt.Name = "lbl_saldoImpago_txt";
+            lbl_saldoImpago_txt.Size = new Size(83, 15);
+            lbl_saldoImpago_txt.TabIndex = 7;
+            lbl_saldoImpago_txt.Text = "Saldo impago:";
+            // 
+            // btn_imprimirExpensa
+            // 
+            btn_imprimirExpensa.Location = new Point(1041, 535);
+            btn_imprimirExpensa.Name = "btn_imprimirExpensa";
+            btn_imprimirExpensa.Size = new Size(105, 48);
+            btn_imprimirExpensa.TabIndex = 8;
+            btn_imprimirExpensa.Text = "Imprimir detalle expensa";
+            btn_imprimirExpensa.UseVisualStyleBackColor = true;
+            btn_imprimirExpensa.Click += btn_imprimirExpensa_Click;
             // 
             // FormPagarExpensas
             // 
@@ -153,6 +177,8 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.White;
             ClientSize = new Size(1184, 585);
+            Controls.Add(btn_imprimirExpensa);
+            Controls.Add(lbl_saldoImpago_txt);
             Controls.Add(btn_imprimir);
             Controls.Add(groupBox1);
             Controls.Add(lbl_monto);
@@ -187,5 +213,7 @@
         private Button btn_imprimir;
         private DataGridView dgv_pagos;
         private DataGridView dgv_expensas;
+        private Label lbl_saldoImpago_txt;
+        private Button btn_imprimirExpensa;
     }
 }

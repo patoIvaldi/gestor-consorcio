@@ -158,6 +158,10 @@ namespace UI
 
             dgv_detalle.DataSource = null;
             dgv_detalle.DataSource = nuevosSegmentos;
+
+            //limpiamos
+            uC_tb_descSegmento.TEXT_BOX = "";
+            uC_tb_importeSegmento.TEXT_BOX = "";
         }
 
         //metodo para validar los controles que esten cargados si son requeridos
@@ -216,7 +220,7 @@ namespace UI
         private void generarExpensa()
         {
             BE.Expensa newExpensa = new BE.Expensa(uC_dttmFechaExpensa.VALOR);
-            newExpensa.ESTADO = false;
+            newExpensa.ESTA_PAGA = false;
             newExpensa.DNI = personaSelected.DNI;
             newExpensa.agregarSegmentos(nuevosSegmentos);
 

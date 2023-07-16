@@ -69,12 +69,12 @@ namespace BE
 			//set { periodo = value; }
 		}
 
-		private Boolean estado;
+		private Boolean estaPaga;
 
-		public Boolean ESTADO
+		public Boolean ESTA_PAGA
 		{
-			get { return estado; }
-			set { estado = value; }
+			get { return estaPaga; }
+			set { estaPaga = value; }
 		}
 
 		private Int64 dni;
@@ -115,7 +115,7 @@ namespace BE
 
         public override string ToString()
         {
-            return this.PERIODO + " - " + this.monto + " " + this.estado;
+            return this.PERIODO + " - " + this.monto + " " + this.estaPaga;
 
         }
     }

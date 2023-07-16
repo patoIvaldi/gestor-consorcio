@@ -79,6 +79,7 @@ namespace MiEdificio
         private void pagarExpensaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormPagarExpensas formPagar = new FormPagarExpensas(1);
+            formPagar.Owner = this;
             formPagar.ShowDialog();
         }
 

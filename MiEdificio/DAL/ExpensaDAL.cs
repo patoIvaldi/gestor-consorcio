@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace DAL
             {
                 BE.Expensa e = new BE.Expensa(DateTime.Parse(registro["fecha_emision"].ToString()));
                 e.ID = int.Parse(registro["id"].ToString());
-                e.ESTADO = Boolean.Parse(registro["estado"].ToString());
+                e.ESTA_PAGA = Boolean.Parse(registro["esta_paga"].ToString());
                 e.DNI = dni;
 
                 SegmentoDAL gestorSegmentos = new SegmentoDAL();
@@ -48,7 +49,7 @@ namespace DAL
 
             List<SqlParameter> parametros = new List<SqlParameter>();
             parametros.Add(acceso.crearParametro("@fechaEmision", exp.FECHA_EMISION));
-            parametros.Add(acceso.crearParametro("@estado", exp.ESTADO));
+            parametros.Add(acceso.crearParametro("@esta_paga", exp.ESTA_PAGA));
             parametros.Add(acceso.crearParametro("@dni", exp.DNI));
             parametros.Add(acceso.crearParametro("@monto", exp.MONTO));
             parametros.Add(acceso.crearParametro("@periodo", exp.PERIODO));
@@ -75,7 +76,7 @@ namespace DAL
             {
                 e = new BE.Expensa(DateTime.Parse(registro["fecha_emision"].ToString()));
                 e.ID = int.Parse(registro["id"].ToString());
-                e.ESTADO = Boolean.Parse(registro["estado"].ToString());
+                e.ESTA_PAGA = Boolean.Parse(registro["esta_paga"].ToString());
             }
 
             return e;
@@ -94,6 +95,31 @@ namespace DAL
             return modificados;
         }
 
+        //metodo que busca todas las expensas asociadas a un pago
+        public List<BE.Expensa> BuscarPorIdPago(Int64 idPago)
+        {
+            List<BE.Expensa> expensas = new List<BE.Expensa>();
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@idPago", idPago));
+
+            DataTable tabla = acceso.leer("BUSCAR_EXPENSAS_X_PAGO", parametros);
+            foreach (DataRow registro in tabla.Rows)
+            {
+                BE.Expensa e = new BE.Expensa(DateTime.Parse(registro["fecha_emision"].ToString()));
+                e.ID = int.Parse(registro["id"].ToString());
+                e.ESTA_PAGA = Boolean.Parse(registro["esta_paga"].ToString());
+                e.DNI = long.Parse(registro["dni"].ToString());
+
+                SegmentoDAL gestorSegmentos = new SegmentoDAL();
+
+                //buscar segmentos
+                e.agregarSegmentos(gestorSegmentos.ObtenerSegmentosExpensa(e.ID));
+
+                expensas.Add(e);
+            }
+            return expensas;
+        }
 
     }
 }

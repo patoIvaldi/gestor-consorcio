@@ -57,7 +57,7 @@ namespace UI
             Boolean validacionOK = true;
             dateTimePicker1.BackColor = Color.White;
 
-            if (this.requerido)
+            if (this.requerido && this.valor is null)
             {
                 validacionOK = false;
                 dateTimePicker1.BackColor = Color.Red;

@@ -38,9 +38,9 @@ namespace BE
 			set { fechaEjecucion = value; }
 		}
 
-        private DateTime fechaVencTarjeta;
+        private DateTime? fechaVencTarjeta;
 
-        public DateTime FECHA_VENC_TARJETA
+        public DateTime? FECHA_VENC_TARJETA
         {
             get { return fechaVencTarjeta; }
             set { fechaVencTarjeta = value; }

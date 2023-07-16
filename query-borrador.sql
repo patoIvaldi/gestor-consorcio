@@ -202,3 +202,14 @@ BEGIN
 END;
 
 select * from EXPENSA;
+
+alter PROC [dbo].[BUSCAR_EXPENSAS_X_PAGO]
+@idPago int
+AS
+BEGIN
+	select e.id,e.fecha_emision,e.esta_paga,e.dni
+	from PAGO p
+	join EXPENSA_PAGO ep on ep.id_pago = p.id
+	join EXPENSA e on e.id = ep.id_expensa
+	where p.id = @idPago;
+END;

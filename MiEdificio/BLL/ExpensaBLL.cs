@@ -51,9 +51,16 @@ namespace BLL
             return exitoso;
         }
 
+        //metodo que busca si existe una expensa para el cliente y el periodo en cuestion
         public Boolean ExisteExpensaParaElPeriodo(BE.Expensa exp)
         {
             return expensaDAL.BuscarPorPeriodoYDNI(exp.DNI, exp.PERIODO) is not null;
+        }
+
+        //metodo que busca todas las expensas asociadas a un pago
+        public List<BE.Expensa> BuscarPorIdPago(int idPago)
+        {
+            return expensaDAL.BuscarPorIdPago(idPago);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace BLL
         {
             BE.Usuario userOut = usuarioDAL.ValidateUser(
                 Services.ServiceEncriptador.Instance.Encriptar(userIn)
-                ,idiomaElegido);
+                , idiomaElegido);
 
             if (userOut != null)
             {

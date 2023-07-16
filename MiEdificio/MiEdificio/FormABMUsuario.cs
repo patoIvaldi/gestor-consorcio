@@ -70,8 +70,11 @@ namespace UI
         {
             BE.Usuario newUser = new BE.Usuario();
             newUser.USERNAME = uC_tb_username.TEXT_BOX;
-            newUser.MAIL = uC_tb_mail.TEXT_BOX;
             newUser.CONTRASENIA = uC_tb_password2.TEXT_BOX;
+            //encripto
+            newUser = Services.ServiceEncriptador.Instance.Encriptar(newUser);
+
+            newUser.MAIL = uC_tb_mail.TEXT_BOX;
             BE.Perfil perfil = new BE.Perfil();
 
             if (cb_esAdmin.Checked is true)

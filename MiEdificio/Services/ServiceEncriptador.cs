@@ -42,7 +42,7 @@ namespace Services
             Usuario userEncriptado = new Usuario();
             userEncriptado.USERNAME = user.USERNAME;
             userEncriptado.CONTRASENIA = sb2.ToString();
-            return user; // TODO poner de nuevo userEncriptado, use user solo para testing
+            return userEncriptado; // TODO poner de nuevo userEncriptado, use user solo para testing
         }
 
         //metodo que encripta mediante palabra secreta y forma Hash
