@@ -22,7 +22,7 @@ namespace DAL
                 DataTable tabla = acceso.leer("LISTAR_PERMISOS_X_PERFIL", parametros);
                 foreach (DataRow registro in tabla.Rows)
                 {
-                    BE.Permiso permiso = new BE.Permiso(
+                    BE.PermisoSimple permiso = new BE.PermisoSimple(
                         registro["nombre"].ToString(),
                         registro["descripcion"].ToString());
 
@@ -45,7 +45,7 @@ namespace DAL
             return perfil;
         }
 
-        public void ObtenerHijos(BE.Perfil perfil, BE.Permiso permisoPadre)
+        public void ObtenerHijos(BE.Perfil perfil, BE.PermisoSimple permisoPadre)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace DAL
                 DataTable tabla = acceso.leer("LISTAR_HIJOS", parametros);
                 foreach (DataRow registro in tabla.Rows)
                 {
-                    BE.Permiso permiso = new BE.Permiso(
+                    BE.PermisoSimple permiso = new BE.PermisoSimple(
                         registro["nombre"].ToString(),
                         registro["descripcion"].ToString());
 
@@ -92,6 +92,56 @@ namespace DAL
             return ObtenerPermisos(p);
         }
 
+        //busco todos los perfiles alojados en la BD
+        public List<BE.Perfil> ObtenerPerfiles()
+        {
+            List<BE.Perfil> perfiles = new List<BE.Perfil>();
+            DataTable tabla = acceso.leer("LISTAR_PERFILES", null);
+            foreach (DataRow registro in tabla.Rows)
+            {
+                BE.Perfil p = new BE.Perfil();
+                p.ID_TIPO = int.Parse(registro["id_rol"].ToString());
+                p.DESCRIPCION = registro["Descripcion"].ToString();
+                perfiles.Add(p);
+            }
+
+            return perfiles;
+        }
+
+        public int InsertarOModificar(BE.Perfil newPerfil)
+        {
+            int modificados = 0;
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@descripcion", newPerfil.DESCRIPCION));
+
+            if (newPerfil.ID_TIPO != 0 && existe(newPerfil.ID_TIPO.ToString()))
+            {
+                parametros.Add(acceso.crearParametro("@id", newPerfil.ID_TIPO));
+                modificados = acceso.escribir("EDITAR_PERFIL", parametros);
+            }
+            else
+            {
+                modificados = acceso.escribir("INSERTAR_PERFIL", parametros);
+            }
+
+            return modificados;
+        }
+
+        public Boolean existe(string idABuscar)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@id", idABuscar));
+            DataTable tabla = acceso.leer("LISTAR_PERFIL", parametros);
+            return tabla.Rows.Count > 0;
+        }
+
+        public int Borrar(BE.Perfil perfilABorrar)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@id", perfilABorrar.ID_TIPO));
+            return acceso.escribir("BORRAR_PERFIL", parametros); ;
+        }
 
     }
 }

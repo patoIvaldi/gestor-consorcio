@@ -213,3 +213,26 @@ BEGIN
 	join EXPENSA e on e.id = ep.id_expensa
 	where p.id = @idPago;
 END;
+
+select * from dbo.USUARIO;
+select * from dbo.ROL;
+select * from dbo.PERMISO;
+select * from dbo.PERFIL;
+select * from dbo.PERMISO_PERMISO;
+
+
+CREATE PROC [dbo].[ASOCIAR_PERMISO_PERMISO]
+@idPermisoPadre int,@idPermisoHijo int
+AS
+BEGIN
+	INSERT INTO PERMISO_PERMISO (Id_permiso_padre,Id_permiso_hijo) VALUES (@idPermisoPadre,@idPermisoHijo);
+END;
+
+create PROC [dbo].[LISTAR_TRADUCCIONES]
+@idIdioma char(2)
+AS
+BEGIN
+	SELECT nombre_objeto,traduccion from TRADUCCION where id_idioma = @idIdioma;
+END;
+
+select * from TRADUCCION;

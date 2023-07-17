@@ -1,3 +1,4 @@
+using BE;
 using UI;
 
 namespace MiEdificio
@@ -14,7 +15,48 @@ namespace MiEdificio
 
         private void Home_Load(object sender, EventArgs e)
         {
+            if (BLL.UsuarioBLL.Instance.userOut is not null)
+            {
+                adminToolStripMenuItem.Enabled = BLL.UsuarioBLL.Instance.ExistePermiso(PermisosConstantes.ABM_Admin);
+                altasToolStripMenuItem.Enabled = BLL.UsuarioBLL.Instance.ExistePermiso(PermisosConstantes.ABM_Altas);
+                usuarioToolStripMenuItem.Enabled = BLL.UsuarioBLL.Instance.ExistePermiso(PermisosConstantes.ABM_Usuario);
+                reservasToolStripMenuItem.Enabled = BLL.UsuarioBLL.Instance.ExistePermiso(PermisosConstantes.ABM_Reservas);
+                pagarExpensaToolStripMenuItem.Enabled = BLL.UsuarioBLL.Instance.ExistePermiso(PermisosConstantes.ABM_Gestiones);
+                visualizarDocumentoToolStripMenuItem.Enabled = BLL.UsuarioBLL.Instance.ExistePermiso(PermisosConstantes.Lectura_Gestiones);
+                reportesToolStripMenuItem.Enabled = BLL.UsuarioBLL.Instance.ExistePermiso(PermisosConstantes.Lectura_Reportes);
+                ayudaToolStripMenuItem.Enabled = BLL.UsuarioBLL.Instance.ExistePermiso(PermisosConstantes.Lectura_Ayuda);
+            }
 
+            TraducirComponentes();
+        }
+
+        public void TraducirComponentes()
+        {
+            IDictionary<string, string> traducciones = BLL.IdiomaBLL.INSTANCE.diccionario;
+
+            foreach (ToolStripItem menu in menuStrip1.Items)
+            {
+                menu.Text = traducciones is not null && traducciones.ContainsKey(menu.Name) ? traducciones[menu.Name] : menu.Text;
+
+                //verifico que sea un menu
+                if (menu is ToolStripMenuItem)
+                {
+                    // iteramos sobre los submenús en caso de tener
+                    foreach (ToolStripItem subMenu in ((ToolStripMenuItem)menu).DropDownItems)
+                    {
+                        subMenu.Text = traducciones is not null && traducciones.ContainsKey(subMenu.Name) ? traducciones[subMenu.Name] : subMenu.Text;
+
+                        //verifico si tiene mas subsubmenues
+                        if (subMenu is ToolStripMenuItem)
+                        {
+                            foreach (ToolStripItem ssubmenu in ((ToolStripMenuItem)subMenu).DropDownItems)
+                            {
+                                ssubmenu.Text = traducciones is not null && traducciones.ContainsKey(ssubmenu.Name) ? traducciones[ssubmenu.Name] : ssubmenu.Text;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         //menu cerrar sesion
@@ -95,6 +137,12 @@ namespace MiEdificio
         {
             FormGenerarExpensa formGenerar = new FormGenerarExpensa();
             formGenerar.ShowDialog();
+        }
+
+        private void cambiarIdiomaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormCambiarIdioma formCambiarIdioma = new FormCambiarIdioma(this);
+            formCambiarIdioma.ShowDialog();
         }
     }
 }

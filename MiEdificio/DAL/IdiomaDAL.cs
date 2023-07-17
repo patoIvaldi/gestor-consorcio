@@ -68,5 +68,25 @@ namespace DAL
             return acceso.escribir("BORRAR_IDIOMA", parametros); ;
         }
 
+        public List<ServiceTraduccion> ListarTraducciones(ServiceIdioma idioma)
+        {
+            List<ServiceTraduccion> traducciones = new List<ServiceTraduccion>();
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@idIdioma", idioma.ID));
+
+            DataTable tabla = acceso.leer("LISTAR_TRADUCCIONES", parametros);
+            foreach (DataRow registro in tabla.Rows)
+            {
+                ServiceTraduccion t = new ServiceTraduccion();
+                t.NOMBRE_OBJETO = registro["nombre_objeto"].ToString();
+                t.TRADUCCION_TXT = registro["traduccion"].ToString();
+                t.IDIOMA = idioma;
+
+                traducciones.Add(t);
+            }
+            return traducciones;
+        }
+
     }
 }

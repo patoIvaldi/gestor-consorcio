@@ -31,6 +31,20 @@ namespace BLL
             return perfilDAL.ObtenerPermisos(perfil);
         }
 
+        //arreglar esto en algun momento
+        public List<BE.Perfil> ObtenerPerfiles()
+        {
+            return perfilDAL.ObtenerPerfiles();
+        }
 
+        public Boolean InsertarOModificar(BE.Perfil newPerfil)
+        {
+            return perfilDAL.InsertarOModificar(newPerfil) > 0;
+        }
+
+        public Boolean Borrar(BE.Perfil perf)
+        {
+            return perfilDAL.Borrar(perf) > 0;
+        }
     }
 }

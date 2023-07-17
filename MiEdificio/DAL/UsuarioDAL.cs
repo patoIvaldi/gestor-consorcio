@@ -259,5 +259,16 @@ namespace DAL
             return modificados != 0 ? true : false;
         }
 
+        //cambia el tipo de perfil del usuario en cuestion
+        public Boolean CambiarPerfilUsuario(BE.Usuario usu, BE.Perfil perf)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@username", usu.USERNAME));
+            parametros.Add(acceso.crearParametro("@idRol", perf.ID_TIPO));
+            int modificados = acceso.escribir("CAMBIAR_PERFIL_USUARIO", parametros);
+
+            return modificados != 0 ? true : false;
+        }
+
     }
 }

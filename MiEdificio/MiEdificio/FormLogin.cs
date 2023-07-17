@@ -150,10 +150,26 @@ namespace UI
             return validacionOK;
         }
 
+        //metodo que se dispara cuando elige una opcion del combobox de idioma
         private void cb_idioma_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //BE.Idioma idiomaElegido = cb_idioma.SelectedItem;
+            Services.ServiceIdioma idiomaElegido = (Services.ServiceIdioma)cb_idioma.SelectedItem;
 
+            if (idiomaElegido is not null)
+            {
+                TraducirComponentes(
+                    BLL.IdiomaBLL.INSTANCE.ListarTraducciones(idiomaElegido));
+            }
+        }
+
+        private void TraducirComponentes(IDictionary<string,string> traducciones)
+        {
+            if (traducciones is not null && traducciones.Count > 0)
+            {
+                tb_usuario.ETIQUETA = traducciones.ContainsKey(tb_usuario.Name+"_"+this.Name)? traducciones[tb_usuario.Name + "_" + this.Name]: tb_usuario.ETIQUETA;
+                tb_password.ETIQUETA = traducciones.ContainsKey(tb_password.Name+"_"+this.Name)? traducciones[tb_password.Name + "_" + this.Name]: tb_password.ETIQUETA;
+                btn_ingresar.Text = traducciones.ContainsKey(btn_ingresar.Name+"_"+this.Name)? traducciones[btn_ingresar.Name + "_" + this.Name]: btn_ingresar.Text;
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ namespace BLL
     {
 
         DAL.IdiomaDAL idiomaDAL = new DAL.IdiomaDAL();
+        public IDictionary<string, string> diccionario;
 
         public IdiomaBLL() {
 
@@ -42,6 +43,22 @@ namespace BLL
         public Boolean Borrar(Services.ServiceIdioma idioma)
         {
             return idiomaDAL.Borrar(idioma) > 0;
+        }
+
+        public IDictionary<string,string> ListarTraducciones(Services.ServiceIdioma idioma)
+        {
+            //creamos el diccionario con las traducciones de cada componente.
+            diccionario = new Dictionary<string, string>();
+
+            //buscamos las traducciones en la BD
+            List<Services.ServiceTraduccion> traducciones = idiomaDAL.ListarTraducciones(idioma);
+
+            foreach (Services.ServiceTraduccion t in traducciones)
+            {
+                diccionario.Add(t.NOMBRE_OBJETO,t.TRADUCCION_TXT);
+            }
+
+            return diccionario;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace BLL
     {
 
         DAL.UsuarioDAL usuarioDAL = new DAL.UsuarioDAL();
+        public BE.Usuario userOut;
 
         public UsuarioBLL()
         {
@@ -32,7 +33,7 @@ namespace BLL
 
         public BE.Usuario Login(BE.Usuario userIn, ServiceIdioma idiomaElegido)
         {
-            BE.Usuario userOut = usuarioDAL.ValidateUser(
+            userOut = usuarioDAL.ValidateUser(
                 Services.ServiceEncriptador.Instance.Encriptar(userIn)
                 , idiomaElegido);
 
@@ -67,26 +68,9 @@ namespace BLL
             Services.ServiceSesion.Instance.CerrarSesion();
         }
 
-        //metodo que realiza el cambio de contraseña del usuario
-        //public Boolean cambiarPassword(BE.Usuario userModif)
-        //{
-            //return usuarioDAL.cambiarPassword(
-              //  Services.ServiceEncriptador.Instance.Encriptar(userModif));
-        //}
-
         public Boolean bloquearDesbloquearUsuario(string username)
         {
             return usuarioDAL.desbloquearUsuario(username);        
-        }
-
-        public int marcarIntentoFallido()
-        {
-            //recupero los intentos que tiene
-            //le sumo uno
-            //llego a los 3? bloqueo
-            //sino no hago nada
-            //retorno cantidad de intentos fallidos hasta el momento.
-            return 0;
         }
 
         //metodo que busca todos los usuarios en la BD
@@ -121,6 +105,34 @@ namespace BLL
             BE.Usuario usuario = usuarioDAL.listar(username).FirstOrDefault();
 
             return usuario != null ? usuario.ESTA_BLOQUEADO : false;
+        }
+
+        public Boolean CambiarPerfilUsuario(BE.Usuario usu, BE.Perfil perf)
+        {
+            return usuarioDAL.CambiarPerfilUsuario(usu,perf);
+        }
+
+        public Boolean ExistePermiso(string nombrePermisoABuscar)
+        {
+            Boolean existe = false;
+
+            foreach (BE.Rol permiso in this.userOut.PERFIL.obtenerPermisos())
+            {
+                //itero mientras no se haya encontrado
+                if (!existe)
+                {
+                    if (permiso is BE.PermisoSimple)
+                    {
+                        existe = ((BE.PermisoSimple)permiso).NOMBRE.Trim().Equals(nombrePermisoABuscar.Trim());
+
+                    }else if (permiso is BE.Perfil)
+                    {
+                       // existe = ((BE.Perfil)permiso).NOMBRE.Trim().Equals(nombrePermisoABuscar.Trim());
+                    }
+                }
+            }
+
+            return existe;
         }
     }
 }

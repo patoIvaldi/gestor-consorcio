@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAsignarPerfil));
             groupBox1 = new GroupBox();
+            cb_perfiles = new ComboBox();
+            cb_usuarios = new ComboBox();
             btn_asignar = new Button();
-            comboBox1 = new ComboBox();
-            comboBox2 = new ComboBox();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(comboBox2);
-            groupBox1.Controls.Add(comboBox1);
+            groupBox1.Controls.Add(cb_perfiles);
+            groupBox1.Controls.Add(cb_usuarios);
             groupBox1.Controls.Add(btn_asignar);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
@@ -47,6 +47,26 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Asignar perfil a usuario:";
+            // 
+            // cb_perfiles
+            // 
+            cb_perfiles.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            cb_perfiles.FormattingEnabled = true;
+            cb_perfiles.Location = new Point(16, 79);
+            cb_perfiles.Name = "cb_perfiles";
+            cb_perfiles.Size = new Size(232, 23);
+            cb_perfiles.TabIndex = 2;
+            cb_perfiles.Text = "Seleccionar perfil...";
+            // 
+            // cb_usuarios
+            // 
+            cb_usuarios.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            cb_usuarios.FormattingEnabled = true;
+            cb_usuarios.Location = new Point(16, 39);
+            cb_usuarios.Name = "cb_usuarios";
+            cb_usuarios.Size = new Size(232, 23);
+            cb_usuarios.TabIndex = 1;
+            cb_usuarios.Text = "Seleccionar usuario...";
             // 
             // btn_asignar
             // 
@@ -56,26 +76,7 @@
             btn_asignar.TabIndex = 0;
             btn_asignar.Text = "Asignar";
             btn_asignar.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            comboBox1.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(16, 39);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(232, 23);
-            comboBox1.TabIndex = 1;
-            comboBox1.Text = "Seleccionar usuario...";
-            // 
-            // comboBox2
-            // 
-            comboBox2.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(16, 79);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(232, 23);
-            comboBox2.TabIndex = 2;
-            comboBox2.Text = "Seleccionar perfil...";
+            btn_asignar.Click += btn_asignar_Click;
             // 
             // FormAsignarPerfil
             // 
@@ -91,6 +92,7 @@
             Name = "FormAsignarPerfil";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MiEdificio - Asignación de perfiles a usuario";
+            Load += FormAsignarPerfil_Load;
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -98,8 +100,8 @@
         #endregion
 
         private GroupBox groupBox1;
-        private ComboBox comboBox2;
-        private ComboBox comboBox1;
+        private ComboBox cb_perfiles;
+        private ComboBox cb_usuarios;
         private Button btn_asignar;
     }
 }

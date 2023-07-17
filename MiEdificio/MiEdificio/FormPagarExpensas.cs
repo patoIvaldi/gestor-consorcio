@@ -15,6 +15,7 @@ namespace UI
 {
     public partial class FormPagarExpensas : Form
     {
+        private BE.Usuario usuarioConectado = Services.ServiceSesion.Instance.USER;
 
         private int numMenu = 0;
         private List<BE.Expensa> expensasSelected = new List<BE.Expensa>();
@@ -51,15 +52,25 @@ namespace UI
         private void enlazarPropietarios()
         {
 
-            List<BE.Usuario> allUsers = BLL.UsuarioBLL.Instance.listarUsuarios();
             List<BE.Persona> propietarios = new List<BE.Persona>();
 
-            foreach (BE.Usuario u in allUsers)
+            //si el usuario conectado es un administrador
+            if (usuarioConectado.PERSONA is BE.AdministradorConsorcio)
             {
-                if (u.PERSONA is BE.Propietario)
+                List<BE.Usuario> allUsers = BLL.UsuarioBLL.Instance.listarUsuarios();
+
+                //mostramos todos los usuarios de sistemas que sean propietarios
+                foreach (BE.Usuario u in allUsers)
                 {
-                    propietarios.Add(u.PERSONA);
+                    if (u.PERSONA is BE.Propietario)
+                    {
+                        propietarios.Add(u.PERSONA);
+                    }
                 }
+            }
+            else //sino
+            {
+                propietarios.Add(usuarioConectado.PERSONA);
             }
 
             dgv_propietarios.DataSource = null;

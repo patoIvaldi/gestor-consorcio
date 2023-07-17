@@ -64,3 +64,4 @@ C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\o
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormPagarExpensas.resources
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormGenerarExpensa.resources
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormRealizarPago.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormCambiarIdioma.resources

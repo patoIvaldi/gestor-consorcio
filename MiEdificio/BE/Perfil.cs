@@ -23,7 +23,7 @@ namespace BE
 
         public override string ToString()
         {
-            return DESCRIPCION;
+            return this.ID_TIPO + " - " + DESCRIPCION;
         }
 
         public override void agregarPermiso(Rol r)

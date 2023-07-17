@@ -45,7 +45,7 @@ namespace UI
             get { return valor; }
             set
             {
-                this.dateTimePicker1.Value = value.Value.CompareTo(dateTimePicker1.MinDate) < 0 ? DateTime.Today : value.Value;
+                this.dateTimePicker1.Value = value is null || value.Value.CompareTo(dateTimePicker1.MinDate) < 0 ? DateTime.Today : value.Value;
                 valor = this.dateTimePicker1.Value;
             }
         }
