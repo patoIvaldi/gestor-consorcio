@@ -1,17 +1,6 @@
 ﻿using BLL;
 using Microsoft.IdentityModel.Tokens;
-using MiEdificio;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace UI
 {
@@ -40,6 +29,52 @@ namespace UI
 
             this.lbl_total.Text = "Total: " + convertirAMonedad(this.montoInformado);
             this.lbl_cantExpensas.Text += this.expensasAPagar.Count();
+
+            TraducirComponentes();
+        }
+
+        public void TraducirComponentes()
+        {
+            IDictionary<string, string> traducciones = BLL.IdiomaBLL.INSTANCE.diccionario;
+
+            if (traducciones is not null && traducciones.Count > 0)
+            {
+                this.Text = traducciones.ContainsKey(this.Name) ? traducciones[this.Name] : this.Text;
+
+                foreach (Control c in this.Controls)
+                {
+                    //traduzco el texto del componente
+                    c.Text = traducciones.ContainsKey(c.Name + "_" + this.Name) ? traducciones[c.Name + "_" + this.Name] : c.Text;
+
+                    //si es un groupbox, recorro todos los componentes que tenga en su interior
+                    if (c is GroupBox)
+                    {
+                        foreach (Control controlChild in ((GroupBox)c).Controls)
+                        {
+                            if (controlChild is UC_tb_numerico)
+                            {
+                                ((UC_tb_numerico)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_tb_numerico)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_tb_password)
+                            {
+                                ((UC_tb_password)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_tb_password)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_textbox)
+                            {
+                                ((UC_textbox)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_textbox)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_dttmPicker)
+                            {
+                                ((UC_dttmPicker)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_dttmPicker)controlChild).ETIQUETA;
+                            }
+                            else
+                            {
+                                controlChild.Text = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : controlChild.Text;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private string convertirAMonedad(float valor)

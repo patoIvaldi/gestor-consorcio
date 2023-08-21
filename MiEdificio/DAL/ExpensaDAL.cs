@@ -121,5 +121,14 @@ namespace DAL
             return expensas;
         }
 
+        public DataTable RecaudacionPorPeriodo(Boolean ordenDescendente)
+        {
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@ordenamiento", ordenDescendente));
+
+            return acceso.leer("LISTAR_RECAUDACION", parametros);
+        }
+
     }
 }

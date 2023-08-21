@@ -144,5 +144,11 @@ namespace MiEdificio
             FormCambiarIdioma formCambiarIdioma = new FormCambiarIdioma(this);
             formCambiarIdioma.ShowDialog();
         }
+
+        private void recaudaciónPorPeríodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormReporteRecaudacion formReporteRecaudacion = new FormReporteRecaudacion();
+            formReporteRecaudacion.ShowDialog();
+        }
     }
 }

@@ -161,6 +161,7 @@
             gb_permiso.TabIndex = 2;
             gb_permiso.TabStop = false;
             gb_permiso.Text = "ABM Permiso";
+            gb_permiso.Enter += gb_permiso_Enter;
             // 
             // btn_guardarPermiso
             // 

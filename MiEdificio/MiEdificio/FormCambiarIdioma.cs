@@ -15,6 +15,7 @@ namespace UI
     {
 
         FormHome home;
+        Services.ServiceIdioma idiomaElegido;
 
         public FormCambiarIdioma(FormHome home)
         {
@@ -32,19 +33,20 @@ namespace UI
 
         private void btn_cambiar_Click(object sender, EventArgs e)
         {
-            this.Close();
-            home.TraducirComponentes();
-        }
-
-        private void cb_idioma_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Services.ServiceIdioma idiomaElegido = (Services.ServiceIdioma)cb_idioma.SelectedItem;
+            //this.Close();
 
             if (idiomaElegido is not null)
             {
                 TraducirComponentes(
                     BLL.IdiomaBLL.INSTANCE.ListarTraducciones(idiomaElegido));
             }
+
+            home.TraducirComponentes();
+        }
+
+        private void cb_idioma_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            idiomaElegido = (Services.ServiceIdioma)cb_idioma.SelectedItem;
         }
 
         private void TraducirComponentes(IDictionary<string, string> traducciones)

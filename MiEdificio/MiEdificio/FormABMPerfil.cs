@@ -25,9 +25,54 @@ namespace UI
 
         private void FormABMPerfil_Load(object sender, EventArgs e)
         {
+            TraducirComponentes();
             enlazarPerfiles();
             enlazarPermisos();
             CargarComboBoxPermisos();
+        }
+
+        public void TraducirComponentes()
+        {
+            IDictionary<string, string> traducciones = BLL.IdiomaBLL.INSTANCE.diccionario;
+
+            if (traducciones is not null && traducciones.Count > 0)
+            {
+                this.Text = traducciones.ContainsKey(this.Name) ? traducciones[this.Name] : this.Text;
+
+                foreach (Control c in this.Controls)
+                {
+                    //traduzco el texto del componente
+                    c.Text = traducciones.ContainsKey(c.Name + "_" + this.Name) ? traducciones[c.Name + "_" + this.Name] : c.Text;
+
+                    //si es un groupbox, recorro todos los componentes que tenga en su interior
+                    if (c is GroupBox)
+                    {
+                        foreach (Control controlChild in ((GroupBox)c).Controls)
+                        {
+                            if (controlChild is UC_tb_numerico)
+                            {
+                                ((UC_tb_numerico)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_tb_numerico)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_tb_password)
+                            {
+                                ((UC_tb_password)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_tb_password)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_textbox)
+                            {
+                                ((UC_textbox)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_textbox)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_dttmPicker)
+                            {
+                                ((UC_dttmPicker)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_dttmPicker)controlChild).ETIQUETA;
+                            }
+                            else
+                            {
+                                controlChild.Text = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : controlChild.Text;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void CargarComboBoxPermisos()
@@ -361,6 +406,11 @@ namespace UI
         private void cb_asociar_SelectedIndexChanged(object sender, EventArgs e)
         {
             permisoElegido2 = (BE.PermisoSimple)cb_asociar.SelectedItem;
+        }
+
+        private void gb_permiso_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -42,6 +42,7 @@
             btn_generarExp = new Button();
             btn_limpiar = new Button();
             uC_dttmFechaExpensa = new UC_dttmPicker();
+            groupBox5 = new GroupBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_propietarios).BeginInit();
             groupBox2.SuspendLayout();
@@ -49,6 +50,7 @@
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_expensas).BeginInit();
+            groupBox5.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -172,7 +174,7 @@
             // 
             // btn_generarExp
             // 
-            btn_generarExp.Location = new Point(493, 319);
+            btn_generarExp.Location = new Point(475, 16);
             btn_generarExp.Name = "btn_generarExp";
             btn_generarExp.Size = new Size(75, 42);
             btn_generarExp.TabIndex = 4;
@@ -182,7 +184,7 @@
             // 
             // btn_limpiar
             // 
-            btn_limpiar.Location = new Point(12, 319);
+            btn_limpiar.Location = new Point(6, 18);
             btn_limpiar.Name = "btn_limpiar";
             btn_limpiar.Size = new Size(75, 40);
             btn_limpiar.TabIndex = 4;
@@ -193,12 +195,23 @@
             // uC_dttmFechaExpensa
             // 
             uC_dttmFechaExpensa.ETIQUETA = "Fecha emisión:";
-            uC_dttmFechaExpensa.Location = new Point(332, 311);
+            uC_dttmFechaExpensa.Location = new Point(351, 13);
             uC_dttmFechaExpensa.Name = "uC_dttmFechaExpensa";
             uC_dttmFechaExpensa.REQUERIDO = false;
             uC_dttmFechaExpensa.Size = new Size(105, 50);
             uC_dttmFechaExpensa.TabIndex = 5;
             uC_dttmFechaExpensa.VALOR = new DateTime(2023, 7, 10, 0, 0, 0, 0);
+            // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(btn_limpiar);
+            groupBox5.Controls.Add(btn_generarExp);
+            groupBox5.Controls.Add(uC_dttmFechaExpensa);
+            groupBox5.Location = new Point(12, 297);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(556, 69);
+            groupBox5.TabIndex = 6;
+            groupBox5.TabStop = false;
             // 
             // FormGenerarExpensa
             // 
@@ -207,9 +220,7 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.White;
             ClientSize = new Size(1184, 373);
-            Controls.Add(uC_dttmFechaExpensa);
-            Controls.Add(btn_limpiar);
-            Controls.Add(btn_generarExp);
+            Controls.Add(groupBox5);
             Controls.Add(groupBox4);
             Controls.Add(groupBox2);
             Controls.Add(groupBox3);
@@ -228,6 +239,7 @@
             groupBox3.ResumeLayout(false);
             groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgv_expensas).EndInit();
+            groupBox5.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -246,5 +258,6 @@
         private UC_dttmPicker uC_dttmFechaExpensa;
         private DataGridView dgv_detalle;
         private DataGridView dgv_expensas;
+        private GroupBox groupBox5;
     }
 }

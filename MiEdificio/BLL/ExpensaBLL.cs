@@ -1,6 +1,7 @@
 ﻿using DAL;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,12 @@ namespace BLL
         public List<BE.Expensa> BuscarPorIdPago(int idPago)
         {
             return expensaDAL.BuscarPorIdPago(idPago);
+        }
+
+        //recupero la recaudacion total de cada periodo
+        public DataTable BuscarRecaudacionPorPeriodo(Boolean ordenDescendente)
+        {
+            return expensaDAL.RecaudacionPorPeriodo(ordenDescendente);
         }
     }
 }

@@ -65,3 +65,6 @@ C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\o
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormGenerarExpensa.resources
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormRealizarPago.resources
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormCambiarIdioma.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormReporteRecaudacion.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\bin\Debug\net6.0-windows\itextsharp.dll
