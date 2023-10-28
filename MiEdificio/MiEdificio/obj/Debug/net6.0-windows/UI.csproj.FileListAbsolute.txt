@@ -68,3 +68,7 @@ C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\o
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormReporteRecaudacion.resources
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\bin\Debug\net6.0-windows\itextsharp.dll
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormEventos.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormControlCambios.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormRespaldo.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormRecuperarSistema.resources

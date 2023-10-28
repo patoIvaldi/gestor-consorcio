@@ -38,6 +38,11 @@
             crearModificarToolStripMenuItem1 = new ToolStripMenuItem();
             asignarToolStripMenuItem = new ToolStripMenuItem();
             idiomasToolStripMenuItem = new ToolStripMenuItem();
+            bitácoraToolStripMenuItem = new ToolStripMenuItem();
+            cambiosToolStripMenuItem = new ToolStripMenuItem();
+            reservaToolStripMenuItem = new ToolStripMenuItem();
+            eventosToolStripMenuItem = new ToolStripMenuItem();
+            backupRestoreToolStripMenuItem = new ToolStripMenuItem();
             altasToolStripMenuItem = new ToolStripMenuItem();
             generarExpensaToolStripMenuItem = new ToolStripMenuItem();
             usuarioToolStripMenuItem = new ToolStripMenuItem();
@@ -50,8 +55,8 @@
             pagarExpensaToolStripMenuItem = new ToolStripMenuItem();
             visualizarDocumentoToolStripMenuItem = new ToolStripMenuItem();
             reportesToolStripMenuItem = new ToolStripMenuItem();
-            ayudaToolStripMenuItem = new ToolStripMenuItem();
             recaudaciónPorPeríodoToolStripMenuItem = new ToolStripMenuItem();
+            ayudaToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,7 +71,7 @@
             // 
             // adminToolStripMenuItem
             // 
-            adminToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, perfilesToolStripMenuItem, idiomasToolStripMenuItem });
+            adminToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, perfilesToolStripMenuItem, idiomasToolStripMenuItem, bitácoraToolStripMenuItem, backupRestoreToolStripMenuItem });
             adminToolStripMenuItem.Name = "adminToolStripMenuItem";
             adminToolStripMenuItem.Size = new Size(55, 20);
             adminToolStripMenuItem.Text = "Admin";
@@ -75,7 +80,7 @@
             // 
             usuariosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { crearModificarToolStripMenuItem, desbloquearToolStripMenuItem });
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            usuariosToolStripMenuItem.Size = new Size(119, 22);
+            usuariosToolStripMenuItem.Size = new Size(180, 22);
             usuariosToolStripMenuItem.Text = "Usuarios";
             // 
             // crearModificarToolStripMenuItem
@@ -96,7 +101,7 @@
             // 
             perfilesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { crearModificarToolStripMenuItem1, asignarToolStripMenuItem });
             perfilesToolStripMenuItem.Name = "perfilesToolStripMenuItem";
-            perfilesToolStripMenuItem.Size = new Size(119, 22);
+            perfilesToolStripMenuItem.Size = new Size(180, 22);
             perfilesToolStripMenuItem.Text = "Perfiles";
             // 
             // crearModificarToolStripMenuItem1
@@ -116,9 +121,45 @@
             // idiomasToolStripMenuItem
             // 
             idiomasToolStripMenuItem.Name = "idiomasToolStripMenuItem";
-            idiomasToolStripMenuItem.Size = new Size(119, 22);
+            idiomasToolStripMenuItem.Size = new Size(180, 22);
             idiomasToolStripMenuItem.Text = "Idiomas";
             idiomasToolStripMenuItem.Click += idiomasToolStripMenuItem_Click;
+            // 
+            // bitácoraToolStripMenuItem
+            // 
+            bitácoraToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cambiosToolStripMenuItem, eventosToolStripMenuItem });
+            bitácoraToolStripMenuItem.Name = "bitácoraToolStripMenuItem";
+            bitácoraToolStripMenuItem.Size = new Size(180, 22);
+            bitácoraToolStripMenuItem.Text = "Bitácora";
+            // 
+            // cambiosToolStripMenuItem
+            // 
+            cambiosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { reservaToolStripMenuItem });
+            cambiosToolStripMenuItem.Name = "cambiosToolStripMenuItem";
+            cambiosToolStripMenuItem.Size = new Size(121, 22);
+            cambiosToolStripMenuItem.Text = "Cambios";
+            // 
+            // reservaToolStripMenuItem
+            // 
+            reservaToolStripMenuItem.Name = "reservaToolStripMenuItem";
+            reservaToolStripMenuItem.Size = new Size(114, 22);
+            reservaToolStripMenuItem.Text = "Reserva";
+            reservaToolStripMenuItem.Click += reservaToolStripMenuItem_Click;
+            // 
+            // eventosToolStripMenuItem
+            // 
+            eventosToolStripMenuItem.Name = "eventosToolStripMenuItem";
+            eventosToolStripMenuItem.Size = new Size(121, 22);
+            eventosToolStripMenuItem.Text = "Eventos";
+            eventosToolStripMenuItem.Click += eventosToolStripMenuItem_Click;
+            // 
+            // backupRestoreToolStripMenuItem
+            // 
+            backupRestoreToolStripMenuItem.BackColor = Color.White;
+            backupRestoreToolStripMenuItem.Name = "backupRestoreToolStripMenuItem";
+            backupRestoreToolStripMenuItem.Size = new Size(180, 22);
+            backupRestoreToolStripMenuItem.Text = "Backup/Restore";
+            backupRestoreToolStripMenuItem.Click += backupRestoreToolStripMenuItem_Click;
             // 
             // altasToolStripMenuItem
             // 
@@ -203,18 +244,18 @@
             reportesToolStripMenuItem.Size = new Size(65, 20);
             reportesToolStripMenuItem.Text = "Reportes";
             // 
-            // ayudaToolStripMenuItem
-            // 
-            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            ayudaToolStripMenuItem.Size = new Size(53, 20);
-            ayudaToolStripMenuItem.Text = "Ayuda";
-            // 
             // recaudaciónPorPeríodoToolStripMenuItem
             // 
             recaudaciónPorPeríodoToolStripMenuItem.Name = "recaudaciónPorPeríodoToolStripMenuItem";
             recaudaciónPorPeríodoToolStripMenuItem.Size = new Size(207, 22);
             recaudaciónPorPeríodoToolStripMenuItem.Text = "Recaudación por período";
             recaudaciónPorPeríodoToolStripMenuItem.Click += recaudaciónPorPeríodoToolStripMenuItem_Click;
+            // 
+            // ayudaToolStripMenuItem
+            // 
+            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            ayudaToolStripMenuItem.Size = new Size(53, 20);
+            ayudaToolStripMenuItem.Text = "Ayuda";
             // 
             // FormHome
             // 
@@ -265,5 +306,10 @@
         private ToolStripMenuItem idiomasToolStripMenuItem;
         private ToolStripMenuItem cambiarIdiomaToolStripMenuItem;
         private ToolStripMenuItem recaudaciónPorPeríodoToolStripMenuItem;
+        private ToolStripMenuItem bitácoraToolStripMenuItem;
+        private ToolStripMenuItem cambiosToolStripMenuItem;
+        private ToolStripMenuItem reservaToolStripMenuItem;
+        private ToolStripMenuItem eventosToolStripMenuItem;
+        private ToolStripMenuItem backupRestoreToolStripMenuItem;
     }
 }

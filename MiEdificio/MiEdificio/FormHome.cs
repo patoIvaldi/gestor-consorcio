@@ -62,6 +62,11 @@ namespace MiEdificio
         //menu cerrar sesion
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            cerrarSesion();
+        }
+
+        public void cerrarSesion()
+        {
             this.Close();
             BLL.UsuarioBLL.Instance.Logout();
             login.enlazar();
@@ -149,6 +154,24 @@ namespace MiEdificio
         {
             FormReporteRecaudacion formReporteRecaudacion = new FormReporteRecaudacion();
             formReporteRecaudacion.ShowDialog();
+        }
+
+        private void eventosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormEventos formEventos = new FormEventos();
+            formEventos.ShowDialog();
+        }
+
+        private void reservaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormControlCambios formControlcambios = new FormControlCambios();
+            formControlcambios.ShowDialog();
+        }
+
+        private void backupRestoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormRespaldo formRespaldo = new FormRespaldo();
+            formRespaldo.ShowDialog();
         }
     }
 }

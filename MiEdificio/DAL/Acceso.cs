@@ -67,13 +67,13 @@ namespace DAL
         }
 
         //metodo que modifica los datos en la BD, retorna la cantidad de registros afectados
-        public int escribir(string Sql, List<SqlParameter> parametros = null)
+        public int escribir(string Sql, List<SqlParameter> parametros = null, CommandType tipo = CommandType.StoredProcedure)
         {
 
             int resultado = 0;
             abrir();
 
-            SqlCommand cmd = crearComando(Sql, parametros);
+            SqlCommand cmd = crearComando(Sql, parametros, tipo);
 
             try
             {
@@ -125,6 +125,14 @@ namespace DAL
         {
             SqlParameter par = new SqlParameter(nom, valor.HasValue?(object)valor.Value.Date:DBNull.Value);
             par.DbType = DbType.Date;
+            return par;
+        }
+
+        //metodo que crea un parametro del tipo TIME
+        public SqlParameter crearParametro(string nom, TimeSpan? valor)
+        {
+            SqlParameter par = new SqlParameter(nom, SqlDbType.Time);
+            par.Value = valor.HasValue?valor.Value:DBNull.Value;
             return par;
         }
 

@@ -13,6 +13,9 @@ namespace UI
 {
     public partial class UC_dttmPicker : UserControl
     {
+
+        public DateTimePicker dtp_publico;
+
         public UC_dttmPicker()
         {
             //dateTimePicker1.MaxDate = DateTime.Now;
@@ -21,7 +24,7 @@ namespace UI
 
         private void UC_dttmPicker_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         public string ETIQUETA
@@ -75,6 +78,8 @@ namespace UI
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             this.valor = this.dateTimePicker1.Value;
+            dtp_publico = this.dateTimePicker1;
+
         }
     }
 }
