@@ -318,6 +318,10 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "dependencies": {
+            "Microsoft.SqlServer.SqlManagementObjects": {
+              "target": "Package",
+              "version": "[170.18.0, )"
+            },
             "itextsharp": {
               "target": "Package",
               "version": "[5.5.13.3, )"

@@ -1,4 +1,5 @@
-﻿using BLL;
+﻿using BE;
+using BLL;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections;
@@ -28,6 +29,15 @@ namespace UI
 
         private void FormEventos_Load(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de bitacora eventos.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.Bitacora.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
             enlazarCriticidades();
             enlazarOperaciones();
             enlazarUsuarios();
@@ -84,7 +94,7 @@ namespace UI
         private void enlazarEventos(int cantReg, List<BE.Evento> resultados)
         {
             dgv_eventos.DataSource = null;
-            dgv_eventos.DataSource = resultados.IsNullOrEmpty() ? BLL.EventoBLL.Instance.ListarEventos(cantReg) : resultados;
+            dgv_eventos.DataSource = resultados == null ? BLL.EventoBLL.Instance.ListarEventos(cantReg) : resultados;
             dgv_eventos.Columns["ID"].Visible = false;
         }
 
@@ -105,6 +115,12 @@ namespace UI
             enlazarOperaciones();
             enlazarUsuarios();
             enlazarEventos(20, null);
+            cb_usuario.SelectionStart = 0;
+            cb_usuario.SelectedIndex = 0;
+            cb_criticidad.SelectionStart = 0;
+            cb_criticidad.SelectedIndex = 0;
+            cb_operacion.SelectionStart = 0;
+            cb_operacion.SelectedIndex = 0;
 
         }
 

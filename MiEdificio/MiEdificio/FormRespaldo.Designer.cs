@@ -185,6 +185,7 @@
             Name = "FormRespaldo";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MiEdificio - Restore/Backup";
+            Load += FormRespaldo_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);

@@ -11,7 +11,7 @@ namespace BE
 
         public enum Operacion
         {
-            Insertar, Modificar, Eliminar
+            Insertar, Modificar, Eliminar, Iniciar, Cerrar
         }
 
 
@@ -22,7 +22,12 @@ namespace BE
 
         public enum Modulo
         {
-            ABMUsuarios, ABMPerfiles, ABMIdioma, GeneracionExpensa, CambioClave, CambioIdioma, CierreSesion,Reserva, PagoExpensa, VisualizarDocumento, Reportes, Ayuda
+            ABMUsuarios, ABMPerfiles, ABMIdioma, GeneracionExpensa, CambioClave, CambioIdioma, CierreSesion,Reserva, PagoExpensa, VisualizarDocumento, Reportes, Ayuda, Home, Login, AsignarPerfil, Bitacora, ControlCambios, RecuperarSistema, Respaldo
+        }
+
+        public enum Estado
+        {
+            Pendiente, Cancelado, Finalizado
         }
 
     }

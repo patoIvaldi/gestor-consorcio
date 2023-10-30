@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DAL
 {
@@ -32,7 +33,7 @@ namespace DAL
                 v.FECHA_OCURRENCIA = DateTime.Parse(registro["fecha"].ToString().Substring(0,9)+" "+registro["hora"].ToString());
                 v.MODULO = registro["modulo"].ToString();
                 v.OPERACION = registro["operacion"].ToString();
-               // v.USUARIO = registro["usuario"].ToString();
+                v.USUARIO = new UsuarioDAL().listar(registro["usuario"].ToString()).First();
                 v.CRITICIDAD = registro["criticidad"].ToString();
                 v.DETALLE = registro["detalle"].ToString();
 
@@ -66,13 +67,32 @@ namespace DAL
                 v.FECHA_OCURRENCIA = DateTime.Parse(registro["fecha"].ToString().Substring(0, 9) + " " + registro["hora"].ToString());
                 v.MODULO = registro["modulo"].ToString();
                 v.OPERACION = registro["operacion"].ToString();
-                // v.USUARIO = registro["usuario"].ToString();
+                v.USUARIO = new UsuarioDAL().listar(registro["usuario"].ToString()).First();
                 v.CRITICIDAD = registro["criticidad"].ToString();
                 v.DETALLE = registro["detalle"].ToString();
 
                 eventos.Add(v);
             }
             return eventos;
+        }
+
+        //metodo que persiste el evento en la tabl de bitacora
+        public int AgregarEvento(BE.Evento evento)
+        {
+            int modificados = 0;
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@fecha", evento.FECHA_OCURRENCIA));
+            parametros.Add(acceso.crearParametro("@hora", evento.HORA_OCURRENCIA));
+            parametros.Add(acceso.crearParametro("@usuario", evento.USUARIO.USERNAME));
+            parametros.Add(acceso.crearParametro("@modulo", evento.MODULO));
+            parametros.Add(acceso.crearParametro("@operacion", evento.OPERACION));
+            parametros.Add(acceso.crearParametro("@criticidad", evento.CRITICIDAD));
+            parametros.Add(acceso.crearParametro("@detalle", evento.DETALLE));
+
+            modificados = acceso.escribir("INSERTAR_BITACORA_EVENTO", parametros);
+
+            return modificados;
         }
 
     }

@@ -27,11 +27,13 @@ namespace BLL
             }
         }
 
+        //crear metodo backup
         public void crearBackup(Services.ServiceBackup backup)
         {
             mantenimientoDAL.realizarBackup(backup);
         }
 
+        //crear metodo restore
         public void crearRestore(Services.ServiceRestore restore)
         {
             mantenimientoDAL.realizarRestore(restore);

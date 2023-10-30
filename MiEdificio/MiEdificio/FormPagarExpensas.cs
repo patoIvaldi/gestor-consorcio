@@ -1,4 +1,5 @@
-﻿using BLL;
+﻿using BE;
+using BLL;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,15 @@ namespace UI
 
         private void FormPagarExpensas_Load(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de visualizacion de expensas.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.VisualizarDocumento.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
             btn_imprimir.Enabled = false;
             btn_imprimirExpensa.Enabled = false;
             btn_pagar.Enabled = false;
@@ -230,6 +240,7 @@ namespace UI
         {
             if (!expensasSelected.IsNullOrEmpty())
             {
+
                 BE.Expensa expImprimir = (BE.Expensa)expensasSelected.First();
 
                 StringBuilder sb = new StringBuilder();
@@ -253,6 +264,15 @@ namespace UI
                 sb.Append("\n");
                 sb.Append("\n ----- Powered by CEIBA, Buenos Aires, Argentina. -----");
                 MessageBox.Show(sb.ToString());
+
+                BE.Evento evento = new Evento();
+                evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                evento.DETALLE = "El usuario imprimió el detalle de la expensa: " + expImprimir.ID;
+                evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+                evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+                evento.MODULO = Enumerador.Modulo.VisualizarDocumento.ToString();
+
+                BLL.EventoBLL.Instance.AgregarEvento(evento);
             }
             else
             {
@@ -338,6 +358,15 @@ namespace UI
                 sb.Append("\n");
                 sb.Append("\n ----- Powered by CEIBA, Buenos Aires, Argentina. -----");
                 MessageBox.Show(sb.ToString());
+
+                BE.Evento evento = new Evento();
+                evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                evento.DETALLE = "El usuario imprimió el pago: "+ pagoSelected.ID;
+                evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+                evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+                evento.MODULO = Enumerador.Modulo.VisualizarDocumento.ToString();
+
+                BLL.EventoBLL.Instance.AgregarEvento(evento);
             }
             else
             {

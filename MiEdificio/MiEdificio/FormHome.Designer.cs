@@ -80,7 +80,7 @@
             // 
             usuariosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { crearModificarToolStripMenuItem, desbloquearToolStripMenuItem });
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            usuariosToolStripMenuItem.Size = new Size(180, 22);
+            usuariosToolStripMenuItem.Size = new Size(157, 22);
             usuariosToolStripMenuItem.Text = "Usuarios";
             // 
             // crearModificarToolStripMenuItem
@@ -101,7 +101,7 @@
             // 
             perfilesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { crearModificarToolStripMenuItem1, asignarToolStripMenuItem });
             perfilesToolStripMenuItem.Name = "perfilesToolStripMenuItem";
-            perfilesToolStripMenuItem.Size = new Size(180, 22);
+            perfilesToolStripMenuItem.Size = new Size(157, 22);
             perfilesToolStripMenuItem.Text = "Perfiles";
             // 
             // crearModificarToolStripMenuItem1
@@ -121,7 +121,7 @@
             // idiomasToolStripMenuItem
             // 
             idiomasToolStripMenuItem.Name = "idiomasToolStripMenuItem";
-            idiomasToolStripMenuItem.Size = new Size(180, 22);
+            idiomasToolStripMenuItem.Size = new Size(157, 22);
             idiomasToolStripMenuItem.Text = "Idiomas";
             idiomasToolStripMenuItem.Click += idiomasToolStripMenuItem_Click;
             // 
@@ -129,7 +129,7 @@
             // 
             bitácoraToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cambiosToolStripMenuItem, eventosToolStripMenuItem });
             bitácoraToolStripMenuItem.Name = "bitácoraToolStripMenuItem";
-            bitácoraToolStripMenuItem.Size = new Size(180, 22);
+            bitácoraToolStripMenuItem.Size = new Size(157, 22);
             bitácoraToolStripMenuItem.Text = "Bitácora";
             // 
             // cambiosToolStripMenuItem
@@ -157,7 +157,7 @@
             // 
             backupRestoreToolStripMenuItem.BackColor = Color.White;
             backupRestoreToolStripMenuItem.Name = "backupRestoreToolStripMenuItem";
-            backupRestoreToolStripMenuItem.Size = new Size(180, 22);
+            backupRestoreToolStripMenuItem.Size = new Size(157, 22);
             backupRestoreToolStripMenuItem.Text = "Backup/Restore";
             backupRestoreToolStripMenuItem.Click += backupRestoreToolStripMenuItem_Click;
             // 
@@ -213,8 +213,9 @@
             // reservarSUMToolStripMenuItem
             // 
             reservarSUMToolStripMenuItem.Name = "reservarSUMToolStripMenuItem";
-            reservarSUMToolStripMenuItem.Size = new Size(146, 22);
+            reservarSUMToolStripMenuItem.Size = new Size(180, 22);
             reservarSUMToolStripMenuItem.Text = "Reservar SUM";
+            reservarSUMToolStripMenuItem.Click += reservarSUMToolStripMenuItem_Click;
             // 
             // gestionesToolStripMenuItem
             // 

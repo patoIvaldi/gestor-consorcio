@@ -1,5 +1,6 @@
 ﻿using BE;
 using DAL;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic.ApplicationServices;
 using Services;
 
@@ -55,6 +56,15 @@ namespace BLL
 
                     if((userBuscado.CANT_INTENTOS + 1) > 3 && !userBuscado.ESTA_BLOQUEADO)
                     {
+                        BE.Evento evento = new Evento();
+                        evento.USUARIO = userBuscado;
+                        evento.DETALLE = "Se le bloqueó la cuenta al usuario por máximos intentos erróneos.";
+                        evento.CRITICIDAD = Enumerador.Criticidad.Critica.ToString();
+                        evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+                        evento.MODULO = Enumerador.Modulo.Login.ToString();
+
+                        BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                         bloquearDesbloquearUsuario(userBuscado.USERNAME);
                     }
                 }
@@ -133,6 +143,20 @@ namespace BLL
             }
 
             return existe;
+        }
+
+        //metodo que busca un usuario en base a su username
+        public BE.Usuario recuperarUsuario(string username)
+        {
+            BE.Usuario usuarioBuscado = null;
+
+            List<BE.Usuario> recuperados = usuarioDAL.listar(username);
+
+            if (!recuperados.IsNullOrEmpty())
+            {
+                usuarioBuscado = recuperados.First();
+            }
+            return usuarioBuscado;
         }
     }
 }

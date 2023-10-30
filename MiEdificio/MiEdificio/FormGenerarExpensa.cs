@@ -32,6 +32,15 @@ namespace UI
         //en la carga del formulario
         private void FormGenerarExpensa_Load(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de generación de expensas.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.GeneracionExpensa.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
             limpiar();
             TraducirComponentes();
         }
@@ -285,6 +294,15 @@ namespace UI
 
                 if (exitoso)
                 {
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario generó una expensa.";
+                    evento.CRITICIDAD = Enumerador.Criticidad.Alta.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                    evento.MODULO = Enumerador.Modulo.GeneracionExpensa.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     MessageBox.Show("Expensa generada con exito para el propietario: " + personaSelected.ToString());
                 }
                 else

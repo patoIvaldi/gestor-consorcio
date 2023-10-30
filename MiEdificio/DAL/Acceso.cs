@@ -152,6 +152,13 @@ namespace DAL
             return par;
         }
 
+        public SqlParameter crearParametro(string nom, bool? valor)
+        {
+            SqlParameter par = new SqlParameter(nom, valor.HasValue ? (object)valor.Value : DBNull.Value);
+            par.DbType = DbType.Boolean;
+            return par;
+        }
+
         public SqlParameter crearParametro(string nom, float valor)
         {
             SqlParameter par = new SqlParameter(nom, valor);

@@ -1,4 +1,5 @@
-﻿using MiEdificio;
+﻿using BE;
+using MiEdificio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +30,15 @@ namespace UI
             cb_idioma.DataSource = null;
             cb_idioma.DataSource = BLL.IdiomaBLL.INSTANCE.Listar();
             cb_idioma.DisplayMember = "DESCRIPCION";
+
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de cambio de idiomas.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.CambioIdioma.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
         }
 
         private void btn_cambiar_Click(object sender, EventArgs e)
@@ -39,6 +49,15 @@ namespace UI
             {
                 TraducirComponentes(
                     BLL.IdiomaBLL.INSTANCE.ListarTraducciones(idiomaElegido));
+
+                BE.Evento evento = new Evento();
+                evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                evento.DETALLE = "El usuario cambió de idioma a: "+idiomaElegido.DESCRIPCION;
+                evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+                evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+                evento.MODULO = Enumerador.Modulo.CambioIdioma.ToString();
+
+                BLL.EventoBLL.Instance.AgregarEvento(evento);
             }
 
             home.TraducirComponentes();

@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualBasic.Logging;
+﻿using BE;
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.VisualBasic.Logging;
 using MiEdificio;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,15 @@ namespace UI
 
         private void btn_salir_Click(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario cerró sesión desde el formulario de recuperaci+on del sistema.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Critica.ToString();
+            evento.OPERACION = Enumerador.Operacion.Cerrar.ToString();
+            evento.MODULO = Enumerador.Modulo.RecuperarSistema.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
             this.Close();
             formHome.cerrarSesion();
         }
@@ -38,6 +49,18 @@ namespace UI
         private void btn_recalcular_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void FormRecuperarSistema_Load(object sender, EventArgs e)
+        {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de recuperación del sistema.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.RecuperarSistema.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
         }
     }
 }

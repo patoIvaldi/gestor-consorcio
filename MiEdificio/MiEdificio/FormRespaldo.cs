@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using BE;
+using Microsoft.Data.SqlClient;
+using Microsoft.SqlServer.Management.Smo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +26,7 @@ namespace UI
             openFileDialog1.Title = "Elija el archivo de backup a restaurar.";
 
             //openFileDialog1.InitialDirectory = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\Backups-BD\\"; // Directorio inicial
-            openFileDialog1.InitialDirectory = "C:\\Users\\Pato\\Downloads\\"; // Directorio inicial
+            openFileDialog1.InitialDirectory = "C:\\archivos\\"; // Directorio inicial
             openFileDialog1.Filter = "Archivos de respaldo de SQL Server (*.bak)|*.bak"; // Filtros de archivo
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -41,7 +43,7 @@ namespace UI
         private void btn_bkp_Click(object sender, EventArgs e)
         {
             //saveFileDialog1.InitialDirectory = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\Backups-BD\\";
-            saveFileDialog1.InitialDirectory = "C:\\Users\\Pato\\Downloads\\";
+            saveFileDialog1.InitialDirectory = "C:\\archivos\\";
             saveFileDialog1.Filter = "Archivos de respaldo de SQL Server (*.bak)|*.bak";
             saveFileDialog1.Title = "Guardar respaldo de la base de datos";
             saveFileDialog1.FileName = "Backup_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".bak";
@@ -63,7 +65,15 @@ namespace UI
                     //llamamos al servicio de backup
                     BLL.MantenimientoBLL.Instance.crearBackup(backup);
 
-                    MessageBox.Show("Respaldo exitoso.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario generó un backup de la base de datos en el archivo: " + backup.NOMBRE_ARCHIVO;
+                    evento.CRITICIDAD = Enumerador.Criticidad.Critica.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                    evento.MODULO = Enumerador.Modulo.Respaldo.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                 }
                 catch (Exception ex)
                 {
@@ -94,13 +104,31 @@ namespace UI
                 //llamamos al servicio de restore
                 BLL.MantenimientoBLL.Instance.crearRestore(restore);
 
-                MessageBox.Show("Restore exitoso.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                BE.Evento evento = new Evento();
+                evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                evento.DETALLE = "El usuario generó el restore de la base de datos con el archivo: " + restore.NOMBRE_ARCHIVO;
+                evento.CRITICIDAD = Enumerador.Criticidad.Critica.ToString();
+                evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                evento.MODULO = Enumerador.Modulo.Respaldo.ToString();
+
+                BLL.EventoBLL.Instance.AgregarEvento(evento);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al realizar el restore de la BD: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
+        private void FormRespaldo_Load(object sender, EventArgs e)
+        {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de Respaldo.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.Respaldo.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
         }
     }
 }

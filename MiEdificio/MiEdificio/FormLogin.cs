@@ -76,6 +76,16 @@ namespace UI
 
                     if (IniciarLogin(usuario))
                     {
+
+                        BE.Evento evento = new Evento();
+                        evento.USUARIO = usuario;
+                        evento.DETALLE = "El usuario inició sesión.";
+                        evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+                        evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+                        evento.MODULO = Enumerador.Modulo.Login.ToString();
+
+                        BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                         FormHome form = new FormHome(this);
                         form.Show(this);
                         Limpiar();

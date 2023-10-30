@@ -31,31 +31,38 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormControlCambios));
             dgv_cambios = new DataGridView();
             groupBox1 = new GroupBox();
-            uc_fechainicio = new UC_dttmPicker();
-            uc_fechafin = new UC_dttmPicker();
-            uc_horainicio = new UC_textbox();
-            uc_horafin = new UC_textbox();
-            cb_usuarios = new ComboBox();
-            cb_estados = new ComboBox();
-            btn_buscar = new Button();
-            btn_limpiar = new Button();
-            label1 = new Label();
+            check_activo = new CheckBox();
             label2 = new Label();
+            label1 = new Label();
+            btn_limpiar = new Button();
+            btn_buscar = new Button();
+            cb_estados = new ComboBox();
+            cb_usuarios = new ComboBox();
+            uc_horafin = new UC_textbox();
+            uc_horainicio = new UC_textbox();
+            uc_fechafin = new UC_dttmPicker();
+            uc_fechainicio = new UC_dttmPicker();
             ((System.ComponentModel.ISupportInitialize)dgv_cambios).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // dgv_cambios
             // 
+            dgv_cambios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv_cambios.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgv_cambios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgv_cambios.Location = new Point(12, 12);
+            dgv_cambios.MultiSelect = false;
             dgv_cambios.Name = "dgv_cambios";
+            dgv_cambios.ReadOnly = true;
             dgv_cambios.RowTemplate.Height = 25;
+            dgv_cambios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_cambios.Size = new Size(1059, 371);
             dgv_cambios.TabIndex = 0;
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(check_activo);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(btn_limpiar);
@@ -72,37 +79,74 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Búsqueda de cambios:";
+            groupBox1.Enter += groupBox1_Enter;
             // 
-            // uc_fechainicio
+            // check_activo
             // 
-            uc_fechainicio.ETIQUETA = "Fecha Inicio:";
-            uc_fechainicio.Location = new Point(6, 22);
-            uc_fechainicio.Name = "uc_fechainicio";
-            uc_fechainicio.REQUERIDO = false;
-            uc_fechainicio.Size = new Size(105, 50);
-            uc_fechainicio.TabIndex = 0;
-            uc_fechainicio.VALOR = null;
+            check_activo.AutoSize = true;
+            check_activo.Location = new Point(866, 46);
+            check_activo.Name = "check_activo";
+            check_activo.Size = new Size(60, 19);
+            check_activo.TabIndex = 11;
+            check_activo.Text = "Activo";
+            check_activo.UseVisualStyleBackColor = true;
+            check_activo.CheckedChanged += check_activo_CheckedChanged;
             // 
-            // uc_fechafin
+            // label2
             // 
-            uc_fechafin.ETIQUETA = "Fecha Fin:";
-            uc_fechafin.Location = new Point(129, 22);
-            uc_fechafin.Name = "uc_fechafin";
-            uc_fechafin.REQUERIDO = false;
-            uc_fechafin.Size = new Size(105, 50);
-            uc_fechafin.TabIndex = 1;
-            uc_fechafin.VALOR = null;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(716, 26);
+            label2.Name = "label2";
+            label2.Size = new Size(46, 15);
+            label2.TabIndex = 9;
+            label2.Text = "Estado:";
             // 
-            // uc_horainicio
+            // label1
             // 
-            uc_horainicio.ETIQUETA = "Hora Inicio:";
-            uc_horainicio.Location = new Point(252, 26);
-            uc_horainicio.MAX_LENGTH = 8;
-            uc_horainicio.Name = "uc_horainicio";
-            uc_horainicio.REQUERIDO = false;
-            uc_horainicio.Size = new Size(76, 46);
-            uc_horainicio.TabIndex = 2;
-            uc_horainicio.TEXT_BOX = "";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(457, 26);
+            label1.Name = "label1";
+            label1.Size = new Size(52, 15);
+            label1.TabIndex = 8;
+            label1.Text = "Usuario:";
+            // 
+            // btn_limpiar
+            // 
+            btn_limpiar.Location = new Point(977, 55);
+            btn_limpiar.Name = "btn_limpiar";
+            btn_limpiar.Size = new Size(76, 24);
+            btn_limpiar.TabIndex = 7;
+            btn_limpiar.Text = "Limpiar";
+            btn_limpiar.UseVisualStyleBackColor = true;
+            btn_limpiar.Click += btn_limpiar_Click;
+            // 
+            // btn_buscar
+            // 
+            btn_buscar.Location = new Point(978, 16);
+            btn_buscar.Name = "btn_buscar";
+            btn_buscar.Size = new Size(75, 25);
+            btn_buscar.TabIndex = 6;
+            btn_buscar.Text = "Buscar";
+            btn_buscar.UseVisualStyleBackColor = true;
+            btn_buscar.Click += btn_buscar_Click;
+            // 
+            // cb_estados
+            // 
+            cb_estados.FormattingEnabled = true;
+            cb_estados.Location = new Point(716, 44);
+            cb_estados.Name = "cb_estados";
+            cb_estados.Size = new Size(121, 23);
+            cb_estados.TabIndex = 5;
+            // 
+            // cb_usuarios
+            // 
+            cb_usuarios.FormattingEnabled = true;
+            cb_usuarios.Location = new Point(457, 44);
+            cb_usuarios.Name = "cb_usuarios";
+            cb_usuarios.Size = new Size(238, 23);
+            cb_usuarios.TabIndex = 4;
             // 
             // uc_horafin
             // 
@@ -115,59 +159,36 @@
             uc_horafin.TabIndex = 3;
             uc_horafin.TEXT_BOX = "";
             // 
-            // cb_usuarios
+            // uc_horainicio
             // 
-            cb_usuarios.FormattingEnabled = true;
-            cb_usuarios.Location = new Point(457, 44);
-            cb_usuarios.Name = "cb_usuarios";
-            cb_usuarios.Size = new Size(238, 23);
-            cb_usuarios.TabIndex = 4;
+            uc_horainicio.ETIQUETA = "Hora Inicio:";
+            uc_horainicio.Location = new Point(252, 26);
+            uc_horainicio.MAX_LENGTH = 8;
+            uc_horainicio.Name = "uc_horainicio";
+            uc_horainicio.REQUERIDO = false;
+            uc_horainicio.Size = new Size(76, 46);
+            uc_horainicio.TabIndex = 2;
+            uc_horainicio.TEXT_BOX = "";
             // 
-            // cb_estados
+            // uc_fechafin
             // 
-            cb_estados.FormattingEnabled = true;
-            cb_estados.Location = new Point(716, 44);
-            cb_estados.Name = "cb_estados";
-            cb_estados.Size = new Size(121, 23);
-            cb_estados.TabIndex = 5;
+            uc_fechafin.ETIQUETA = "Fecha Fin:";
+            uc_fechafin.Location = new Point(129, 22);
+            uc_fechafin.Name = "uc_fechafin";
+            uc_fechafin.REQUERIDO = false;
+            uc_fechafin.Size = new Size(105, 50);
+            uc_fechafin.TabIndex = 1;
+            uc_fechafin.VALOR = new DateTime(2023, 10, 28, 0, 0, 0, 0);
             // 
-            // btn_buscar
+            // uc_fechainicio
             // 
-            btn_buscar.Location = new Point(869, 26);
-            btn_buscar.Name = "btn_buscar";
-            btn_buscar.Size = new Size(75, 42);
-            btn_buscar.TabIndex = 6;
-            btn_buscar.Text = "Buscar";
-            btn_buscar.UseVisualStyleBackColor = true;
-            // 
-            // btn_limpiar
-            // 
-            btn_limpiar.Location = new Point(977, 27);
-            btn_limpiar.Name = "btn_limpiar";
-            btn_limpiar.Size = new Size(76, 41);
-            btn_limpiar.TabIndex = 7;
-            btn_limpiar.Text = "Limpiar";
-            btn_limpiar.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(457, 26);
-            label1.Name = "label1";
-            label1.Size = new Size(52, 15);
-            label1.TabIndex = 8;
-            label1.Text = "Usuario:";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(716, 26);
-            label2.Name = "label2";
-            label2.Size = new Size(46, 15);
-            label2.TabIndex = 9;
-            label2.Text = "Estado:";
+            uc_fechainicio.ETIQUETA = "Fecha Inicio:";
+            uc_fechainicio.Location = new Point(6, 22);
+            uc_fechainicio.Name = "uc_fechainicio";
+            uc_fechainicio.REQUERIDO = false;
+            uc_fechainicio.Size = new Size(105, 50);
+            uc_fechainicio.TabIndex = 0;
+            uc_fechainicio.VALOR = new DateTime(2023, 10, 28, 0, 0, 0, 0);
             // 
             // FormControlCambios
             // 
@@ -184,6 +205,7 @@
             Name = "FormControlCambios";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MiEdificio - Control de cambios";
+            Load += FormControlCambios_Load;
             ((System.ComponentModel.ISupportInitialize)dgv_cambios).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -204,5 +226,6 @@
         private UC_textbox uc_horainicio;
         private UC_dttmPicker uc_fechafin;
         private UC_dttmPicker uc_fechainicio;
+        private CheckBox check_activo;
     }
 }

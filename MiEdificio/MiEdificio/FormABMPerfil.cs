@@ -25,6 +25,15 @@ namespace UI
 
         private void FormABMPerfil_Load(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de ABM Perfiles.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.ABMPerfiles.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
             TraducirComponentes();
             enlazarPerfiles();
             enlazarPermisos();
@@ -175,6 +184,15 @@ namespace UI
 
                 if (BLL.PerfilBLL.Instance.InsertarOModificar(perf))
                 {
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario insertó/modificó un perfil.";
+                    evento.CRITICIDAD = Enumerador.Criticidad.Alta.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                    evento.MODULO = Enumerador.Modulo.ABMPerfiles.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     MessageBox.Show("Perfil insertado/modificado con éxito!");
                     limpiarCamposPerfil();
                 }
@@ -249,6 +267,15 @@ namespace UI
 
                 if (BLL.PermisoBLL.Instance.InsertarOModificar(permiso))
                 {
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario ingresó insertó/modificó un permiso.";
+                    evento.CRITICIDAD = Enumerador.Criticidad.Alta.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                    evento.MODULO = Enumerador.Modulo.ABMPerfiles.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     MessageBox.Show("Permiso insertado/modificado con éxito!");
                     limpiarCamposPermiso();
                     CargarComboBoxPermisos();
@@ -275,6 +302,15 @@ namespace UI
 
                 if (BLL.PerfilBLL.Instance.Borrar(perf))
                 {
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario borró un perfil.";
+                    evento.CRITICIDAD = Enumerador.Criticidad.Critica.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Eliminar.ToString();
+                    evento.MODULO = Enumerador.Modulo.ABMPerfiles.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     MessageBox.Show("Se borró el perfil con éxito.");
                     limpiarCamposPerfil();
                 }
@@ -300,6 +336,15 @@ namespace UI
 
                 if (BLL.PermisoBLL.Instance.Borrar(permiso))
                 {
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario norró un permiso.";
+                    evento.CRITICIDAD = Enumerador.Criticidad.Critica.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Eliminar.ToString();
+                    evento.MODULO = Enumerador.Modulo.ABMPerfiles.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     MessageBox.Show("Se borró el permiso con éxito.");
                     limpiarCamposPermiso();
                 }
@@ -325,6 +370,15 @@ namespace UI
                     if (BLL.PermisoBLL.Instance.AsociarPermisoPefil(
                         perfilSelected.ID_TIPO, permisoSelected.ID_TIPO))
                     {
+                        BE.Evento evento = new Evento();
+                        evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                        evento.DETALLE = "El usuario asoció un permiso a un perfil.";
+                        evento.CRITICIDAD = Enumerador.Criticidad.Alta.ToString();
+                        evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+                        evento.MODULO = Enumerador.Modulo.ABMPerfiles.ToString();
+
+                        BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                         MessageBox.Show("Se asoció el permiso al perfil exitosamente!");
                         enlazarPermisosDelPerfil(perfilSelected);
                     }
@@ -355,6 +409,15 @@ namespace UI
                     if (BLL.PermisoBLL.Instance.DesasociarPermisoPefil(
                         perfilSelected.ID_TIPO, permisoSelected.ID_TIPO))
                     {
+                        BE.Evento evento = new Evento();
+                        evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                        evento.DETALLE = "El usuario desasignó un permiso a un perfil.";
+                        evento.CRITICIDAD = Enumerador.Criticidad.Alta.ToString();
+                        evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+                        evento.MODULO = Enumerador.Modulo.ABMPerfiles.ToString();
+
+                        BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                         MessageBox.Show("Se quitó el permiso al perfil exitosamente!");
                         enlazarPermisosDelPerfil(perfilSelected);
                     }
@@ -384,6 +447,15 @@ namespace UI
                     if (BLL.PermisoBLL.Instance.AsociarPermisoPermiso(
                         permisoSelected.ID_TIPO, permisoElegido2.ID_TIPO))
                     {
+                        BE.Evento evento = new Evento();
+                        evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                        evento.DETALLE = "El usuario asoció dos permisos entre si.";
+                        evento.CRITICIDAD = Enumerador.Criticidad.Alta.ToString();
+                        evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+                        evento.MODULO = Enumerador.Modulo.ABMPerfiles.ToString();
+
+                        BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                         MessageBox.Show("Se asociaron los permisos exitosamente!");
                         enlazarPermisosDelPermiso(permisoSelected);
                     }

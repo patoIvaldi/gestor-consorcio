@@ -1,4 +1,5 @@
-﻿using BLL;
+﻿using BE;
+using BLL;
 using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
 
@@ -31,6 +32,15 @@ namespace UI
             this.lbl_cantExpensas.Text += this.expensasAPagar.Count();
 
             TraducirComponentes();
+
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de pago.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.PagoExpensa.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
         }
 
         public void TraducirComponentes()
@@ -123,6 +133,15 @@ namespace UI
 
                 if (exitoso)
                 {
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario generó un pago.";
+                    evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                    evento.MODULO = Enumerador.Modulo.PagoExpensa.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     MessageBox.Show("Pago generado con éxito.");
                     this.Close();
                     formAnt.refrescarDGVExpensasPagos();

@@ -237,32 +237,87 @@ END;
 
 select * from TRADUCCION;
 
-alter PROC [dbo].[LISTAR_EVENTOS]
+alter PROC [dbo].[LISTAR_RESERVAS]
 @cantRegistros int
 AS
 BEGIN
-	SELECT TOP (@cantRegistros) id,fecha,hora,usuario,modulo,operacion,criticidad,detalle
-	FROM BITACORA_EVENTO
-	order by fecha desc,hora desc;
+	SELECT TOP (@cantRegistros) Id_Reserva,Estado,Fecha_creacion,area,Fecha_reserva_inicio,
+				Hora_reserva_inicio,Fecha_reserva_fin,Hora_reserva_fin,Usuario,feedback
+	FROM RESERVA
+	order by Fecha_creacion desc;
 END;
 
 SELECT * FROM BITACORA_EVENTO;
+select * from RESERVA_CONTROL_CAMBIOS;
+select * from RESERVA;
 
-CREATE PROC [dbo].[BUSCAR_EVENTOS]
-@fechaIni Date = null, @fechaFin Date = null, @horaIni Time = null,@horaFin Time = null,
-@usuario nvarchar(20) = null,@modulo varchar(20) = null,@operacion varchar(20) = null,@criticidad varchar(20) = null
+alter PROC [dbo].[BUSCAR_CAMBIOS_RESERVAS]
+@fechaIni Date = null, @fechaFin Date = null,
+@usuario nvarchar(20) = null,@estado varchar(50) = null,@esActivo bit = null
 AS
 BEGIN
-    SELECT id, fecha, hora, usuario, modulo, operacion, criticidad, detalle
-    FROM BITACORA_EVENTO
+    SELECT id,Fecha_creacion_cambio,Id_Reserva,Estado_reserva,Fecha_creacion_reserva,
+	Fecha_reserva_inicio,Hora_reserva_inicio,Fecha_reserva_fin,Hora_reserva_fin,Usuario_reserva,
+	esActivo,Detalle
+    FROM RESERVA_CONTROL_CAMBIOS
     WHERE
-        ( @fechaIni IS NULL OR fecha >= @fechaIni )
-        AND ( @horaIni IS NULL OR hora >= @horaIni )
-        AND ( @fechaFin IS NULL OR fecha <= @fechaFin )
-        AND ( @horaFin IS NULL OR hora <= @horaFin )
-        AND ( @usuario IS NULL OR usuario = @usuario )
-        AND ( @modulo IS NULL OR modulo = @modulo )
-        AND ( @operacion IS NULL OR operacion = @operacion )
-        AND ( @criticidad IS NULL OR criticidad = @criticidad )
-    ORDER BY fecha DESC, hora DESC;
+        ( @fechaIni IS NULL OR Fecha_creacion_cambio >= @fechaIni )
+        AND ( @fechaFin IS NULL OR Fecha_creacion_cambio <= @fechaFin )
+        AND ( @usuario IS NULL OR Usuario_reserva = @usuario )
+        AND ( @estado IS NULL OR Estado_reserva = @estado )
+        AND ( @esActivo IS NULL OR esActivo = @esActivo )
+    ORDER BY Fecha_creacion_reserva DESC;
+END;
+
+
+
+	SELECT TOP (100) id,Id_Reserva,Estado_reserva,Fecha_creacion_reserva,
+	Fecha_reserva_inicio,Hora_reserva_inicio,Fecha_reserva_fin,Hora_reserva_fin,Usuario_reserva,
+	esActivo,Detalle
+	FROM RESERVA_CONTROL_CAMBIOS
+	order by Fecha_creacion_reserva desc;
+
+	select * from BITACORA_EVENTO;
+
+CREATE PROC [dbo].[INSERTAR_CAMBIO_RESERVA]
+@fechaCreacionCambio datetime,@idReserva int,@estadoReserva varchar(50),
+@fechaCreacionReserva datetime,@fechaReservaInicio date,@horaReservaInicio time(0),
+@fechaReservaFin date,@horaReservaFin time(0),@usuarioReserva nvarchar(20),@detalle varchar(200)
+AS
+BEGIN
+	UPDATE RESERVA_CONTROL_CAMBIOS SET esActivo = 0 where Id_Reserva = @idReserva;
+
+	declare @id int
+	set @id = (SELECT ISNULL(MAX(id),0)+1 FROM RESERVA_CONTROL_CAMBIOS)
+	INSERT INTO RESERVA_CONTROL_CAMBIOS(Id,Fecha_creacion_cambio,esActivo,Id_Reserva,
+				Estado_reserva,Fecha_creacion_reserva,Fecha_reserva_inicio,
+				Hora_reserva_inicio,Fecha_reserva_fin,Hora_reserva_fin,Usuario_reserva,Detalle)
+	VALUES
+           (@id,@fechaCreacionCambio,1,@idReserva,
+		   @estadoReserva,@fechaCreacionReserva,@fechaReservaInicio,
+		   @horaReservaInicio,@fechaReservaFin,@horaReservaFin,@usuarioReserva,@detalle);
+
+END;
+
+
+alter PROC [dbo].[INSERTAR_RESERVA]
+@estado varchar(20),@fechaCreacion datetime,@area varchar(100),@fechaReservaInicio date,
+@horaReservaInicio time(0),@fechaReservaFin date,@horaReservaFin time(0),@usuario nvarchar(20),
+@feedback varchar(1000) = null
+AS
+BEGIN
+	declare @id int
+	set @id = (SELECT ISNULL(MAX(Id_Reserva),0)+1 FROM RESERVA)
+	INSERT INTO RESERVA(Id_Reserva,Estado,Fecha_creacion,area,Fecha_reserva_inicio,
+				Hora_reserva_inicio,Fecha_reserva_fin,Hora_reserva_fin,Usuario,feedback)
+	VALUES
+           (@id,@estado,@fechaCreacion,@area,@fechaReservaInicio,@horaReservaInicio,
+		   @fechaReservaFin,@horaReservaFin,@usuario,@feedback);
+END;
+
+CREATE PROC [dbo].[GENERAR_FEEDBACK]
+@idReserva int,@feedback varchar(1000)
+AS
+BEGIN
+	UPDATE RESERVA set feedback = @feedback where Id_Reserva = @idReserva;
 END;

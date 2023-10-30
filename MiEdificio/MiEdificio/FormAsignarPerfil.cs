@@ -1,4 +1,5 @@
-﻿using BLL;
+﻿using BE;
+using BLL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,15 @@ namespace UI
 
         private void FormAsignarPerfil_Load(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de asignación de perfiles.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.AsignarPerfil.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
             TraducirComponentes();
             enlazarUsuarios();
             enlazarPerfiles();
@@ -93,6 +103,15 @@ namespace UI
                 if (UsuarioBLL.Instance.CambiarPerfilUsuario(
                     usuarioSelected,perfilSelected))
                 {
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario asignó el perfil: "+perfilSelected+" al usuario: "+usuarioSelected;
+                    evento.CRITICIDAD = Enumerador.Criticidad.Media.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+                    evento.MODULO = Enumerador.Modulo.AsignarPerfil.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     MessageBox.Show("Perfil cambiado con éxito!");
                 }
                 else

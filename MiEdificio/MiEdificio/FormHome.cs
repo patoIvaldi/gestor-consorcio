@@ -15,6 +15,15 @@ namespace MiEdificio
 
         private void Home_Load(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó al Home.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.Home.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
             if (BLL.UsuarioBLL.Instance.userOut is not null)
             {
                 adminToolStripMenuItem.Enabled = BLL.UsuarioBLL.Instance.ExistePermiso(PermisosConstantes.ABM_Admin);
@@ -62,6 +71,14 @@ namespace MiEdificio
         //menu cerrar sesion
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario cerró la sesion";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Cerrar.ToString();
+            evento.MODULO = Enumerador.Modulo.CierreSesion.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
             cerrarSesion();
         }
 
@@ -172,6 +189,12 @@ namespace MiEdificio
         {
             FormRespaldo formRespaldo = new FormRespaldo();
             formRespaldo.ShowDialog();
+        }
+
+        private void reservarSUMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormGenerarReserva formReserva = new FormGenerarReserva("Salón de usos múltiples (SUM)");
+            formReserva.ShowDialog();
         }
     }
 }

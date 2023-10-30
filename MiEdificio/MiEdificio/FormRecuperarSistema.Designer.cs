@@ -91,6 +91,7 @@
             Name = "FormRecuperarSistema";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MiEdificio - Recuperar sistema";
+            Load += FormRecuperarSistema_Load;
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
         }

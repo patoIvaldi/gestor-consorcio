@@ -12,6 +12,8 @@ using iTextSharp;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Diagnostics;
+using BE;
+using Microsoft.SqlServer.Management.Smo;
 
 namespace UI
 {
@@ -24,6 +26,15 @@ namespace UI
 
         private void FormReporteRecaudacion_Load(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de reporte Recaudación.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.Reportes.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
             TraducirComponentes();
             enlazarOrdenamientos();
             enlazarReporte();
@@ -162,6 +173,15 @@ namespace UI
                 doc.Close();
 
                 MessageBox.Show("PDF generado con éxito en la ruta: " + rutaArchivoPDF);
+
+                BE.Evento evento = new Evento();
+                evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                evento.DETALLE = "El usuario generó un PDF del reporte Recaudación.";
+                evento.CRITICIDAD = Enumerador.Criticidad.Media.ToString();
+                evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                evento.MODULO = Enumerador.Modulo.Reportes.ToString();
+
+                BLL.EventoBLL.Instance.AgregarEvento(evento);
 
                 try
                 {

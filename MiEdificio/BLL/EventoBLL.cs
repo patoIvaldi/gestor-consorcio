@@ -43,6 +43,11 @@ namespace BLL
             return eventoDAL.BuscarEventos(fechaIni,horaIni,fechaFin,horaFin,usuario,operacion,criticidad,modulo);
         }
 
+        //metodo que agrega un evento a la bitacora
+        public Boolean AgregarEvento(BE.Evento evento)
+        {
+            return eventoDAL.AgregarEvento(evento) > 0? true: false;
+        }
 
     }
 }

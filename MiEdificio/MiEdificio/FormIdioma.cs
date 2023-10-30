@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BE;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,6 +20,15 @@ namespace UI
 
         private void FormIdioma_Load(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de ABMIdiomas.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.ABMIdioma.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
             TraducirComponentes();
             enlazar();
         }
@@ -74,6 +84,15 @@ namespace UI
             {
                 if (BLL.IdiomaBLL.INSTANCE.Agregar(armarIdioma()))
                 {
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario generó/modificó un idioma.";
+                    evento.CRITICIDAD = Enumerador.Criticidad.Media.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                    evento.MODULO = Enumerador.Modulo.ABMIdioma.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     enlazar();
                     limpiar();
                     MessageBox.Show("Idioma creado/Modificado con éxito.");
@@ -108,6 +127,15 @@ namespace UI
             {
                 if (BLL.IdiomaBLL.INSTANCE.Borrar(armarIdioma()))
                 {
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario borró el idioma: "+ uc_tb_descripcion.TEXT_BOX;
+                    evento.CRITICIDAD = Enumerador.Criticidad.Critica.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Eliminar.ToString();
+                    evento.MODULO = Enumerador.Modulo.ABMIdioma.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     enlazar();
                     limpiar();
                     MessageBox.Show("Idioma borrado con éxito.");

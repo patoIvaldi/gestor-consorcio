@@ -43,12 +43,30 @@ namespace UI
 
                         if (llamadaMenu == 3)
                         {
+                            BE.Evento evento = new Evento();
+                            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                            evento.DETALLE = "El usuario modificó la contraseña.";
+                            evento.CRITICIDAD = Enumerador.Criticidad.Alta.ToString();
+                            evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+                            evento.MODULO = Enumerador.Modulo.ABMUsuarios.ToString();
+
+                            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                             grisarTodo();
                             uC_tb_password2.TEXT_BOX = "";
                             MessageBox.Show("Contraseña modificada con éxito.");
                         }
                         else
                         {
+                            BE.Evento evento = new Evento();
+                            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                            evento.DETALLE = "El usuario creó/modificó un usuario.";
+                            evento.CRITICIDAD = Enumerador.Criticidad.Alta.ToString();
+                            evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                            evento.MODULO = Enumerador.Modulo.ABMUsuarios.ToString();
+
+                            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                             limpiar();
                             MessageBox.Show("Usuario creado/modificado con éxito.");
                         }
@@ -164,6 +182,14 @@ namespace UI
 
         private void FormABMUsuario_Load(object sender, EventArgs e)
         {
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario ingresó a la pantalla de ABMUsuario";
+            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+            evento.OPERACION = Enumerador.Operacion.Iniciar.ToString();
+            evento.MODULO = Enumerador.Modulo.ABMUsuarios.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
 
             TraducirComponentes();
 
@@ -356,6 +382,15 @@ namespace UI
             {
                 if (BLL.UsuarioBLL.Instance.bloquearDesbloquearUsuario(userSeleccionado.USERNAME))
                 {
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario desbloqueó al usuario: "+userSeleccionado.USERNAME;
+                    evento.CRITICIDAD = Enumerador.Criticidad.Media.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+                    evento.MODULO = Enumerador.Modulo.ABMUsuarios.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     enlazar();
                     MessageBox.Show("Usuario desbloqueado con éxito.");
                 }
