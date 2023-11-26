@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "7kY1WzyrOVtzTiKkMsxgdik+vTpzDT/Vu4PjoLzyGWCSxaTaS/tCt/+N9IaJ/Ie84b3w7Rm1TgAXC/hvUIYbcg==",
+  "dgSpecHash": "P0S+CKME/EGpk/BQ6qoTurC2RBX6MzWToYpCsGJxSeP/jpiSZcCNwPfFOaIADWXwHfcro7Qx7dQuAEuok3TczQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\UI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Pato\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Pato\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\Pato\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
+    "C:\\Users\\Pato\\.nuget\\packages\\hic.system.windows.forms.datavisualization\\1.0.1\\hic.system.windows.forms.datavisualization.1.0.1.nupkg.sha512",
     "C:\\Users\\Pato\\.nuget\\packages\\itextsharp\\5.5.13.3\\itextsharp.5.5.13.3.nupkg.sha512",
     "C:\\Users\\Pato\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Pato\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

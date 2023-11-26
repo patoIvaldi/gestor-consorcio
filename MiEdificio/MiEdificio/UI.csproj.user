@@ -46,6 +46,12 @@
     <Compile Update="FormRecuperarSistema.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormReporteCantReservas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormReporteInteligente.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormReporteRecaudacion.cs">
       <SubType>Form</SubType>
     </Compile>

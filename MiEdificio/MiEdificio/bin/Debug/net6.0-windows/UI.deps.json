@@ -10,6 +10,7 @@
         "dependencies": {
           "BE": "1.0.0",
           "BLL": "1.0.0",
+          "HIC.System.Windows.Forms.DataVisualization": "1.0.1",
           "Interfaces": "1.0.0",
           "Microsoft.SqlServer.SqlManagementObjects": "170.18.0",
           "Services": "1.0.0",
@@ -58,6 +59,17 @@
           "lib/BouncyCastle.Crypto.dll": {
             "assemblyVersion": "1.8.9.0",
             "fileVersion": "1.8.20343.1"
+          }
+        }
+      },
+      "HIC.System.Windows.Forms.DataVisualization/1.0.1": {
+        "dependencies": {
+          "Microsoft.Data.SqlClient": "5.1.1"
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/System.Windows.Forms.DataVisualization.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -623,6 +635,13 @@
       "sha512": "sha512-axnBgvdD5n+FnEG6efk/tfKuMFru7R/EoISH9zjh319yb3HD24TEHSAbNN/lTRT2ulOGRxDgOsCjkuk08iwWPg==",
       "path": "bouncycastle/1.8.9",
       "hashPath": "bouncycastle.1.8.9.nupkg.sha512"
+    },
+    "HIC.System.Windows.Forms.DataVisualization/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2iErCJov37VIGLATCcI8tAaFemn8KJW/b4686foj+CslKTSGa2NcQgvVCYF+kR4+6d9cg09X1xrcoIgnVlznsA==",
+      "path": "hic.system.windows.forms.datavisualization/1.0.1",
+      "hashPath": "hic.system.windows.forms.datavisualization.1.0.1.nupkg.sha512"
     },
     "iTextSharp/5.5.13.3": {
       "type": "package",

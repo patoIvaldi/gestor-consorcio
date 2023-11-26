@@ -133,7 +133,7 @@ namespace UI
 
             try
             {
-                string rutaArchivoPDF = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\pdfs\\archivo.pdf";
+                string rutaArchivoPDF = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\archivo.pdf";
 
                 // Obtener la ruta del directorio donde se encuentra el proyecto
                 //string directorioProyecto = Directory.GetCurrentDirectory();

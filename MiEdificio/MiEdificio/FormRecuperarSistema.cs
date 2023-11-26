@@ -28,7 +28,7 @@ namespace UI
         {
             BE.Evento evento = new Evento();
             evento.USUARIO = Services.ServiceSesion.Instance.USER;
-            evento.DETALLE = "El usuario cerró sesión desde el formulario de recuperaci+on del sistema.";
+            evento.DETALLE = "El usuario cerró sesión desde el formulario de recuperacion del sistema.";
             evento.CRITICIDAD = Enumerador.Criticidad.Critica.ToString();
             evento.OPERACION = Enumerador.Operacion.Cerrar.ToString();
             evento.MODULO = Enumerador.Modulo.RecuperarSistema.ToString();
@@ -36,6 +36,7 @@ namespace UI
             BLL.EventoBLL.Instance.AgregarEvento(evento);
 
             this.Close();
+            formHome.necesitaReiniciar = true;
             formHome.cerrarSesion();
         }
 
@@ -43,12 +44,33 @@ namespace UI
         {
             this.Close();
             FormRespaldo formRespaldo = new FormRespaldo();
+            formRespaldo.ControlBox = false;
             formRespaldo.ShowDialog();
+
+            MessageBox.Show("Se reiniciara la sesion.");
+            this.Close();
+            formHome.necesitaReiniciar = true;
+            formHome.cerrarSesion();
         }
 
         private void btn_recalcular_Click(object sender, EventArgs e)
         {
+            BLL.UsuarioBLL.Instance.SanearSistemaIDV();
 
+            MessageBox.Show("Los digitos verificadores fueron recalculados y el sistema ya se encuentra operativo nuevamente. Se reiniciara la sesion.");
+
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario recalculo los digitos verificadores y el sistema se encuentra operativo.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Critica.ToString();
+            evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+            evento.MODULO = Enumerador.Modulo.RecuperarSistema.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
+            this.Close();
+            formHome.necesitaReiniciar = true;
+            formHome.cerrarSesion();
         }
 
         private void FormRecuperarSistema_Load(object sender, EventArgs e)

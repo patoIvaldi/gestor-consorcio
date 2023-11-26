@@ -1,4 +1,5 @@
 using BE;
+using System.Diagnostics;
 using UI;
 
 namespace MiEdificio
@@ -12,9 +13,12 @@ namespace MiEdificio
         }
 
         FormLogin login;
+        public Boolean necesitaReiniciar = false;
 
         private void Home_Load(object sender, EventArgs e)
         {
+            necesitaReiniciar = false;
+
             BE.Evento evento = new Evento();
             evento.USUARIO = Services.ServiceSesion.Instance.USER;
             evento.DETALLE = "El usuario ingresó al Home.";
@@ -52,7 +56,9 @@ namespace MiEdificio
             if (!sistemaOK)
             {
                 //bloqueamos el sistema y disparamos pop-up con accionar
-                MessageBox.Show("ta todo roto culiado.");
+                MessageBox.Show("Se detectó una vulneración en el sistema. Por favor, proceda a solucionarlo según el siguiente menú de opciones.");
+                FormRecuperarSistema formRecuperacion = new FormRecuperarSistema(this);
+                formRecuperacion.ShowDialog();
             }
             else
             {
@@ -222,6 +228,33 @@ namespace MiEdificio
         {
             FormABMAreaComun formABMAreaComun = new FormABMAreaComun();
             formABMAreaComun.ShowDialog();
+        }
+
+        private void reporteInteligenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormReporteInteligente formInteligente = new FormReporteInteligente();
+            formInteligente.ShowDialog();
+        }
+
+        private void cantidadDeReservasPorUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormReporteCantReservas formCantReservas = new FormReporteCantReservas();
+            formCantReservas.ShowDialog();
+        }
+
+        private void manualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string rutaArchivoPDF = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\Manual.pdf";
+
+                // Abrir el manual en PDF con el programa predeterminado del sistema
+                Process.Start(new ProcessStartInfo(rutaArchivoPDF) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir el archivo PDF: " + ex.Message);
+            }
         }
     }
 }

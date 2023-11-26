@@ -89,7 +89,10 @@ namespace UI
                         FormHome form = new FormHome(this);
                         form.Show(this);
                         Limpiar();
-                        this.Hide();
+                        if (!form.necesitaReiniciar)
+                        {
+                            this.Hide();
+                        }
                     }
                     else
                     {

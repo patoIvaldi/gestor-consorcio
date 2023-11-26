@@ -84,10 +84,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(240, 234);
+            ControlBox = false;
             Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormRecuperarSistema";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MiEdificio - Recuperar sistema";

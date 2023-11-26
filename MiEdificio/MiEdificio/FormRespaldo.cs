@@ -36,6 +36,8 @@ namespace UI
                 //lo mostramos en el textbox
                 tb_dirRestore.Text = tb_dirRestore.Text + "\\" + rutaArchivoSelected.ElementAt(rutaArchivoSelected.Count - 2)
                     + "\\" + rutaArchivoSelected.ElementAt(rutaArchivoSelected.Count - 1);
+
+                btn_confirmarRestore.Enabled = true;
             }
         }
 
@@ -112,6 +114,8 @@ namespace UI
                 evento.MODULO = Enumerador.Modulo.Respaldo.ToString();
 
                 BLL.EventoBLL.Instance.AgregarEvento(evento);
+                this.Close();
+
             }
             catch (Exception ex)
             {
@@ -121,6 +125,8 @@ namespace UI
 
         private void FormRespaldo_Load(object sender, EventArgs e)
         {
+            btn_confirmarRestore.Enabled = false;
+
             BE.Evento evento = new Evento();
             evento.USUARIO = Services.ServiceSesion.Instance.USER;
             evento.DETALLE = "El usuario ingresó a la pantalla de Respaldo.";

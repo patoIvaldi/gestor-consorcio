@@ -276,5 +276,15 @@ namespace DAL
             return modificados != 0 ? true : false;
         }
 
+        public Boolean ActualizarIDVUsuario(BE.Usuario usu, string idv)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@idv", idv));
+            parametros.Add(acceso.crearParametro("@usuario", usu.USERNAME));
+            int modificados = acceso.escribir("ACTUALIZAR_IDV_USUARIO", parametros);
+
+            return modificados != 0 ? true : false;
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DAL;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +55,11 @@ namespace BLL
         public Boolean ValidarDisponibilidad(BE.Reserva reserva)
         {
             return reservaDAL.ValidarDisponibilidad(reserva);
+        }
+
+        public DataTable BuscarCantidadReservas(Boolean ordenDescendente)
+        {
+            return reservaDAL.CantidadReservas(ordenDescendente);
         }
 
     }

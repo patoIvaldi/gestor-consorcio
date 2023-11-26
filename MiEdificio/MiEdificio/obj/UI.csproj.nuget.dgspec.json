@@ -318,6 +318,10 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "dependencies": {
+            "HIC.System.Windows.Forms.DataVisualization": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
             "Microsoft.SqlServer.SqlManagementObjects": {
               "target": "Package",
               "version": "[170.18.0, )"

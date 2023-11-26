@@ -45,6 +45,7 @@
             backupRestoreToolStripMenuItem = new ToolStripMenuItem();
             altasToolStripMenuItem = new ToolStripMenuItem();
             generarExpensaToolStripMenuItem = new ToolStripMenuItem();
+            generarÁreaComúnToolStripMenuItem = new ToolStripMenuItem();
             usuarioToolStripMenuItem = new ToolStripMenuItem();
             cambiarClaveToolStripMenuItem = new ToolStripMenuItem();
             cambiarIdiomaToolStripMenuItem = new ToolStripMenuItem();
@@ -56,8 +57,11 @@
             visualizarDocumentoToolStripMenuItem = new ToolStripMenuItem();
             reportesToolStripMenuItem = new ToolStripMenuItem();
             recaudaciónPorPeríodoToolStripMenuItem = new ToolStripMenuItem();
+            reporteInteligenteToolStripMenuItem = new ToolStripMenuItem();
+            cantidadDeReservasPorUsuarioToolStripMenuItem = new ToolStripMenuItem();
             ayudaToolStripMenuItem = new ToolStripMenuItem();
-            generarÁreaComúnToolStripMenuItem = new ToolStripMenuItem();
+            manualToolStripMenuItem = new ToolStripMenuItem();
+            ayudaEnLineaToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -176,6 +180,13 @@
             generarExpensaToolStripMenuItem.Text = "Generar expensa";
             generarExpensaToolStripMenuItem.Click += generarExpensaToolStripMenuItem_Click;
             // 
+            // generarÁreaComúnToolStripMenuItem
+            // 
+            generarÁreaComúnToolStripMenuItem.Name = "generarÁreaComúnToolStripMenuItem";
+            generarÁreaComúnToolStripMenuItem.Size = new Size(185, 22);
+            generarÁreaComúnToolStripMenuItem.Text = "Generar Area Común";
+            generarÁreaComúnToolStripMenuItem.Click += generarÁreaComúnToolStripMenuItem_Click;
+            // 
             // usuarioToolStripMenuItem
             // 
             usuarioToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cambiarClaveToolStripMenuItem, cambiarIdiomaToolStripMenuItem, cerrarSesiónToolStripMenuItem });
@@ -241,7 +252,7 @@
             // 
             // reportesToolStripMenuItem
             // 
-            reportesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { recaudaciónPorPeríodoToolStripMenuItem });
+            reportesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { recaudaciónPorPeríodoToolStripMenuItem, reporteInteligenteToolStripMenuItem, cantidadDeReservasPorUsuarioToolStripMenuItem });
             reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
             reportesToolStripMenuItem.Size = new Size(65, 20);
             reportesToolStripMenuItem.Text = "Reportes";
@@ -249,22 +260,43 @@
             // recaudaciónPorPeríodoToolStripMenuItem
             // 
             recaudaciónPorPeríodoToolStripMenuItem.Name = "recaudaciónPorPeríodoToolStripMenuItem";
-            recaudaciónPorPeríodoToolStripMenuItem.Size = new Size(207, 22);
+            recaudaciónPorPeríodoToolStripMenuItem.Size = new Size(246, 22);
             recaudaciónPorPeríodoToolStripMenuItem.Text = "Recaudación por período";
             recaudaciónPorPeríodoToolStripMenuItem.Click += recaudaciónPorPeríodoToolStripMenuItem_Click;
             // 
+            // reporteInteligenteToolStripMenuItem
+            // 
+            reporteInteligenteToolStripMenuItem.Name = "reporteInteligenteToolStripMenuItem";
+            reporteInteligenteToolStripMenuItem.Size = new Size(246, 22);
+            reporteInteligenteToolStripMenuItem.Text = "Reporte inteligente";
+            reporteInteligenteToolStripMenuItem.Click += reporteInteligenteToolStripMenuItem_Click;
+            // 
+            // cantidadDeReservasPorUsuarioToolStripMenuItem
+            // 
+            cantidadDeReservasPorUsuarioToolStripMenuItem.Name = "cantidadDeReservasPorUsuarioToolStripMenuItem";
+            cantidadDeReservasPorUsuarioToolStripMenuItem.Size = new Size(246, 22);
+            cantidadDeReservasPorUsuarioToolStripMenuItem.Text = "Cantidad de reservas por usuario";
+            cantidadDeReservasPorUsuarioToolStripMenuItem.Click += cantidadDeReservasPorUsuarioToolStripMenuItem_Click;
+            // 
             // ayudaToolStripMenuItem
             // 
+            ayudaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { manualToolStripMenuItem, ayudaEnLineaToolStripMenuItem });
             ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
             ayudaToolStripMenuItem.Size = new Size(53, 20);
             ayudaToolStripMenuItem.Text = "Ayuda";
             // 
-            // generarÁreaComúnToolStripMenuItem
+            // manualToolStripMenuItem
             // 
-            generarÁreaComúnToolStripMenuItem.Name = "generarÁreaComúnToolStripMenuItem";
-            generarÁreaComúnToolStripMenuItem.Size = new Size(185, 22);
-            generarÁreaComúnToolStripMenuItem.Text = "Generar Area Común";
-            generarÁreaComúnToolStripMenuItem.Click += generarÁreaComúnToolStripMenuItem_Click;
+            manualToolStripMenuItem.Name = "manualToolStripMenuItem";
+            manualToolStripMenuItem.Size = new Size(180, 22);
+            manualToolStripMenuItem.Text = "Manual";
+            manualToolStripMenuItem.Click += manualToolStripMenuItem_Click;
+            // 
+            // ayudaEnLineaToolStripMenuItem
+            // 
+            ayudaEnLineaToolStripMenuItem.Name = "ayudaEnLineaToolStripMenuItem";
+            ayudaEnLineaToolStripMenuItem.Size = new Size(180, 22);
+            ayudaEnLineaToolStripMenuItem.Text = "Ayuda en linea";
             // 
             // FormHome
             // 
@@ -321,5 +353,9 @@
         private ToolStripMenuItem eventosToolStripMenuItem;
         private ToolStripMenuItem backupRestoreToolStripMenuItem;
         private ToolStripMenuItem generarÁreaComúnToolStripMenuItem;
+        private ToolStripMenuItem reporteInteligenteToolStripMenuItem;
+        private ToolStripMenuItem cantidadDeReservasPorUsuarioToolStripMenuItem;
+        private ToolStripMenuItem manualToolStripMenuItem;
+        private ToolStripMenuItem ayudaEnLineaToolStripMenuItem;
     }
 }

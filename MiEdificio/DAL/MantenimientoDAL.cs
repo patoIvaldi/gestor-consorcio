@@ -51,7 +51,7 @@ namespace DAL
 
                 if (modificados != 0)
                 {
-                    MessageBox.Show("Restore exitoso.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Se generó exitosamente el restore de la base de datos.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

@@ -129,5 +129,14 @@ namespace DAL
             return total>0?true:false;
         }
 
+        public DataTable CantidadReservas(Boolean ordenDescendente)
+        {
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@ordenamiento", ordenDescendente));
+
+            return acceso.leer("LISTAR_METRICAS", parametros);
+        }
+
     }
 }

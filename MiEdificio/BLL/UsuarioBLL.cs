@@ -232,11 +232,36 @@ namespace BLL
             foreach (BE.Usuario u in usuarios)
             {
                 string idvRecalculado = ArmarHashUsuario(u);
-                //MessageBox.Show(u.ToString()+" --> " + idvRecalculado);
                 cadenaIDVs += idvRecalculado != null ? idvRecalculado : "";
             }
-            //MessageBox.Show("hash final: "+ Services.ServiceEncriptador.Instance.GenerarHASH(cadenaIDVs));
+
             return Services.ServiceEncriptador.Instance.GenerarHASH(cadenaIDVs);
+        }
+
+        public void SanearSistemaIDV()
+        {
+            List<BE.Usuario> usuarios = listarUsuarios();
+            string cadenaIDVs = "";
+
+            //generamos y concatenamos cada uno de los hashes
+            foreach (BE.Usuario u in usuarios)
+            {
+                //recalculamos el hash para cada usuario
+                string nuevoHashUsuario = ArmarHashUsuario(u);
+
+                //persistimos el nuevo hash en la tabla de usuario
+                usuarioDAL.ActualizarIDVUsuario(u, nuevoHashUsuario);
+
+                //lo concatenamos a la cadena de hashes para generar el global
+                cadenaIDVs += nuevoHashUsuario != null ? nuevoHashUsuario : "";
+            }
+
+            //generamos el hash global
+            BE.HASH_GLOBAL idvGlobalUsuario = new BE.HASH_GLOBAL();
+            idvGlobalUsuario.NOMBRE_TABLA = Enumerador.TablaIDV.USUARIO.ToString();
+            idvGlobalUsuario.IDV_GLOBAL = Services.ServiceEncriptador.Instance.GenerarHASH(cadenaIDVs);
+
+            BLL.HashGlobalBLL.Instance.InsertarHashGlobal(idvGlobalUsuario);
         }
     }
 }
