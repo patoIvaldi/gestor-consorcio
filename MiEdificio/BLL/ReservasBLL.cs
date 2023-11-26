@@ -42,6 +42,19 @@ namespace BLL
             return reservaDAL.AgregarReserva(reserva) > 0 ? true : false;
         }
 
+        //metodo que actualiza una reserva existente
+        public Boolean ModificarReserva(BE.Reserva reserva)
+        {
+            return reservaDAL.ModificarReserva(reserva) > 0 ? true : false;
+        }
+
+        //validamos la disponibilidad en base a las reglas de negocio establecidas:
+        //el usuario no debe tener una reserva pendiente para ese area comun
+        //ni tampoco que el area en comun ya este ocupada
+        public Boolean ValidarDisponibilidad(BE.Reserva reserva)
+        {
+            return reservaDAL.ValidarDisponibilidad(reserva);
+        }
 
     }
 }

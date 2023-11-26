@@ -42,6 +42,8 @@
             cb_usuarios = new ComboBox();
             uc_fechafin = new UC_dttmPicker();
             uc_fechainicio = new UC_dttmPicker();
+            uc_horaInicio = new UC_textbox();
+            uc_horaFin = new UC_textbox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_reservas).BeginInit();
             groupBox2.SuspendLayout();
@@ -74,6 +76,8 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(uc_horaFin);
+            groupBox2.Controls.Add(uc_horaInicio);
             groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(label1);
@@ -94,7 +98,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(283, 25);
+            label3.Location = new Point(512, 25);
             label3.Name = "label3";
             label3.Size = new Size(63, 15);
             label3.TabIndex = 9;
@@ -104,7 +108,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(133, 80);
+            label2.Location = new Point(352, 129);
             label2.Name = "label2";
             label2.Size = new Size(36, 15);
             label2.TabIndex = 8;
@@ -143,9 +147,9 @@
             // rt_feedback
             // 
             rt_feedback.Enabled = false;
-            rt_feedback.Location = new Point(352, 22);
+            rt_feedback.Location = new Point(603, 22);
             rt_feedback.Name = "rt_feedback";
-            rt_feedback.Size = new Size(317, 148);
+            rt_feedback.Size = new Size(66, 148);
             rt_feedback.TabIndex = 4;
             rt_feedback.Text = "";
             // 
@@ -153,7 +157,7 @@
             // 
             cb_areas.Enabled = false;
             cb_areas.FormattingEnabled = true;
-            cb_areas.Location = new Point(133, 99);
+            cb_areas.Location = new Point(352, 147);
             cb_areas.Name = "cb_areas";
             cb_areas.Size = new Size(201, 23);
             cb_areas.TabIndex = 3;
@@ -185,6 +189,28 @@
             uc_fechainicio.Size = new Size(138, 50);
             uc_fechainicio.TabIndex = 0;
             uc_fechainicio.VALOR = new DateTime(2023, 10, 29, 0, 0, 0, 0);
+            // 
+            // uc_horaInicio
+            // 
+            uc_horaInicio.ETIQUETA = "Hora Inicio";
+            uc_horaInicio.Location = new Point(150, 26);
+            uc_horaInicio.MAX_LENGTH = 8;
+            uc_horaInicio.Name = "uc_horaInicio";
+            uc_horaInicio.REQUERIDO = false;
+            uc_horaInicio.Size = new Size(80, 46);
+            uc_horaInicio.TabIndex = 10;
+            uc_horaInicio.TEXT_BOX = "00:00:00";
+            // 
+            // uc_horaFin
+            // 
+            uc_horaFin.ETIQUETA = "Hora Fin:";
+            uc_horaFin.Location = new Point(150, 82);
+            uc_horaFin.MAX_LENGTH = 8;
+            uc_horaFin.Name = "uc_horaFin";
+            uc_horaFin.REQUERIDO = false;
+            uc_horaFin.Size = new Size(80, 46);
+            uc_horaFin.TabIndex = 11;
+            uc_horaFin.TEXT_BOX = "00:00:00";
             // 
             // FormGenerarReserva
             // 
@@ -224,5 +250,7 @@
         private UC_dttmPicker uc_fechafin;
         private UC_dttmPicker uc_fechainicio;
         private Label label3;
+        private UC_textbox uc_horaInicio;
+        private UC_textbox uc_horaFin;
     }
 }

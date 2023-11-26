@@ -42,6 +42,7 @@
             uc_horainicio = new UC_textbox();
             uc_fechafin = new UC_dttmPicker();
             uc_fechainicio = new UC_dttmPicker();
+            btn_restaurar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgv_cambios).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -59,6 +60,7 @@
             dgv_cambios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_cambios.Size = new Size(1059, 371);
             dgv_cambios.TabIndex = 0;
+            dgv_cambios.CellClick += dgv_cambios_CellClick;
             // 
             // groupBox1
             // 
@@ -190,13 +192,25 @@
             uc_fechainicio.TabIndex = 0;
             uc_fechainicio.VALOR = new DateTime(2023, 10, 28, 0, 0, 0, 0);
             // 
+            // btn_restaurar
+            // 
+            btn_restaurar.Enabled = false;
+            btn_restaurar.Location = new Point(236, 480);
+            btn_restaurar.Name = "btn_restaurar";
+            btn_restaurar.Size = new Size(662, 45);
+            btn_restaurar.TabIndex = 2;
+            btn_restaurar.Text = "Restaurar versión";
+            btn_restaurar.UseVisualStyleBackColor = true;
+            btn_restaurar.Click += btn_restaurar_Click;
+            // 
             // FormControlCambios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.White;
-            ClientSize = new Size(1083, 483);
+            ClientSize = new Size(1083, 537);
+            Controls.Add(btn_restaurar);
             Controls.Add(groupBox1);
             Controls.Add(dgv_cambios);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -227,5 +241,6 @@
         private UC_dttmPicker uc_fechafin;
         private UC_dttmPicker uc_fechainicio;
         private CheckBox check_activo;
+        private Button btn_restaurar;
     }
 }

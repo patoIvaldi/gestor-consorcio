@@ -33,10 +33,12 @@ namespace DAL
                 r.ID_RESERVA = int.Parse(registro["Id_Reserva"].ToString());
                 r.FECHA_CREACION_RESERVA = DateTime.Parse(registro["Fecha_creacion_reserva"].ToString());
                 r.ESTADO_RESERVA = registro["Estado_reserva"].ToString();
-                r.FECHA_RESERVA_INICIO = DateTime.Parse(registro["Fecha_reserva_inicio"].ToString().Substring(0, 9) + " " + registro["Hora_reserva_inicio"].ToString());
-                r.FECHA_RESERVA_FIN = DateTime.Parse(registro["Fecha_reserva_fin"].ToString().Substring(0, 9) + " " + registro["Hora_reserva_fin"].ToString());
+                r.FECHA_RESERVA_INICIO = DateTime.Parse(registro["Fecha_reserva_inicio"].ToString().Substring(0, 10) + " " + registro["Hora_reserva_inicio"].ToString());
+                r.FECHA_RESERVA_FIN = DateTime.Parse(registro["Fecha_reserva_fin"].ToString().Substring(0, 10) + " " + registro["Hora_reserva_fin"].ToString());
                 r.USUARIO_RESERVA = new UsuarioDAL().listar(registro["usuario_reserva"].ToString()).First();
                 r.ES_ACTIVO = Boolean.Parse(registro["esActivo"].ToString());
+                r.AREA = registro["Area"].ToString();
+                r.FEEDBACK = registro["Feedback"].ToString();
                 r.DETALLE = registro["Detalle"].ToString();
 
                 cambios.Add(r);
@@ -67,10 +69,12 @@ namespace DAL
                 r.ID_RESERVA = int.Parse(registro["Id_Reserva"].ToString());
                 r.FECHA_CREACION_RESERVA = DateTime.Parse(registro["Fecha_creacion_reserva"].ToString());
                 r.ESTADO_RESERVA = registro["Estado_reserva"].ToString();
-                r.FECHA_RESERVA_INICIO = DateTime.Parse(registro["Fecha_reserva_inicio"].ToString().Substring(0, 9) + " " + registro["Hora_reserva_inicio"].ToString());
-                r.FECHA_RESERVA_FIN = DateTime.Parse(registro["Fecha_reserva_fin"].ToString().Substring(0, 9) + " " + registro["Hora_reserva_fin"].ToString());
+                r.FECHA_RESERVA_INICIO = DateTime.Parse(registro["Fecha_reserva_inicio"].ToString().Substring(0, 10) + " " + registro["Hora_reserva_inicio"].ToString());
+                r.FECHA_RESERVA_FIN = DateTime.Parse(registro["Fecha_reserva_fin"].ToString().Substring(0, 10) + " " + registro["Hora_reserva_fin"].ToString());
                 r.USUARIO_RESERVA = new UsuarioDAL().listar(registro["usuario_reserva"].ToString()).First();
                 r.ES_ACTIVO = Boolean.Parse(registro["esActivo"].ToString());
+                r.AREA = registro["Area"].ToString();
+                r.FEEDBACK = registro["Feedback"].ToString();
                 r.DETALLE = registro["Detalle"].ToString();
 
                 cambios.Add(r);
@@ -83,7 +87,7 @@ namespace DAL
             int modificados = 0;
 
             List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(acceso.crearParametro("@fechaCreacionCambio", new DateTime()));
+            parametros.Add(acceso.crearParametro("@fechaCreacionCambio", DateTime.Now));
             parametros.Add(acceso.crearParametro("@idReserva", reserva.ID));
             parametros.Add(acceso.crearParametro("@estadoReserva", reserva.ESTADO));
             parametros.Add(acceso.crearParametro("@fechaCreacionReserva", reserva.FECHA_CREACION));
@@ -92,6 +96,8 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@fechaReservaFin", reserva.FECHA_RESERVA_FIN.Date));
             parametros.Add(acceso.crearParametro("@horaReservaFin", reserva.FECHA_RESERVA_FIN.TimeOfDay));
             parametros.Add(acceso.crearParametro("@usuarioReserva", reserva.USUARIO_AUTOR.USERNAME));
+            parametros.Add(acceso.crearParametro("@area", reserva.AREA));
+            parametros.Add(acceso.crearParametro("@feedback", reserva.FEEDBACK));
             parametros.Add(acceso.crearParametro("@detalle", detalle));
 
             modificados = acceso.escribir("INSERTAR_CAMBIO_RESERVA", parametros);

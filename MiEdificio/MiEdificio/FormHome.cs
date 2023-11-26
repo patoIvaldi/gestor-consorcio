@@ -37,6 +37,27 @@ namespace MiEdificio
             }
 
             TraducirComponentes();
+            //chequear digitos verificadores del sistema
+            chequearIDVSistema();
+        }
+
+        private void chequearIDVSistema()
+        {
+            Boolean sistemaOK = true;
+
+            //validamos que el hash de la tabla USUARIO este correcto.
+            sistemaOK = BLL.HashGlobalBLL.Instance.ExisteHash(
+                BLL.UsuarioBLL.Instance.RecalcularHashGlobalUsuarios());
+
+            if (!sistemaOK)
+            {
+                //bloqueamos el sistema y disparamos pop-up con accionar
+                MessageBox.Show("ta todo roto culiado.");
+            }
+            else
+            {
+                MessageBox.Show("Sistema congruente.");
+            }
         }
 
         public void TraducirComponentes()
@@ -195,6 +216,12 @@ namespace MiEdificio
         {
             FormGenerarReserva formReserva = new FormGenerarReserva("Salón de usos múltiples (SUM)");
             formReserva.ShowDialog();
+        }
+
+        private void generarÁreaComúnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormABMAreaComun formABMAreaComun = new FormABMAreaComun();
+            formABMAreaComun.ShowDialog();
         }
     }
 }

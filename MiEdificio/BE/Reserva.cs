@@ -11,7 +11,7 @@ namespace BE
 
         public Reserva() {
 
-			this.fechaCreacion = new DateTime();
+			this.fechaCreacion = DateTime.Now;
 		
 		}
 

@@ -321,3 +321,80 @@ AS
 BEGIN
 	UPDATE RESERVA set feedback = @feedback where Id_Reserva = @idReserva;
 END;
+
+CREATE PROC [dbo].[MODIFICAR_RESERVA]
+@idReserva int,@estado varchar(20),@area varchar(100),@fechaIni date,
+@horaIni time(0),@fechaFin date,@horaFin time(0),@usuario nvarchar(20),
+@feedback varchar(1000) = null
+AS
+BEGIN
+	UPDATE RESERVA SET Estado = @estado, area = @area, Fecha_reserva_inicio = @fechaIni,
+	Hora_reserva_inicio = @horaIni, Fecha_reserva_fin = @fechaFin, Hora_reserva_fin = @horaFin,
+	usuario = @usuario, feedback = @feedback
+	WHERE Id_Reserva = @idReserva;
+END;
+
+ALTER PROC [dbo].[VALIDAR_DISPONIBILIDAD]
+@area varchar(100),@fechaIni date,
+@horaIni time(0),@fechaFin date,@horaFin time(0),@usuario nvarchar(20)
+AS
+BEGIN
+	SELECT Id_Reserva FROM RESERVA
+	WHERE Area = @area
+	AND Usuario = @usuario
+	AND (((Fecha_reserva_inicio = @fechaIni and Hora_reserva_inicio <= @horaFin and Fecha_reserva_fin = @fechaIni and Hora_reserva_fin >= @horaIni) or
+		  (Fecha_reserva_inicio = @fechaFin and Hora_reserva_inicio <= @horaFin and Fecha_reserva_fin = @fechaFin and Hora_reserva_fin >= @horaIni))
+		AND estado = 'Pendiente')
+	UNION
+	SELECT Id_Reserva FROM RESERVA
+	WHERE Area = @area
+	AND Usuario = @usuario
+	OR estado = 'Pendiente'
+	;
+END;
+
+ALTER PROC [dbo].[INSERTAR_AREA]
+@nombre varchar(100),
+@descripcion varchar(1000) = null,
+@esHabilitada bit = 1 -- Asignar 1 en lugar de 'true' para el valor de bit
+AS
+BEGIN
+    MERGE INTO AREA_COMUN AS target
+    USING (SELECT @nombre AS nombre) AS source
+    ON target.nombre = source.nombre
+    WHEN MATCHED THEN
+        UPDATE SET descripcion = @descripcion, estaHabilitada = @esHabilitada
+    WHEN NOT MATCHED THEN
+        INSERT (nombre, descripcion, estaHabilitada)
+        VALUES (@nombre, @descripcion, @esHabilitada);
+END;
+
+CREATE proc [dbo].[LISTAR_AREAS]
+as
+begin
+	select Nombre,Descripcion,estaHabilitada
+	from AREA_COMUN;
+end;
+
+CREATE PROC [dbo].[INSERTAR_HASH_GLOBAL]
+@nombreTabla nvarchar(50),
+@idvGlobal nvarchar(100)
+AS
+BEGIN
+    MERGE INTO HASH_GLOBAL AS target
+    USING (SELECT @nombreTabla AS nombre) AS source
+    ON target.nombre_tabla = source.nombre
+    WHEN MATCHED THEN
+        UPDATE SET idv_global = @idvGlobal
+    WHEN NOT MATCHED THEN
+        INSERT (nombre_tabla, idv_global)
+        VALUES (@nombreTabla, @idvGlobal);
+END;
+
+CREATE proc [dbo].[BUSCAR_IDV_GLOBAL]
+@idvGlobal nvarchar(100)
+as
+begin
+	select count(*) as total
+	from HASH_GLOBAL where idv_global = @idvGlobal;
+end;

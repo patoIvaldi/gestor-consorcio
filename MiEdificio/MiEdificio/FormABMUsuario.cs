@@ -89,8 +89,23 @@ namespace UI
             BE.Usuario newUser = new BE.Usuario();
             newUser.USERNAME = uC_tb_username.TEXT_BOX;
             newUser.CONTRASENIA = uC_tb_password2.TEXT_BOX;
-            //encripto
-            newUser = Services.ServiceEncriptador.Instance.Encriptar(newUser);
+
+            //no poner nada por encima de esta logica de encriptacion porque te pisa el objeto usuario y saca los cambios
+            //si queres guardar un dato dentro del objeto newuser hacelo despues de la encriptacion
+            if (!string.IsNullOrEmpty(newUser.CONTRASENIA))
+            {
+                //encripto
+                newUser = Services.ServiceEncriptador.Instance.Encriptar(newUser);
+            }
+
+            if (!string.IsNullOrEmpty(newUser.USERNAME))
+            {
+                BE.Usuario recup = BLL.UsuarioBLL.Instance.recuperarUsuario(newUser.USERNAME);
+                if (recup != null)
+                {
+                    newUser.CANT_INTENTOS = recup.CANT_INTENTOS;
+                }
+            }
 
             newUser.MAIL = uC_tb_mail.TEXT_BOX;
             BE.Perfil perfil = new BE.Perfil();

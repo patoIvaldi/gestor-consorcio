@@ -3,6 +3,7 @@ using DAL;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic.ApplicationServices;
 using Services;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace BLL
 {
@@ -67,6 +68,10 @@ namespace BLL
 
                         bloquearDesbloquearUsuario(userBuscado.USERNAME);
                     }
+
+                    //actualizamos los hashes
+                    ArmarHashUsuario(userBuscado);
+                    ArmarHashGlobalUsuarios();
                 }
             }
 
@@ -80,7 +85,17 @@ namespace BLL
 
         public Boolean bloquearDesbloquearUsuario(string username)
         {
-            return usuarioDAL.desbloquearUsuario(username);        
+            Boolean bloqueadoDesbloqueado = usuarioDAL.desbloquearUsuario(username);
+
+            //actualizamos los hashes
+            BE.Usuario userBuscado = usuarioDAL.listar(username).FirstOrDefault();
+            if (userBuscado != null)
+            {
+                ArmarHashUsuario(userBuscado);
+                ArmarHashGlobalUsuarios();
+            }
+
+            return bloqueadoDesbloqueado;        
         }
 
         //metodo que busca todos los usuarios en la BD
@@ -93,6 +108,9 @@ namespace BLL
         {
             int registro = 0;
 
+            //generamos el hash para el registro
+            ArmarHashUsuario(usuario);
+
             if (existeUsuario(usuario.USERNAME))
             {
                 registro = usuarioDAL.Editar(usuario);
@@ -101,6 +119,9 @@ namespace BLL
             {
                 registro = usuarioDAL.Insertar(usuario);
             }
+
+            //refrescamos el hash global
+            ArmarHashGlobalUsuarios();
 
             return registro > 0 ? true:false; 
         }
@@ -119,7 +140,18 @@ namespace BLL
 
         public Boolean CambiarPerfilUsuario(BE.Usuario usu, BE.Perfil perf)
         {
-            return usuarioDAL.CambiarPerfilUsuario(usu,perf);
+
+            Boolean cambioPerfil = usuarioDAL.CambiarPerfilUsuario(usu, perf);
+
+            //actualizamos los hashes
+            BE.Usuario userBuscado = usuarioDAL.listar(usu.USERNAME).FirstOrDefault();
+            if (userBuscado != null && cambioPerfil)
+            {
+                ArmarHashUsuario(userBuscado);
+                ArmarHashGlobalUsuarios();
+            }
+
+            return cambioPerfil;
         }
 
         public Boolean ExistePermiso(string nombrePermisoABuscar)
@@ -157,6 +189,54 @@ namespace BLL
                 usuarioBuscado = recuperados.First();
             }
             return usuarioBuscado;
+        }
+
+        //metodo que realiza la generacion del hash para el usuario
+        private string ArmarHashUsuario(BE.Usuario usuario)
+        {
+            string cadena = usuario.USERNAME + usuario.CANT_INTENTOS.ToString() + usuario.ESTA_BLOQUEADO.ToString() +
+                usuario.MAIL + usuario.PERSONA.DNI.ToString() + usuario.PERFIL.ID_TIPO.ToString();
+
+            usuario.IDV = Services.ServiceEncriptador.Instance.GenerarHASH(cadena);
+
+            return usuario.IDV;
+        }
+
+        private void ArmarHashGlobalUsuarios()
+        {
+            //buscamos la lista de todos los usuarios
+            List<BE.Usuario> usuarios = listarUsuarios();
+            string cadenaIDVs = "";
+
+            //concatenamos cada uno de los hashes
+            foreach (BE.Usuario u in usuarios)
+            {
+                cadenaIDVs += u.IDV != null? u.IDV : "";
+            }
+
+            //generamos el hash global
+            BE.HASH_GLOBAL idvGlobalUsuario = new BE.HASH_GLOBAL();
+            idvGlobalUsuario.NOMBRE_TABLA = Enumerador.TablaIDV.USUARIO.ToString();
+            idvGlobalUsuario.IDV_GLOBAL = Services.ServiceEncriptador.Instance.GenerarHASH(cadenaIDVs);
+
+            BLL.HashGlobalBLL.Instance.InsertarHashGlobal(idvGlobalUsuario);
+        }
+
+        public string RecalcularHashGlobalUsuarios()
+        {
+            //buscamos la lista de todos los usuarios
+            List<BE.Usuario> usuarios = listarUsuarios();
+            string cadenaIDVs = "";
+
+            //concatenamos cada uno de los hashes
+            foreach (BE.Usuario u in usuarios)
+            {
+                string idvRecalculado = ArmarHashUsuario(u);
+                //MessageBox.Show(u.ToString()+" --> " + idvRecalculado);
+                cadenaIDVs += idvRecalculado != null ? idvRecalculado : "";
+            }
+            //MessageBox.Show("hash final: "+ Services.ServiceEncriptador.Instance.GenerarHASH(cadenaIDVs));
+            return Services.ServiceEncriptador.Instance.GenerarHASH(cadenaIDVs);
         }
     }
 }

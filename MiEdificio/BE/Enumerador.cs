@@ -22,7 +22,7 @@ namespace BE
 
         public enum Modulo
         {
-            ABMUsuarios, ABMPerfiles, ABMIdioma, GeneracionExpensa, CambioClave, CambioIdioma, CierreSesion,Reserva, PagoExpensa, VisualizarDocumento, Reportes, Ayuda, Home, Login, AsignarPerfil, Bitacora, ControlCambios, RecuperarSistema, Respaldo
+            ABMUsuarios, ABMPerfiles, ABMIdioma, GeneracionExpensa, CambioClave, CambioIdioma, CierreSesion,Reserva, PagoExpensa, VisualizarDocumento, Reportes, Ayuda, Home, Login, AsignarPerfil, Bitacora, ControlCambios, RecuperarSistema, Respaldo, ABMAreaComun
         }
 
         public enum Estado
@@ -30,5 +30,9 @@ namespace BE
             Pendiente, Cancelado, Finalizado
         }
 
+        public enum TablaIDV
+        {
+            USUARIO,RESERVA,SEGMENTO,PAGO,EXPENSA,AREA_COMUN
+        }
     }
 }

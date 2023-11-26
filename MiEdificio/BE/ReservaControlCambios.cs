@@ -97,5 +97,21 @@ namespace BE
             set { detalle = value; }
         }
 
+        private string area;
+
+        public string AREA
+        {
+            get { return area; }
+            set { area = value; }
+        }
+
+        private string feedback;
+
+        public string FEEDBACK
+        {
+            get { return feedback; }
+            set { feedback = value; }
+        }
+
     }
 }

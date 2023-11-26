@@ -21,6 +21,7 @@ namespace UI
         DateTime? fechaInicioSelected = null;
         DateTime? fechaFinSelected = null;
         Boolean? valueCheckSelected = null;
+        ReservaControlCambios versionSelected = null;
 
         public FormControlCambios()
         {
@@ -48,6 +49,7 @@ namespace UI
             enlazarUsuarios();
             enlazarEstados();
             enlazarCambios(100, null);
+            btn_restaurar.Enabled = false;
 
             //me suscribo al evento valuechanged de los datetimepicker
             DateTimePicker dateTimePickerEnUserControlInicio = uc_fechainicio.dtp_publico;
@@ -101,6 +103,8 @@ namespace UI
             cb_estados.SelectionStart = 0;
             cb_estados.SelectedIndex = 0;
             enlazarCambios(100, null);
+            btn_restaurar.Enabled = false;
+            versionSelected = null;
         }
 
         //Metodo que valida el formato de hora ingresada por el usuario
@@ -192,5 +196,45 @@ namespace UI
             valueCheckSelected = check_activo.Checked;
         }
 
+        //logica para restaurar la version seleccionada
+        private void btn_restaurar_Click(object sender, EventArgs e)
+        {
+            if (versionSelected != null)
+            {
+                BE.Reserva reservaRollback = new BE.Reserva();
+                reservaRollback.ID = versionSelected.ID_RESERVA;
+                reservaRollback.ESTADO = versionSelected.ESTADO_RESERVA;
+                reservaRollback.AREA = versionSelected.AREA;
+                reservaRollback.FECHA_RESERVA_INICIO = versionSelected.FECHA_RESERVA_INICIO;
+                reservaRollback.FECHA_RESERVA_FIN = versionSelected.FECHA_RESERVA_FIN;
+                reservaRollback.USUARIO_AUTOR = versionSelected.USUARIO_RESERVA;
+                reservaRollback.FEEDBACK = versionSelected.FEEDBACK;
+
+                if (BLL.ReservasBLL.Instance.ModificarReserva(reservaRollback))
+                {
+                    MessageBox.Show("Versión de la reserva restaurada con éxito.");
+                    enlazarCambios(100, null);
+                }
+                else
+                {
+                    MessageBox.Show("Error, no se pudo restaurar la versión seleccionada.");
+                }
+            }
+        }
+
+        //cargamos la version seleccionada
+        private void dgv_cambios_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            versionSelected = (BE.ReservaControlCambios)dgv_cambios.Rows[e.RowIndex].DataBoundItem;
+
+            if (versionSelected != null)
+            {
+                btn_restaurar.Enabled = true;
+            }
+            else
+            {
+                btn_restaurar.Enabled = false;
+            }
+        }
     }
 }

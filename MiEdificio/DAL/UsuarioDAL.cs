@@ -39,6 +39,7 @@ namespace DAL
                     userIni.USERNAME = registro["username"].ToString().Trim();
                     userIni.ESTA_BLOQUEADO = bool.Parse(registro["esta_bloqueado"].ToString());
                     userIni.MAIL = registro["mail"].ToString();
+                    userIni.IDV = registro["idv"].ToString();
 
                     //cargo el tipo de persona que es en base al perfil del usuario
                     if (userIni.PERFIL.DESCRIPCION.Trim().Equals("Adm. de Consorcio".Trim()))
@@ -131,6 +132,8 @@ namespace DAL
                 user.USERNAME = registro["username"].ToString().Trim();
                 user.ESTA_BLOQUEADO = bool.Parse(registro["esta_bloqueado"].ToString());
                 user.MAIL = registro["mail"].ToString();
+                user.CONTRASENIA = registro["Contraseña"].ToString();
+                user.IDV = registro["idv"].ToString();
                 user.CANT_INTENTOS = int.Parse(registro["cant_intentos"].ToString());
 
                 //cargo el perfil y los permisos
@@ -203,6 +206,7 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@dni", u.PERSONA.DNI));
             parametros.Add(acceso.crearParametro("@fechanac", u.PERSONA.FECHA_NACIMIENTO));
             parametros.Add(acceso.crearParametro("@rol", u.PERFIL.ID_TIPO));
+            parametros.Add(acceso.crearParametro("@idv", u.IDV));
             if (u.PERSONA is BE.Propietario)
             {
                 parametros.Add(acceso.crearParametro("@nrodepto", ((BE.Propietario)u.PERSONA).NRO_DEPARTAMENTO));
@@ -233,6 +237,8 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@dni", u.PERSONA.DNI));
             parametros.Add(acceso.crearParametro("@fechanac",u.PERSONA.FECHA_NACIMIENTO));
             parametros.Add(acceso.crearParametro("@rol",u.PERFIL.ID_TIPO));
+            parametros.Add(acceso.crearParametro("@idv",u.IDV));
+
             if (u.PERSONA is BE.Propietario)
             {
                 parametros.Add(acceso.crearParametro("@nrodepto", ((BE.Propietario)u.PERSONA).NRO_DEPARTAMENTO));

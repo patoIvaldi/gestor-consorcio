@@ -32,8 +32,8 @@ namespace DAL
                 r.ESTADO = registro["estado"].ToString();
                 r.FECHA_CREACION = DateTime.Parse(registro["Fecha_creacion"].ToString());
                 r.AREA = registro["area"].ToString();
-                r.FECHA_RESERVA_INICIO = DateTime.Parse(registro["Fecha_reserva_inicio"].ToString().Substring(0, 9) + " " + registro["Hora_reserva_inicio"].ToString());
-                r.FECHA_RESERVA_FIN = DateTime.Parse(registro["Fecha_reserva_fin"].ToString().Substring(0, 9) + " " + registro["Hora_reserva_fin"].ToString());
+                r.FECHA_RESERVA_INICIO = DateTime.Parse(registro["Fecha_reserva_inicio"].ToString().Substring(0, 10) + " " + registro["Hora_reserva_inicio"].ToString());
+                r.FECHA_RESERVA_FIN = DateTime.Parse(registro["Fecha_reserva_fin"].ToString().Substring(0, 10) + " " + registro["Hora_reserva_fin"].ToString());
                 r.USUARIO_AUTOR = new UsuarioDAL().listar(registro["usuario"].ToString()).First();
                 r.FEEDBACK = registro["feedback"].ToString();
 
@@ -60,6 +60,10 @@ namespace DAL
 
             modificados = acceso.escribir("INSERTAR_RESERVA", parametros);
 
+            BE.Reserva? generadaReciente = Listar(1).FirstOrDefault();
+
+            reserva.ID = generadaReciente != null? generadaReciente.ID : 0;
+
             new ReservaControlCambiosDAL().AgregarCambio(reserva,"");
 
             return modificados;
@@ -79,6 +83,50 @@ namespace DAL
             modificados = acceso.escribir("GENERAR_FEEDBACK", parametros);
 
             return modificados;
+        }
+
+        public int ModificarReserva(BE.Reserva reserva)
+        {
+            int modificados = 0;
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@idReserva", reserva.ID));
+            parametros.Add(acceso.crearParametro("@estado", reserva.ESTADO));
+            parametros.Add(acceso.crearParametro("@area", reserva.AREA));
+            parametros.Add(acceso.crearParametro("@fechaIni", reserva.FECHA_RESERVA_INICIO.Date));
+            parametros.Add(acceso.crearParametro("@horaIni", reserva.FECHA_RESERVA_INICIO.TimeOfDay));
+            parametros.Add(acceso.crearParametro("@fechaFin", reserva.FECHA_RESERVA_FIN.Date));
+            parametros.Add(acceso.crearParametro("@horaFin", reserva.FECHA_RESERVA_FIN.TimeOfDay));
+            parametros.Add(acceso.crearParametro("@usuario", reserva.USUARIO_AUTOR.USERNAME));
+            parametros.Add(acceso.crearParametro("@feedback", reserva.FEEDBACK));
+
+            modificados = acceso.escribir("MODIFICAR_RESERVA", parametros);
+
+            //registramos el cambio de version
+            new ReservaControlCambiosDAL().AgregarCambio(reserva, "");
+
+            return modificados;
+        }
+
+        public Boolean ValidarDisponibilidad(BE.Reserva reserva)
+        {
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@area", reserva.AREA));
+            parametros.Add(acceso.crearParametro("@fechaIni", reserva.FECHA_RESERVA_INICIO.Date));
+            parametros.Add(acceso.crearParametro("@horaIni", reserva.FECHA_RESERVA_INICIO.TimeOfDay));
+            parametros.Add(acceso.crearParametro("@fechaFin", reserva.FECHA_RESERVA_FIN.Date));
+            parametros.Add(acceso.crearParametro("@horaFin", reserva.FECHA_RESERVA_FIN.TimeOfDay));
+            parametros.Add(acceso.crearParametro("@usuario", reserva.USUARIO_AUTOR.USERNAME));
+
+            DataTable tabla = acceso.leer("VALIDAR_DISPONIBILIDAD", parametros);
+            int total = 0;
+            foreach (DataRow registro in tabla.Rows)
+            {
+                total += int.Parse(registro["Id_Reserva"].ToString());
+            }
+
+            return total>0?true:false;
         }
 
     }

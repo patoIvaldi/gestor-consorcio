@@ -57,6 +57,7 @@
             reportesToolStripMenuItem = new ToolStripMenuItem();
             recaudaciónPorPeríodoToolStripMenuItem = new ToolStripMenuItem();
             ayudaToolStripMenuItem = new ToolStripMenuItem();
+            generarÁreaComúnToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -163,7 +164,7 @@
             // 
             // altasToolStripMenuItem
             // 
-            altasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { generarExpensaToolStripMenuItem });
+            altasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { generarExpensaToolStripMenuItem, generarÁreaComúnToolStripMenuItem });
             altasToolStripMenuItem.Name = "altasToolStripMenuItem";
             altasToolStripMenuItem.Size = new Size(45, 20);
             altasToolStripMenuItem.Text = "Altas";
@@ -171,7 +172,7 @@
             // generarExpensaToolStripMenuItem
             // 
             generarExpensaToolStripMenuItem.Name = "generarExpensaToolStripMenuItem";
-            generarExpensaToolStripMenuItem.Size = new Size(161, 22);
+            generarExpensaToolStripMenuItem.Size = new Size(185, 22);
             generarExpensaToolStripMenuItem.Text = "Generar expensa";
             generarExpensaToolStripMenuItem.Click += generarExpensaToolStripMenuItem_Click;
             // 
@@ -213,7 +214,7 @@
             // reservarSUMToolStripMenuItem
             // 
             reservarSUMToolStripMenuItem.Name = "reservarSUMToolStripMenuItem";
-            reservarSUMToolStripMenuItem.Size = new Size(180, 22);
+            reservarSUMToolStripMenuItem.Size = new Size(146, 22);
             reservarSUMToolStripMenuItem.Text = "Reservar SUM";
             reservarSUMToolStripMenuItem.Click += reservarSUMToolStripMenuItem_Click;
             // 
@@ -257,6 +258,13 @@
             ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
             ayudaToolStripMenuItem.Size = new Size(53, 20);
             ayudaToolStripMenuItem.Text = "Ayuda";
+            // 
+            // generarÁreaComúnToolStripMenuItem
+            // 
+            generarÁreaComúnToolStripMenuItem.Name = "generarÁreaComúnToolStripMenuItem";
+            generarÁreaComúnToolStripMenuItem.Size = new Size(185, 22);
+            generarÁreaComúnToolStripMenuItem.Text = "Generar Area Común";
+            generarÁreaComúnToolStripMenuItem.Click += generarÁreaComúnToolStripMenuItem_Click;
             // 
             // FormHome
             // 
@@ -312,5 +320,6 @@
         private ToolStripMenuItem reservaToolStripMenuItem;
         private ToolStripMenuItem eventosToolStripMenuItem;
         private ToolStripMenuItem backupRestoreToolStripMenuItem;
+        private ToolStripMenuItem generarÁreaComúnToolStripMenuItem;
     }
 }

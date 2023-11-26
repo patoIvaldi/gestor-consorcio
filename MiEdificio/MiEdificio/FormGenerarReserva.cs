@@ -18,6 +18,8 @@ namespace UI
         public string area = "";
         DateTime? fechaInicioSelected = null;
         DateTime? fechaFinSelected = null;
+        TimeSpan? horaInicioFormateado = null;
+        TimeSpan? horaFinFormateado = null;
 
         public FormGenerarReserva(string area)
         {
@@ -50,14 +52,29 @@ namespace UI
         private void enlazarUsuarios()
         {
             cb_usuarios.Items.Clear();
-            cb_usuarios.Items.Add("");
-            cb_usuarios.Items.AddRange(UsuarioBLL.Instance.listarUsuarios().ToArray());
+
+            if (Services.ServiceSesion.Instance.USER.PERSONA is BE.AdministradorConsorcio) //esto hay que validar por permisos
+            {
+                cb_usuarios.Items.Add("");
+                cb_usuarios.Items.AddRange(UsuarioBLL.Instance.listarUsuarios().ToArray());
+                cb_usuarios.Enabled = true;
+            }
+            else
+            {
+                List<BE.Usuario> usuarios = new List<Usuario>();
+                usuarios.Add(Services.ServiceSesion.Instance.USER);
+
+                cb_usuarios.Items.AddRange(usuarios.ToArray());
+                cb_usuarios.SelectedIndex = 0;
+                cb_usuarios.Enabled = false;
+            }
         }
 
         private void enlazarAreas()
         {
             cb_areas.Items.Clear();
             cb_areas.Items.Add(this.area);
+            cb_areas.SelectedIndex = 0;
         }
 
         private void enlazarReservas(int cantReg, List<BE.Reserva> reservas)
@@ -72,33 +89,44 @@ namespace UI
         {
             if (camposCargadosCorrectamente())
             {
-                BE.Reserva reserva = new Reserva();
-                reserva.ESTADO = Enumerador.Estado.Pendiente.ToString();
-                reserva.AREA = this.area;
-                reserva.FECHA_RESERVA_INICIO = fechaInicioSelected.Value;
-                reserva.FECHA_RESERVA_FIN = fechaFinSelected.Value;
-                reserva.USUARIO_AUTOR = (BE.Usuario)cb_usuarios.SelectedItem;
-
-                //TODO VALIDAR QUE NO ESTE OCUPADO EL AREA PARA ESA FECHA Y QUE EL USUARIO NO TENGA OTRA RESERVA ACTIVA
-
-                //generamos la reserva
-                if (BLL.ReservasBLL.Instance.AgregarReserva(reserva))
+                if (validarHora(uc_horaInicio.TEXT_BOX, true) &&
+                    validarHora(uc_horaFin.TEXT_BOX, false))
                 {
+                    BE.Reserva reserva = new Reserva();
+                    reserva.ESTADO = Enumerador.Estado.Pendiente.ToString();
+                    reserva.AREA = this.area;
+                    reserva.FECHA_RESERVA_INICIO = fechaInicioSelected.Value.Add((TimeSpan)horaInicioFormateado);
+                    reserva.FECHA_RESERVA_FIN = fechaFinSelected.Value.Add((TimeSpan)horaFinFormateado);
+                    reserva.USUARIO_AUTOR = (BE.Usuario)cb_usuarios.SelectedItem;
 
-                    BE.Evento evento = new Evento();
-                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
-                    evento.DETALLE = "El usuario generó la reserva: " + reserva.ID;
-                    evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
-                    evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
-                    evento.MODULO = Enumerador.Modulo.Reserva.ToString();
+                    //VALIDA QUE NO ESTE OCUPADO EL AREA PARA ESA FECHA Y QUE EL USUARIO NO TENGA OTRA RESERVA ACTIVA
+                    if (!BLL.ReservasBLL.Instance.ValidarDisponibilidad(reserva))
+                    {
+                        //generamos la reserva
+                        if (BLL.ReservasBLL.Instance.AgregarReserva(reserva))
+                        {
 
-                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+                            BE.Evento evento = new Evento();
+                            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                            evento.DETALLE = "El usuario generó la reserva: " + reserva.ID;
+                            evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+                            evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                            evento.MODULO = Enumerador.Modulo.Reserva.ToString();
 
-                    MessageBox.Show("Reserva generada con éxito.");
-                }
-                else
-                {
-                    MessageBox.Show("Error, no se pudo generar la reserva.");
+                            BLL.EventoBLL.Instance.AgregarEvento(evento);
+
+                            MessageBox.Show("Reserva generada con éxito.");
+                            enlazarReservas(50, null);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error, no se pudo generar la reserva.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error, El area comun ya se encuentra reservada en esa fecha o ya posee una reserva pendiente para ese area comun.");
+                    }
                 }
             }
             else
@@ -134,6 +162,48 @@ namespace UI
             // El valor del DateTimePicker en el UserControl ha cambiado.
             // Actualiza la variable 'fechaInicio' con el nuevo valor.
             fechaFinSelected = ((DateTimePicker)sender).Value;
+        }
+
+        //Metodo que valida el formato de hora ingresada por el usuario
+        private Boolean validarHora(string horaStr, Boolean esHoraInicio)
+        {
+            Boolean horaOK = true;
+
+            //validamos la hora ingresada
+            if (horaOK && !string.IsNullOrEmpty(horaStr))
+            {
+
+                List<string> valoresHora = horaStr.Split(':').ToList();
+
+                if (valoresHora.Count() != 3)
+                {
+                    horaOK = false;
+                    MessageBox.Show("Error, debe ingresar la hora con formato hh:mm:ss ");
+                }
+                else
+                {
+                    try
+                    {
+                        if (esHoraInicio)
+                        {
+                            horaInicioFormateado = new TimeSpan(int.Parse(valoresHora.ElementAt(0)),
+                                int.Parse(valoresHora.ElementAt(1)), int.Parse(valoresHora.ElementAt(2)));
+                        }
+                        else
+                        {
+                            horaFinFormateado = new TimeSpan(int.Parse(valoresHora.ElementAt(0)),
+                                int.Parse(valoresHora.ElementAt(1)), int.Parse(valoresHora.ElementAt(2)));
+                        }
+                    }
+                    catch
+                    {
+                        horaOK = false;
+                        MessageBox.Show("Error, las horas, minutos y segundos del formato hh:mm:ss deben ser solo números.");
+                    }
+                }
+            }
+
+            return horaOK;
         }
     }
 }

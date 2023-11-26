@@ -123,8 +123,8 @@ namespace DAL
         //metodo que crea un parametro del tipo DATE
         public SqlParameter crearParametro(string nom, DateTime? valor)
         {
-            SqlParameter par = new SqlParameter(nom, valor.HasValue?(object)valor.Value.Date:DBNull.Value);
-            par.DbType = DbType.Date;
+            SqlParameter par = new SqlParameter(nom, valor.HasValue?(object)valor.Value:DBNull.Value);
+            par.DbType = DbType.DateTime;
             return par;
         }
 

@@ -118,6 +118,7 @@ namespace UI
         private void btn_limpiar_Click(object sender, EventArgs e)
         {
             limpiar();
+            enlazar();
         }
 
         //logica boton borrar
