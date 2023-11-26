@@ -71,3 +71,4 @@ select * from USUARIO;
 select * from RESERVA;
 
 update usuario set Cant_intentos = 1 where username = 'admin2';
+update hash_global set idv_global = '';
