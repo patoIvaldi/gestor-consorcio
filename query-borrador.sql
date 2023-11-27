@@ -398,3 +398,21 @@ begin
 	select count(*) as total
 	from HASH_GLOBAL where idv_global = @idvGlobal;
 end;
+
+CREATE proc [dbo].[ACTUALIZAR_IDV_USUARIO]
+@idv nvarchar(100),@usuario nvarchar(20)
+as
+begin
+	UPDATE USUARIO SET idv = @idv where Username = @usuario;
+end;
+
+CREATE PROC [dbo].[LISTAR_METRICAS]
+@ordenamiento bit
+AS
+BEGIN
+    SELECT usuario, cantReservas AS cantidad_reservas
+    FROM dbo.METRICA
+    ORDER BY
+        CASE WHEN @ordenamiento = 1 THEN cantReservas END DESC,
+        CASE WHEN @ordenamiento = 0 THEN cantReservas END ASC;
+END;

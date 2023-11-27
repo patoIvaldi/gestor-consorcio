@@ -68,7 +68,10 @@ select * from RESERVA_CONTROL_CAMBIOS;
 select * from AREA_COMUN;
 select * from hash_global;
 select * from USUARIO;
+select * from persona;
 select * from RESERVA;
+select * from metrica;
 
+update RESERVA set estado = 'Cancelado'
 update usuario set Cant_intentos = 1 where username = 'admin2';
 update hash_global set idv_global = '';

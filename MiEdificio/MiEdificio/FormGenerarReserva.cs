@@ -20,6 +20,7 @@ namespace UI
         DateTime? fechaFinSelected = null;
         TimeSpan? horaInicioFormateado = null;
         TimeSpan? horaFinFormateado = null;
+        BE.Reserva reservaSelected = null;
 
         public FormGenerarReserva(string area)
         {
@@ -29,6 +30,9 @@ namespace UI
 
         private void FormGenerarReserva_Load(object sender, EventArgs e)
         {
+            btn_feedback.Enabled = false;
+            btn_cancelar.Enabled = false;
+
             BE.Evento evento = new Evento();
             evento.USUARIO = Services.ServiceSesion.Instance.USER;
             evento.DETALLE = "El usuario ingresó a la pantalla de generación de reservas.";
@@ -204,6 +208,68 @@ namespace UI
             }
 
             return horaOK;
+        }
+
+        private void btn_feedback_Click(object sender, EventArgs e)
+        {
+            if (reservaSelected != null)
+            {
+                FormFeedback formFeedback = new FormFeedback(reservaSelected);
+                formFeedback.ShowDialog();
+
+                enlazarReservas(50, null);
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una reserva.");
+            }
+        }
+
+        private void dgv_reservas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            reservaSelected = (BE.Reserva)dgv_reservas.Rows[e.RowIndex].DataBoundItem;
+
+            //logica para poder dar feedback dentro del rango permitido
+            if (reservaSelected != null && DateTime.Now.Subtract(reservaSelected.FECHA_RESERVA_FIN).TotalHours >= 0
+                && DateTime.Now.Subtract(reservaSelected.FECHA_RESERVA_FIN).TotalHours <= 24)
+            {
+                btn_feedback.Enabled = true;
+            }
+            else
+            {
+                btn_feedback.Enabled = false;
+            }
+
+            //logica para cancelar reservas
+            if (reservaSelected != null && reservaSelected.ESTADO.Equals(Enumerador.Estado.Pendiente.ToString())
+                && reservaSelected.USUARIO_AUTOR.USERNAME.Equals(Services.ServiceSesion.Instance.USER.USERNAME))
+            {
+                btn_cancelar.Enabled = true;
+            }
+            else
+            {
+                btn_cancelar.Enabled = false;
+            }
+        }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            if (reservaSelected != null)
+            {
+                reservaSelected.ESTADO = Enumerador.Estado.Cancelado.ToString();
+
+                Boolean modificada = BLL.ReservasBLL.Instance.ModificarReserva(reservaSelected);
+
+                if (modificada)
+                {
+                    MessageBox.Show("Reserva cancelada.");
+                    enlazarReservas(50, null);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una reserva.");
+            }
         }
     }
 }

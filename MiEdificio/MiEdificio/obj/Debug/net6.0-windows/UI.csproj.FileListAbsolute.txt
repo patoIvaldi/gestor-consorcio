@@ -108,3 +108,4 @@ C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\o
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\bin\Debug\net6.0-windows\System.Windows.Forms.DataVisualization.dll
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormReporteInteligente.resources
 C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormReporteCantReservas.resources
+C:\Users\Pato\Desktop\Facultad\Trabajo de Campo\Proyecto\MiEdificio\MiEdificio\obj\Debug\net6.0-windows\UI.FormFeedback.resources

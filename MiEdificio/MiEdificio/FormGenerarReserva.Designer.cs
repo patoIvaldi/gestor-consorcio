@@ -32,18 +32,17 @@
             groupBox1 = new GroupBox();
             dgv_reservas = new DataGridView();
             groupBox2 = new GroupBox();
-            label3 = new Label();
+            uc_horaFin = new UC_textbox();
+            uc_horaInicio = new UC_textbox();
             label2 = new Label();
             label1 = new Label();
             btn_feedback = new Button();
             btn_reservar = new Button();
-            rt_feedback = new RichTextBox();
             cb_areas = new ComboBox();
             cb_usuarios = new ComboBox();
             uc_fechafin = new UC_dttmPicker();
             uc_fechainicio = new UC_dttmPicker();
-            uc_horaInicio = new UC_textbox();
-            uc_horaFin = new UC_textbox();
+            btn_cancelar = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_reservas).BeginInit();
             groupBox2.SuspendLayout();
@@ -73,17 +72,17 @@
             dgv_reservas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_reservas.Size = new Size(764, 314);
             dgv_reservas.TabIndex = 0;
+            dgv_reservas.CellClick += dgv_reservas_CellClick;
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(btn_cancelar);
             groupBox2.Controls.Add(uc_horaFin);
             groupBox2.Controls.Add(uc_horaInicio);
-            groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(label1);
             groupBox2.Controls.Add(btn_feedback);
             groupBox2.Controls.Add(btn_reservar);
-            groupBox2.Controls.Add(rt_feedback);
             groupBox2.Controls.Add(cb_areas);
             groupBox2.Controls.Add(cb_usuarios);
             groupBox2.Controls.Add(uc_fechafin);
@@ -94,15 +93,27 @@
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             // 
-            // label3
+            // uc_horaFin
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(512, 25);
-            label3.Name = "label3";
-            label3.Size = new Size(63, 15);
-            label3.TabIndex = 9;
-            label3.Text = "Feedback:";
+            uc_horaFin.ETIQUETA = "Hora Fin:";
+            uc_horaFin.Location = new Point(150, 82);
+            uc_horaFin.MAX_LENGTH = 8;
+            uc_horaFin.Name = "uc_horaFin";
+            uc_horaFin.REQUERIDO = false;
+            uc_horaFin.Size = new Size(80, 46);
+            uc_horaFin.TabIndex = 11;
+            uc_horaFin.TEXT_BOX = "00:00:00";
+            // 
+            // uc_horaInicio
+            // 
+            uc_horaInicio.ETIQUETA = "Hora Inicio";
+            uc_horaInicio.Location = new Point(150, 26);
+            uc_horaInicio.MAX_LENGTH = 8;
+            uc_horaInicio.Name = "uc_horaInicio";
+            uc_horaInicio.REQUERIDO = false;
+            uc_horaInicio.Size = new Size(80, 46);
+            uc_horaInicio.TabIndex = 10;
+            uc_horaInicio.TEXT_BOX = "00:00:00";
             // 
             // label2
             // 
@@ -127,12 +138,13 @@
             // btn_feedback
             // 
             btn_feedback.Enabled = false;
-            btn_feedback.Location = new Point(686, 22);
+            btn_feedback.Location = new Point(352, 26);
             btn_feedback.Name = "btn_feedback";
-            btn_feedback.Size = new Size(75, 50);
+            btn_feedback.Size = new Size(201, 66);
             btn_feedback.TabIndex = 6;
             btn_feedback.Text = "Generar Feedback";
             btn_feedback.UseVisualStyleBackColor = true;
+            btn_feedback.Click += btn_feedback_Click;
             // 
             // btn_reservar
             // 
@@ -143,15 +155,6 @@
             btn_reservar.Text = "Reservar";
             btn_reservar.UseVisualStyleBackColor = true;
             btn_reservar.Click += btn_reservar_Click;
-            // 
-            // rt_feedback
-            // 
-            rt_feedback.Enabled = false;
-            rt_feedback.Location = new Point(603, 22);
-            rt_feedback.Name = "rt_feedback";
-            rt_feedback.Size = new Size(66, 148);
-            rt_feedback.TabIndex = 4;
-            rt_feedback.Text = "";
             // 
             // cb_areas
             // 
@@ -190,27 +193,15 @@
             uc_fechainicio.TabIndex = 0;
             uc_fechainicio.VALOR = new DateTime(2023, 10, 29, 0, 0, 0, 0);
             // 
-            // uc_horaInicio
+            // btn_cancelar
             // 
-            uc_horaInicio.ETIQUETA = "Hora Inicio";
-            uc_horaInicio.Location = new Point(150, 26);
-            uc_horaInicio.MAX_LENGTH = 8;
-            uc_horaInicio.Name = "uc_horaInicio";
-            uc_horaInicio.REQUERIDO = false;
-            uc_horaInicio.Size = new Size(80, 46);
-            uc_horaInicio.TabIndex = 10;
-            uc_horaInicio.TEXT_BOX = "00:00:00";
-            // 
-            // uc_horaFin
-            // 
-            uc_horaFin.ETIQUETA = "Hora Fin:";
-            uc_horaFin.Location = new Point(150, 82);
-            uc_horaFin.MAX_LENGTH = 8;
-            uc_horaFin.Name = "uc_horaFin";
-            uc_horaFin.REQUERIDO = false;
-            uc_horaFin.Size = new Size(80, 46);
-            uc_horaFin.TabIndex = 11;
-            uc_horaFin.TEXT_BOX = "00:00:00";
+            btn_cancelar.Location = new Point(686, 26);
+            btn_cancelar.Name = "btn_cancelar";
+            btn_cancelar.Size = new Size(75, 38);
+            btn_cancelar.TabIndex = 12;
+            btn_cancelar.Text = "Cancelar Reserva";
+            btn_cancelar.UseVisualStyleBackColor = true;
+            btn_cancelar.Click += btn_cancelar_Click;
             // 
             // FormGenerarReserva
             // 
@@ -244,13 +235,12 @@
         private Label label1;
         private Button btn_feedback;
         private Button btn_reservar;
-        private RichTextBox rt_feedback;
         private ComboBox cb_areas;
         private ComboBox cb_usuarios;
         private UC_dttmPicker uc_fechafin;
         private UC_dttmPicker uc_fechainicio;
-        private Label label3;
         private UC_textbox uc_horaInicio;
         private UC_textbox uc_horaFin;
+        private Button btn_cancelar;
     }
 }
