@@ -106,6 +106,7 @@ namespace UI
         private void cb_orden_SelectedIndexChanged(object sender, EventArgs e)
         {
             enlazarReporte();
+            btn_serializar.Enabled = true;
         }
 
         //boton con la logica para serializar la informacion del datagridview en un archivo xml
@@ -137,7 +138,7 @@ namespace UI
             DataSet dataSet = new DataSet();
 
             // Leer el archivo XML y cargarlo en el DataSet
-            dataSet.ReadXml(rutaArchivoXML+nombreArchivo+".xml");
+            dataSet.ReadXml(openFileDialog1.FileName);
 
             // Obtener el DataTable del DataSet (suponiendo que solo hay un DataTable)
             DataTable dataTableFromXML = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : null;
@@ -145,6 +146,34 @@ namespace UI
             //cargamos el dgv
             dgv_cantReservas.DataSource = null;
             dgv_cantReservas.DataSource = dataTableFromXML;
+
+            btn_serializar.Enabled = false;
+        }
+
+        private void btn_buscar_Click(object sender, EventArgs e)
+        {
+            tb_buscar.Text = " ...";
+            openFileDialog1.Title = "Elija el archivo a deserializar.";
+
+            openFileDialog1.InitialDirectory = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\"; // Directorio inicial
+            openFileDialog1.Filter = "Archivos XML (*.xml)|*.xml"; // Filtros de archivo
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                List<string> rutaArchivoSelected = openFileDialog1.FileName.Split("\\").ToList();
+
+                //lo mostramos en el textbox
+                tb_buscar.Text = tb_buscar.Text + "\\" + rutaArchivoSelected.ElementAt(rutaArchivoSelected.Count - 2)
+                    + "\\" + rutaArchivoSelected.ElementAt(rutaArchivoSelected.Count - 1);
+
+                btn_deserializar.Enabled = true;
+            }
+            else
+            {
+                btn_deserializar.Enabled = false;
+            }
+
+
         }
     }
 }

@@ -273,7 +273,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\UI.csproj",
-        "projectName": "UI",
+        "projectName": "MiEdificio",
         "projectPath": "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\UI.csproj",
         "packagesPath": "C:\\Users\\Pato\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\obj\\",
@@ -325,6 +325,10 @@
             "Microsoft.SqlServer.SqlManagementObjects": {
               "target": "Package",
               "version": "[170.18.0, )"
+            },
+            "ScottPlot.WinForms": {
+              "target": "Package",
+              "version": "[4.1.69, )"
             },
             "itextsharp": {
               "target": "Package",

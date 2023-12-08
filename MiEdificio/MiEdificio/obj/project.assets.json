@@ -555,6 +555,38 @@
           }
         }
       },
+      "ScottPlot/4.1.69": {
+        "type": "package",
+        "dependencies": {
+          "System.Drawing.Common": "4.7.2",
+          "System.Numerics.Vectors": "4.5.0"
+        },
+        "compile": {
+          "lib/net6.0/ScottPlot.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/ScottPlot.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "ScottPlot.WinForms/4.1.69": {
+        "type": "package",
+        "dependencies": {
+          "ScottPlot": "4.1.69"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/ScottPlot.WinForms.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/ScottPlot.WinForms.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -1955,6 +1987,44 @@
         "packageIcon.png"
       ]
     },
+    "ScottPlot/4.1.69": {
+      "sha512": "eYoLeztGsYcMBmAFBm/Yx1nDhhZ6c8XLYfcDv314JVxeaUpQknk5N3KktzxwQ5zmDYjixXe6F3/mqNdFFjcRAQ==",
+      "type": "package",
+      "path": "scottplot/4.1.69",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.ico",
+        "icon.png",
+        "lib/net462/ScottPlot.dll",
+        "lib/net462/ScottPlot.xml",
+        "lib/net6.0/ScottPlot.dll",
+        "lib/net6.0/ScottPlot.xml",
+        "lib/netstandard2.0/ScottPlot.dll",
+        "lib/netstandard2.0/ScottPlot.xml",
+        "scottplot.4.1.69.nupkg.sha512",
+        "scottplot.nuspec"
+      ]
+    },
+    "ScottPlot.WinForms/4.1.69": {
+      "sha512": "mZhiyaBzTmsCyAYZGTNEhNQI+vE8Wc63WLUFCC4XomqFeJbjJZ9PzCRafJcuLHN4R2EWUiPEvNwpwI9X7F0pSQ==",
+      "type": "package",
+      "path": "scottplot.winforms/4.1.69",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net461/ScottPlot.WinForms.dll",
+        "lib/net472/ScottPlot.WinForms.dll",
+        "lib/net48/ScottPlot.WinForms.dll",
+        "lib/net6.0-windows7.0/ScottPlot.WinForms.dll",
+        "lib/netcoreapp3.1/ScottPlot.WinForms.dll",
+        "scottplot.winforms.4.1.69.nupkg.sha512",
+        "scottplot.winforms.nuspec"
+      ]
+    },
     "System.Buffers/4.5.1": {
       "sha512": "Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
       "type": "package",
@@ -2989,6 +3059,7 @@
       "HIC.System.Windows.Forms.DataVisualization >= 1.0.1",
       "Interfaces >= 1.0.0",
       "Microsoft.SqlServer.SqlManagementObjects >= 170.18.0",
+      "ScottPlot.WinForms >= 4.1.69",
       "Services >= 1.0.0",
       "itextsharp >= 5.5.13.3"
     ]
@@ -3000,7 +3071,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\UI.csproj",
-      "projectName": "UI",
+      "projectName": "MiEdificio",
       "projectPath": "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\UI.csproj",
       "packagesPath": "C:\\Users\\Pato\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\obj\\",
@@ -3052,6 +3123,10 @@
           "Microsoft.SqlServer.SqlManagementObjects": {
             "target": "Package",
             "version": "[170.18.0, )"
+          },
+          "ScottPlot.WinForms": {
+            "target": "Package",
+            "version": "[4.1.69, )"
           },
           "itextsharp": {
             "target": "Package",

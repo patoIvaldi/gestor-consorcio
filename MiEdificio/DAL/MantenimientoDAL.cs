@@ -22,6 +22,7 @@ namespace DAL
             {
                 // Consulta SQL para realizar el respaldo
                 string backupQuery = $"BACKUP DATABASE REPOSITORIO TO DISK = '{backup.DIRECTORIO + backup.NOMBRE_ARCHIVO}'";
+                //string backupQuery = $"BACKUP DATABASE MiEdificio2 TO DISK = '{backup.DIRECTORIO + backup.NOMBRE_ARCHIVO}'";
                 int modificados = acceso.escribir(backupQuery, null, CommandType.Text);
                 if (modificados != 0)
                 {
@@ -44,8 +45,11 @@ namespace DAL
             try
             {
                 StringBuilder query = new StringBuilder($"USE MASTER ALTER DATABASE REPOSITORIO SET OFFLINE WITH ROLLBACK IMMEDIATE; ");
+                //StringBuilder query = new StringBuilder($"USE MASTER ALTER DATABASE MiEdificio2 SET OFFLINE WITH ROLLBACK IMMEDIATE; ");
                 query.Append($"RESTORE DATABASE REPOSITORIO FROM DISK = '{restore.DIRECTORIO + restore.NOMBRE_ARCHIVO}' WITH REPLACE ");
+                //query.Append($"RESTORE DATABASE MiEdificio2 FROM DISK = '{restore.DIRECTORIO + restore.NOMBRE_ARCHIVO}' WITH REPLACE ");
                 query.Append($"ALTER DATABASE REPOSITORIO SET ONLINE WITH ROLLBACK IMMEDIATE;");
+                //query.Append($"ALTER DATABASE MiEdificio2 SET ONLINE WITH ROLLBACK IMMEDIATE;");
 
                 int modificados = acceso.escribir(query.ToString(), null, CommandType.Text);
 

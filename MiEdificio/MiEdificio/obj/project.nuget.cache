@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "P0S+CKME/EGpk/BQ6qoTurC2RBX6MzWToYpCsGJxSeP/jpiSZcCNwPfFOaIADWXwHfcro7Qx7dQuAEuok3TczQ==",
+  "dgSpecHash": "vvf36ErxXvDsUxYIgossazMrXqfQAEfXfe8CQzH93R4qDvwluTepV7g935pe2ydaTgBkrKGrcbMKklv9JaJ7KA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\UI.csproj",
   "expectedPackageFiles": [
@@ -29,6 +29,8 @@
     "C:\\Users\\Pato\\.nuget\\packages\\microsoft.sqlserver.sqlmanagementobjects\\170.18.0\\microsoft.sqlserver.sqlmanagementobjects.170.18.0.nupkg.sha512",
     "C:\\Users\\Pato\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Pato\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Pato\\.nuget\\packages\\scottplot\\4.1.69\\scottplot.4.1.69.nupkg.sha512",
+    "C:\\Users\\Pato\\.nuget\\packages\\scottplot.winforms\\4.1.69\\scottplot.winforms.4.1.69.nupkg.sha512",
     "C:\\Users\\Pato\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Pato\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "C:\\Users\\Pato\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",

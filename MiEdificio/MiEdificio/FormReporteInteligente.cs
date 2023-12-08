@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLL;
+using ScottPlot;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using System.Windows.Forms.DataVisualization.Charting;
 
 namespace UI
 {
@@ -20,18 +21,106 @@ namespace UI
 
         private void FormReporteInteligente_Load(object sender, EventArgs e)
         {
-            // Agregar áreas comunes
-           // chart1.Series.Add("Reservas");
+            enlazarAnios();
 
-            // Datos de ejemplo (días del año y reservas)
-           // string[] areasComunes = { "Sum", "Pileta", "Parrilla" };
-            //int[] reservasDias = { 30, 50, 20 }; // Número de reservas para cada área común
+            var p2 = fp_grafico.Plot;
 
-            // Agregar puntos al gráfico
-            //for (int i = 0; i < areasComunes.Length; i++)
-            //{
-                //chart1.Series["Reservas"].Points.AddXY(areasComunes[i], reservasDias[i]);
-            //}
+            // Crear datos de ganancias por mes (reemplaza esto con tus datos reales)
+            //double[] gananciasPorMes = ObtenerDatosGanancias();
+            //double[] gananciasPorMes = { -10, 25, 15, 35, 50, 60, 45, 50, 35, 20, 15, 10 };
+            //double[] meses = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+            List<BE.Ganancia> ganancias = recuperarGanancias(DateTime.Now.Year);
+            List<double> mesesList = new List<double>();
+            List<double> gananciasPorMesList = new List<double>();
+
+            foreach (BE.Ganancia g in ganancias)
+            {
+                mesesList.Add(double.Parse(g.MES.ToString()));
+                gananciasPorMesList.Add(double.Parse(g.GANANCIA.ToString()));
+            }
+
+            double[] meses = mesesList.ToArray();
+            double[] gananciasPorMes = gananciasPorMesList.ToArray();
+
+            // create a histogram with a fixed number of bins
+            ScottPlot.Statistics.Histogram hist = new(min: 1, max: 12, binCount: 12);
+            p2.PlotBar(meses, gananciasPorMes);
+
+            p2.SetAxisLimits(xMin: 1, xMax: 12);
+            // Personalizar el grafico
+            p2.Title("Flujo de ganancias por mes");
+            p2.XLabel("Mes");
+            p2.YLabel("Ganancias");
+
+            p2.SaveFig("stats_histogram.png");
+
+            fp_grafico.Refresh();
+
+        }
+
+        private void btn_buscar_Click(object sender, EventArgs e)
+        {
+            enlazarGrafico();
+        }
+
+        private void enlazarAnios()
+        {
+            cb_anios.DataSource = null;
+            cb_anios.Items.Clear();
+            cb_anios.Items.AddRange(BLL.GananciaBLL.Instance.ListarAnios().ToArray());
+        }
+
+        //recuperamos las ganancias de todos los anios
+        private List<BE.Ganancia> recuperarGanancias(int anio)
+        {
+            return BLL.GananciaBLL.Instance.ListarGanancias(anio);
+        }
+
+        private void cb_anios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void enlazarGrafico()
+        {
+
+            if (cb_anios.SelectedItem is not null)
+            {
+                fp_grafico.Reset();
+                var p2 = fp_grafico.Plot;
+
+                List<BE.Ganancia> ganancias = recuperarGanancias(int.Parse(cb_anios.SelectedItem.ToString()));
+                List<double> mesesList = new List<double>();
+                List<double> gananciasPorMesList = new List<double>();
+
+                foreach (BE.Ganancia g in ganancias)
+                {
+                    mesesList.Add(double.Parse(g.MES.ToString()));
+                    gananciasPorMesList.Add(double.Parse(g.GANANCIA.ToString()));
+                }
+
+                double[] meses = mesesList.ToArray();
+                double[] gananciasPorMes = gananciasPorMesList.ToArray();
+
+                // create a histogram with a fixed number of bins
+                ScottPlot.Statistics.Histogram hist = new(min: 1, max: 12, binCount: 12);
+                p2.PlotBar(meses, gananciasPorMes);
+
+                p2.SetAxisLimits(xMin: 1, xMax: 12);
+                // Personalizar el grafico
+                p2.Title("Flujo de ganancias por mes");
+                p2.XLabel("Mes");
+                p2.YLabel("Ganancias");
+
+                p2.SaveFig("stats_histogram.png");
+
+                fp_grafico.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un año del combobox.");
+            }
         }
     }
 }

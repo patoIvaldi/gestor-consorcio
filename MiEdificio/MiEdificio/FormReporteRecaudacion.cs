@@ -14,6 +14,9 @@ using iTextSharp.text;
 using System.Diagnostics;
 using BE;
 using Microsoft.SqlServer.Management.Smo;
+using ScottPlot;
+using ScottPlot.Palettes;
+using System.Globalization;
 
 namespace UI
 {
@@ -148,6 +151,17 @@ namespace UI
 
                 doc.Open();
 
+                // Agregar título al documento
+                Paragraph title = new Paragraph("Reporte Recaudación - " + DateTime.Now);
+                title.Alignment = 1;
+                iTextSharp.text.Font font = new iTextSharp.text.Font();
+                font.Size = 20;
+                font.SetStyle("bold");
+                title.Font = font;
+                doc.Add(title);
+                doc.Add(new Paragraph(" "));
+                doc.Add(new Paragraph(" "));
+
                 PdfPTable table = new PdfPTable(dgv_recaudacion.Columns.Count);
 
                 for (int i = 0; i < dgv_recaudacion.Columns.Count; i++)
@@ -163,12 +177,34 @@ namespace UI
                     {
                         if (dgv_recaudacion.Rows[i].Cells[j].Value != null)
                         {
-                            table.AddCell(new Phrase(dgv_recaudacion.Rows[i].Cells[j].Value.ToString()));
+                            if (dgv_recaudacion.Rows[i].Cells[j].Value.ToString().Contains("/"))
+                            {
+                                table.AddCell(new Phrase(dgv_recaudacion.Rows[i].Cells[j].Value.ToString()));
+                            }
+                            else
+                            {
+                                // Crear un objeto CultureInfo para Argentina (es-AR)
+                                CultureInfo culturaArgentina = new CultureInfo("es-AR");
+                                // Formatear el número como moneda en pesos argentinos
+                                double numero = double.Parse(dgv_recaudacion.Rows[i].Cells[j].Value.ToString());
+                                string numeroFormateado = numero.ToString("C", culturaArgentina);
+
+                                table.AddCell(new Phrase(numeroFormateado));
+                            }
+                            
                         }
                     }
                 }
 
                 doc.Add(table);
+
+                doc.Add(new Paragraph(" "));
+                doc.Add(new Paragraph(" "));
+
+                // Agregar pie de página
+                Paragraph footer = new Paragraph("Powered by CEIBA - Bs. As. - Argentina - 2023");
+                footer.Alignment = 1;
+                doc.Add(footer);
 
                 doc.Close();
 

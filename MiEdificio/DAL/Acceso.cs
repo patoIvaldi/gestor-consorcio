@@ -22,6 +22,7 @@ namespace DAL
 
             conexion = new SqlConnection();
             conexion.ConnectionString = @"Data Source=.\SQLEXPRESS; Initial Catalog=MiEdificio; Integrated Security=True; MultipleActiveResultSets=True; Trust Server Certificate=True;";
+            //conexion.ConnectionString = @"Data Source=.\SQLEXPRESS; Initial Catalog=MiEdificio2; Integrated Security=True; MultipleActiveResultSets=True; Trust Server Certificate=True;";
             //conexion.ConnectionString = ConfigurationManager.ConnectionStrings["MiEdificio"].ConnectionString;
 
             try
