@@ -100,6 +100,7 @@ namespace UI
 
             dgv_cantReservas.DataSource = null;
             dgv_cantReservas.DataSource = BLL.ReservasBLL.Instance.BuscarCantidadReservas(ordenDescendente);
+            dgv_cantReservas.Columns["IDV"].Visible = false;
 
         }
 
@@ -112,7 +113,14 @@ namespace UI
         //boton con la logica para serializar la informacion del datagridview en un archivo xml
         private void btn_serializar_Click(object sender, EventArgs e)
         {
-            string rutaArchivoXML = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\";
+
+            DirectoryInfo directorioPadre = Directory.GetParent(Application.StartupPath);
+            DirectoryInfo directorioAbuelo = Directory.GetParent(directorioPadre.FullName);
+            DirectoryInfo directorioBisAbuelo = Directory.GetParent(directorioAbuelo.FullName);
+            DirectoryInfo directorioTataraAbuelo = Directory.GetParent(directorioBisAbuelo.FullName);
+            string rutaArchivoXML = Path.Combine(directorioTataraAbuelo.FullName, "Resources", "archivos");
+
+            //string rutaArchivoXML = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\";
             string nombreArchivo = "cantReservas";
 
             DataSet serializado = BLL.GenericHelper.Instance.SerializarObjetoEnXML((DataTable)dgv_cantReservas.DataSource, rutaArchivoXML, nombreArchivo);
@@ -126,13 +134,28 @@ namespace UI
             {
                 MessageBox.Show("Error al abrir el archivo XML: " + ex.Message);
             }
+
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario serializo un archivo.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Media.ToString();
+            evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+            evento.MODULO = Enumerador.Modulo.Reportes.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
         }
 
         //boton con la logica para deserializar un archivo xml y cargarlo en el datagridview
         private void btn_deserializar_Click(object sender, EventArgs e)
         {
 
-            string rutaArchivoXML = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\";
+            DirectoryInfo directorioPadre = Directory.GetParent(Application.StartupPath);
+            DirectoryInfo directorioAbuelo = Directory.GetParent(directorioPadre.FullName);
+            DirectoryInfo directorioBisAbuelo = Directory.GetParent(directorioAbuelo.FullName);
+            DirectoryInfo directorioTataraAbuelo = Directory.GetParent(directorioBisAbuelo.FullName);
+            string rutaArchivoXML = Path.Combine(directorioTataraAbuelo.FullName, "Resources", "archivos");
+
+            //string rutaArchivoXML = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\";
             string nombreArchivo = "cantReservas";
 
             DataSet dataSet = new DataSet();
@@ -148,6 +171,15 @@ namespace UI
             dgv_cantReservas.DataSource = dataTableFromXML;
 
             btn_serializar.Enabled = false;
+
+            BE.Evento evento = new Evento();
+            evento.USUARIO = Services.ServiceSesion.Instance.USER;
+            evento.DETALLE = "El usuario deserializo un archivo.";
+            evento.CRITICIDAD = Enumerador.Criticidad.Media.ToString();
+            evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+            evento.MODULO = Enumerador.Modulo.Reportes.ToString();
+
+            BLL.EventoBLL.Instance.AgregarEvento(evento);
         }
 
         private void btn_buscar_Click(object sender, EventArgs e)
@@ -155,7 +187,14 @@ namespace UI
             tb_buscar.Text = " ...";
             openFileDialog1.Title = "Elija el archivo a deserializar.";
 
-            openFileDialog1.InitialDirectory = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\"; // Directorio inicial
+            DirectoryInfo directorioPadre = Directory.GetParent(Application.StartupPath);
+            DirectoryInfo directorioAbuelo = Directory.GetParent(directorioPadre.FullName);
+            DirectoryInfo directorioBisAbuelo = Directory.GetParent(directorioAbuelo.FullName);
+            DirectoryInfo directorioTataraAbuelo = Directory.GetParent(directorioBisAbuelo.FullName);
+            string rutaArchivoXML = Path.Combine(directorioTataraAbuelo.FullName, "Resources", "archivos");
+
+            //openFileDialog1.InitialDirectory = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\"; // Directorio inicial
+            openFileDialog1.InitialDirectory = rutaArchivoXML+"\\"; // Directorio inicial
             openFileDialog1.Filter = "Archivos XML (*.xml)|*.xml"; // Filtros de archivo
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -172,7 +211,6 @@ namespace UI
             {
                 btn_deserializar.Enabled = false;
             }
-
 
         }
     }

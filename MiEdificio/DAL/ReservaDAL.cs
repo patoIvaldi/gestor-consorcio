@@ -36,6 +36,7 @@ namespace DAL
                 r.FECHA_RESERVA_FIN = DateTime.Parse(registro["Fecha_reserva_fin"].ToString().Substring(0, 10) + " " + registro["Hora_reserva_fin"].ToString());
                 r.USUARIO_AUTOR = new UsuarioDAL().listar(registro["usuario"].ToString()).First();
                 r.FEEDBACK = registro["feedback"].ToString();
+                r.IDV = registro["idv"].ToString();
 
                 reservas.Add(r);
             }
@@ -57,6 +58,7 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@horaReservaFin", reserva.FECHA_RESERVA_FIN.TimeOfDay));
             parametros.Add(acceso.crearParametro("@usuario", reserva.USUARIO_AUTOR.USERNAME));
             parametros.Add(acceso.crearParametro("@feedback", reserva.FEEDBACK));
+            parametros.Add(acceso.crearParametro("@idv", reserva.IDV));
 
             modificados = acceso.escribir("INSERTAR_RESERVA", parametros);
 
@@ -69,7 +71,7 @@ namespace DAL
             return modificados;
         }
 
-        //generamos el feedback de la reserva
+        //generamos el feedback de la reserva DEPRECADO
         public int GenerarFeedback(int idReserva, string feedback)
         {
             int modificados = 0;
@@ -85,7 +87,7 @@ namespace DAL
             return modificados;
         }
 
-        public int ModificarReserva(BE.Reserva reserva)
+        public int ModificarReserva(BE.Reserva reserva, BE.ReservaControlCambios versionElegida, Boolean esRollback)
         {
             int modificados = 0;
 
@@ -99,11 +101,19 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@horaFin", reserva.FECHA_RESERVA_FIN.TimeOfDay));
             parametros.Add(acceso.crearParametro("@usuario", reserva.USUARIO_AUTOR.USERNAME));
             parametros.Add(acceso.crearParametro("@feedback", reserva.FEEDBACK));
+            parametros.Add(acceso.crearParametro("@idv", reserva.IDV));
 
             modificados = acceso.escribir("MODIFICAR_RESERVA", parametros);
 
-            //registramos el cambio de version
-            new ReservaControlCambiosDAL().AgregarCambio(reserva, "");
+            if (!esRollback)
+            {
+                //registramos el cambio de version
+                new ReservaControlCambiosDAL().AgregarCambio(reserva, "");
+            }
+            else
+            {
+                new ReservaControlCambiosDAL().MarcarRegistroActivo(versionElegida, reserva);
+            }
 
             return modificados;
         }
@@ -136,6 +146,16 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@ordenamiento", ordenDescendente));
 
             return acceso.leer("LISTAR_METRICAS", parametros);
+        }
+
+        public Boolean ActualizarIDVReserva(BE.Reserva reserva, string idv)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@idv", idv));
+            parametros.Add(acceso.crearParametro("@idReserva", reserva.ID));
+            int modificados = acceso.escribir("ACTUALIZAR_IDV_RESERVA", parametros);
+
+            return modificados != 0 ? true : false;
         }
 
     }

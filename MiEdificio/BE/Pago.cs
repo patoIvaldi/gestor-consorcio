@@ -86,8 +86,15 @@ namespace BE
 			set { dni = value; }
 		}
 
+        private string idv;
 
-		public override string ToString()
+        public string IDV
+        {
+            get { return idv; }
+            set { idv = value; }
+        }
+
+        public override string ToString()
         {
             return this.fechaEjecucion.Date + " - N° P" + this.id;
         }

@@ -36,6 +36,7 @@ namespace UI
         //en la carga del formulario
         private void FormControlCambios_Load(object sender, EventArgs e)
         {
+            TraducirComponentes();
 
             BE.Evento evento = new Evento();
             evento.USUARIO = Services.ServiceSesion.Instance.USER;
@@ -56,6 +57,50 @@ namespace UI
             dateTimePickerEnUserControlInicio.ValueChanged += DateTimePickerEnUserControlInicio_ValueChanged;
             DateTimePicker dateTimePickerEnUserControlFin = uc_fechafin.dtp_publico;
             dateTimePickerEnUserControlFin.ValueChanged += DateTimePickerEnUserControlFin_ValueChanged;
+        }
+
+        public void TraducirComponentes()
+        {
+            IDictionary<string, string> traducciones = BLL.IdiomaBLL.INSTANCE.diccionario;
+
+            if (traducciones is not null && traducciones.Count > 0)
+            {
+                this.Text = traducciones.ContainsKey(this.Name) ? traducciones[this.Name] : this.Text;
+
+                foreach (Control c in this.Controls)
+                {
+                    //traduzco el texto del componente
+                    c.Text = traducciones.ContainsKey(c.Name + "_" + this.Name) ? traducciones[c.Name + "_" + this.Name] : c.Text;
+
+                    //si es un groupbox, recorro todos los componentes que tenga en su interior
+                    if (c is GroupBox)
+                    {
+                        foreach (Control controlChild in ((GroupBox)c).Controls)
+                        {
+                            if (controlChild is UC_tb_numerico)
+                            {
+                                ((UC_tb_numerico)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_tb_numerico)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_tb_password)
+                            {
+                                ((UC_tb_password)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_tb_password)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_textbox)
+                            {
+                                ((UC_textbox)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_textbox)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_dttmPicker)
+                            {
+                                ((UC_dttmPicker)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_dttmPicker)controlChild).ETIQUETA;
+                            }
+                            else
+                            {
+                                controlChild.Text = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : controlChild.Text;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void enlazarUsuarios()
@@ -210,8 +255,18 @@ namespace UI
                 reservaRollback.USUARIO_AUTOR = versionSelected.USUARIO_RESERVA;
                 reservaRollback.FEEDBACK = versionSelected.FEEDBACK;
 
-                if (BLL.ReservasBLL.Instance.ModificarReserva(reservaRollback))
+                if (BLL.ReservasBLL.Instance.ModificarReserva(reservaRollback, versionSelected, true))
                 {
+
+                    BE.Evento evento = new Evento();
+                    evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                    evento.DETALLE = "El usuario restaura la reserva: " + reservaRollback.ID;
+                    evento.CRITICIDAD = Enumerador.Criticidad.Alta.ToString();
+                    evento.OPERACION = Enumerador.Operacion.Modificar.ToString();
+                    evento.MODULO = Enumerador.Modulo.Reserva.ToString();
+
+                    BLL.EventoBLL.Instance.AgregarEvento(evento);
+
                     MessageBox.Show("Versión de la reserva restaurada con éxito.");
                     enlazarCambios(100, null);
                 }

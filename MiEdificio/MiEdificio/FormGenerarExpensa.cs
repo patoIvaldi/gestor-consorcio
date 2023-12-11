@@ -113,6 +113,7 @@ namespace UI
         {
             dgv_expensas.DataSource = null;
             dgv_expensas.DataSource = BLL.ExpensaBLL.Instance.ListarExpensas(persona.DNI);
+            dgv_expensas.Columns["IDV"].Visible = false;
 
             // Dar formato de moneda a la columna de 'recaudacion'
             DataGridViewCellStyle currencyStyle = new DataGridViewCellStyle();
@@ -149,6 +150,7 @@ namespace UI
         {
             dgv_detalle.DataSource = null;
             dgv_detalle.DataSource = BLL.SegmentoBLL.Instance.obtenerSegmentosExpensa(expensa.ID);
+            dgv_detalle.Columns["IDV"].Visible = false;
             uC_dttmFechaExpensa.VALOR = expensa.FECHA_EMISION;
 
             // Dar formato de moneda a la columna de 'recaudacion'
@@ -222,6 +224,8 @@ namespace UI
 
             dgv_detalle.DataSource = null;
             dgv_detalle.DataSource = nuevosSegmentos;
+            dgv_detalle.Columns["IDV"].Visible = false;
+
 
             //limpiamos
             uC_tb_descSegmento.TEXT_BOX = "";

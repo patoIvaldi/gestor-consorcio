@@ -35,6 +35,14 @@ namespace BE
 			set { ganancia = value; }
 		}
 
+        private string idv;
+
+        public string IDV
+        {
+            get { return idv; }
+            set { idv = value; }
+        }
+
         public override string ToString()
         {
             return this.mes+"/"+this.anio+" --> $"+this.ganancia;

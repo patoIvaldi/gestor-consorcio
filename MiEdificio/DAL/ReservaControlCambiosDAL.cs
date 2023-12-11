@@ -1,10 +1,12 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using BE;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace DAL
 {
@@ -101,6 +103,19 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@detalle", detalle));
 
             modificados = acceso.escribir("INSERTAR_CAMBIO_RESERVA", parametros);
+
+            return modificados;
+        }
+
+        public int MarcarRegistroActivo(BE.ReservaControlCambios versionElegida, BE.Reserva reserva)
+        {
+            int modificados = 0;
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@idCambioReserva", versionElegida.ID));
+            parametros.Add(acceso.crearParametro("@idReserva", reserva.ID));
+
+            modificados = acceso.escribir("ACTIVAR_REG_CAMBIO_RESERVA", parametros);
 
             return modificados;
         }

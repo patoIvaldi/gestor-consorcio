@@ -25,8 +25,14 @@ namespace UI
         {
             openFileDialog1.Title = "Elija el archivo de backup a restaurar.";
 
+            DirectoryInfo directorioPadre = Directory.GetParent(Application.StartupPath);
+            DirectoryInfo directorioAbuelo = Directory.GetParent(directorioPadre.FullName);
+            DirectoryInfo directorioBisAbuelo = Directory.GetParent(directorioAbuelo.FullName);
+            DirectoryInfo directorioTataraAbuelo = Directory.GetParent(directorioBisAbuelo.FullName);
+            string ruta = Path.Combine(directorioTataraAbuelo.FullName, "Resources", "Backups-BD");
+
             //openFileDialog1.InitialDirectory = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\Backups-BD\\"; // Directorio inicial
-            openFileDialog1.InitialDirectory = "C:\\archivos\\"; // Directorio inicial
+            openFileDialog1.InitialDirectory = ruta+"\\"; // Directorio inicial
             openFileDialog1.Filter = "Archivos de respaldo de SQL Server (*.bak)|*.bak"; // Filtros de archivo
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -45,7 +51,15 @@ namespace UI
         private void btn_bkp_Click(object sender, EventArgs e)
         {
             //saveFileDialog1.InitialDirectory = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\Backups-BD\\";
+
+            //DirectoryInfo directorioPadre = Directory.GetParent(Application.StartupPath);
+            //DirectoryInfo directorioAbuelo = Directory.GetParent(directorioPadre.FullName);
+            //DirectoryInfo directorioBisAbuelo = Directory.GetParent(directorioAbuelo.FullName);
+            //DirectoryInfo directorioTataraAbuelo = Directory.GetParent(directorioBisAbuelo.FullName);
+            //string ruta = Path.Combine(directorioTataraAbuelo.FullName, "Resources", "Backups-BD");
+
             saveFileDialog1.InitialDirectory = "C:\\archivos\\";
+            //saveFileDialog1.InitialDirectory = ruta+"\\";
             saveFileDialog1.Filter = "Archivos de respaldo de SQL Server (*.bak)|*.bak";
             saveFileDialog1.Title = "Guardar respaldo de la base de datos";
             saveFileDialog1.FileName = "Backup_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".bak";
@@ -123,8 +137,54 @@ namespace UI
             }
         }
 
+        public void TraducirComponentes()
+        {
+            IDictionary<string, string> traducciones = BLL.IdiomaBLL.INSTANCE.diccionario;
+
+            if (traducciones is not null && traducciones.Count > 0)
+            {
+                this.Text = traducciones.ContainsKey(this.Name) ? traducciones[this.Name] : this.Text;
+
+                foreach (Control c in this.Controls)
+                {
+                    //traduzco el texto del componente
+                    c.Text = traducciones.ContainsKey(c.Name + "_" + this.Name) ? traducciones[c.Name + "_" + this.Name] : c.Text;
+
+                    //si es un groupbox, recorro todos los componentes que tenga en su interior
+                    if (c is GroupBox)
+                    {
+                        foreach (Control controlChild in ((GroupBox)c).Controls)
+                        {
+                            if (controlChild is UC_tb_numerico)
+                            {
+                                ((UC_tb_numerico)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_tb_numerico)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_tb_password)
+                            {
+                                ((UC_tb_password)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_tb_password)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_textbox)
+                            {
+                                ((UC_textbox)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_textbox)controlChild).ETIQUETA;
+                            }
+                            else if (controlChild is UC_dttmPicker)
+                            {
+                                ((UC_dttmPicker)controlChild).ETIQUETA = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : ((UC_dttmPicker)controlChild).ETIQUETA;
+                            }
+                            else
+                            {
+                                controlChild.Text = traducciones.ContainsKey(controlChild.Name + "_" + this.Name) ? traducciones[controlChild.Name + "_" + this.Name] : controlChild.Text;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void FormRespaldo_Load(object sender, EventArgs e)
         {
+            TraducirComponentes();
+            
             btn_confirmarRestore.Enabled = false;
 
             BE.Evento evento = new Evento();

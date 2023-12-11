@@ -72,6 +72,7 @@ namespace UI
         {
             dgv_areas.DataSource = null;
             dgv_areas.DataSource = BLL.AreaComunBLL.Instance.ListarAreas();
+            dgv_areas.Columns["IDV"].Visible = false;
         }
 
         private void FormABMAreaComun_Load(object sender, EventArgs e)

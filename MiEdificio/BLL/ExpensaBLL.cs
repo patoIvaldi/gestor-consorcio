@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using BE;
+using DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -36,9 +37,15 @@ namespace BLL
             return expensaDAL.Listar(dni);
         }
 
+        public List<BE.Expensa> ListarExpensas()
+        {
+            return expensaDAL.ListarTodas();
+        }
+
         //hace el dto de la expensa creada
         public Boolean GenerarExpensa(BE.Expensa exp)
         {
+            ArmarHashExpensa(exp);
             Boolean exitoso = expensaDAL.Generar(exp) > 0;
 
             BE.Expensa generada = expensaDAL.BuscarPorPeriodoYDNI(exp.DNI,exp.PERIODO);
@@ -46,8 +53,18 @@ namespace BLL
             if(generada is not null)
             {
                 exp.ID = generada.ID;
+
+                //generamos el idv para cada segmento
+                foreach (BE.Segmento s in exp.SEGMENTOS)
+                {
+                    BLL.SegmentoBLL.Instance.ArmarHashSegmento(s);
+                }
+
                 exitoso = segmentoDAL.Generar(exp) > 0;
             }
+
+            ArmarHashGlobalExpensa();
+            BLL.SegmentoBLL.Instance.ArmarHashGlobalSegmento();
 
             return exitoso;
         }
@@ -68,6 +85,80 @@ namespace BLL
         public DataTable BuscarRecaudacionPorPeriodo(Boolean ordenDescendente)
         {
             return expensaDAL.RecaudacionPorPeriodo(ordenDescendente);
+        }
+
+        //metodo que realiza la generacion del hash para la expensa
+        public string ArmarHashExpensa(BE.Expensa expensa)
+        {
+            string cadena = expensa.FECHA_EMISION.ToString() + expensa.MONTO.ToString() + expensa.ESTA_PAGA.ToString()
+                + expensa.DTTM_1ER_VENCIMIENTO.ToString() + expensa.DTTM_2DO_VENCIMIENTO.ToString();
+
+            expensa.IDV = Services.ServiceEncriptador.Instance.GenerarHASH(cadena);
+
+            return expensa.IDV;
+        }
+
+        public void ArmarHashGlobalExpensa()
+        {
+            //buscamos la lista de todas las expensas
+            List<BE.Expensa> expensas = ListarExpensas();
+            string cadenaIDVs = "";
+
+            //concatenamos cada uno de los hashes
+            foreach (BE.Expensa e in expensas)
+            {
+                cadenaIDVs += e.IDV != null ? e.IDV : "";
+            }
+
+            //generamos el hash global
+            BE.HASH_GLOBAL idvGlobalExpensa = new BE.HASH_GLOBAL();
+            idvGlobalExpensa.NOMBRE_TABLA = Enumerador.TablaIDV.EXPENSA.ToString();
+            idvGlobalExpensa.IDV_GLOBAL = Services.ServiceEncriptador.Instance.GenerarHASH(cadenaIDVs);
+
+            BLL.HashGlobalBLL.Instance.InsertarHashGlobal(idvGlobalExpensa);
+        }
+
+        public string RecalcularHashGlobalExpensas()
+        {
+            //buscamos la lista de todas las expensas
+            List<BE.Expensa> expensas = ListarExpensas();
+            string cadenaIDVs = "";
+
+            //concatenamos cada uno de los hashes
+            foreach (BE.Expensa e in expensas)
+            {
+                string idvRecalculado = ArmarHashExpensa(e);
+                cadenaIDVs += idvRecalculado != null ? idvRecalculado : "";
+            }
+
+            return Services.ServiceEncriptador.Instance.GenerarHASH(cadenaIDVs);
+        }
+
+        public void SanearSistemaIDV()
+        {
+            //buscamos la lista de todas las expensas
+            List<BE.Expensa> expensas = ListarExpensas();
+            string cadenaIDVs = "";
+
+            //generamos y concatenamos cada uno de los hashes
+            foreach (BE.Expensa e in expensas)
+            {
+                //recalculamos el hash para cada expensa
+                string nuevoHashExpensa = ArmarHashExpensa(e);
+
+                //persistimos el nuevo hash en la tabla expensa
+                expensaDAL.ActualizarIDVExpensa(e, nuevoHashExpensa);
+
+                //lo concatenamos a la cadena de hashes para generar el global
+                cadenaIDVs += nuevoHashExpensa != null ? nuevoHashExpensa : "";
+            }
+
+            //generamos el hash global
+            BE.HASH_GLOBAL idvGlobalExpensa = new BE.HASH_GLOBAL();
+            idvGlobalExpensa.NOMBRE_TABLA = Enumerador.TablaIDV.EXPENSA.ToString();
+            idvGlobalExpensa.IDV_GLOBAL = Services.ServiceEncriptador.Instance.GenerarHASH(cadenaIDVs);
+
+            BLL.HashGlobalBLL.Instance.InsertarHashGlobal(idvGlobalExpensa);
         }
     }
 }

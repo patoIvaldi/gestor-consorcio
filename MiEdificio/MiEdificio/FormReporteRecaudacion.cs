@@ -136,7 +136,13 @@ namespace UI
 
             try
             {
-                string rutaArchivoPDF = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\archivo.pdf";
+               // string rutaArchivoPDF = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\archivo.pdf";
+
+                DirectoryInfo directorioPadre = Directory.GetParent(Application.StartupPath);
+                DirectoryInfo directorioAbuelo = Directory.GetParent(directorioPadre.FullName);
+                DirectoryInfo directorioBisAbuelo = Directory.GetParent(directorioAbuelo.FullName);
+                DirectoryInfo directorioTataraAbuelo = Directory.GetParent(directorioBisAbuelo.FullName);
+                string rutaArchivoPDF = Path.Combine(directorioTataraAbuelo.FullName, "Resources", "archivos", "archivo.pdf");
 
                 // Obtener la ruta del directorio donde se encuentra el proyecto
                 //string directorioProyecto = Directory.GetCurrentDirectory();
@@ -145,7 +151,7 @@ namespace UI
                 //string nombreArchivoPDF = "archivo.pdf";
 
                 // Combinar la ruta del directorio con el nombre del archivo para obtener la ruta completa
-               // string rutaArchivoPDF = Path.Combine(directorioProyecto, nombreArchivoPDF);
+                // string rutaArchivoPDF = Path.Combine(directorioProyecto, nombreArchivoPDF);
 
                 PdfWriter.GetInstance(doc, new FileStream(rutaArchivoPDF, FileMode.Create));
 

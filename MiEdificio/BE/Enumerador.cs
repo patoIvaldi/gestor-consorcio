@@ -32,7 +32,7 @@ namespace BE
 
         public enum TablaIDV
         {
-            USUARIO,RESERVA,SEGMENTO,PAGO,EXPENSA,AREA_COMUN
+            USUARIO,RESERVA,SEGMENTO,PAGO,EXPENSA,AREA_COMUN,GANANCIA,METRICA
         }
     }
 }

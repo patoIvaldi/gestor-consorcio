@@ -27,6 +27,13 @@ namespace BE
 			set { valor = value; }
 		}
 
+        private string idv;
 
-	}
+        public string IDV
+        {
+            get { return idv; }
+            set { idv = value; }
+        }
+
+    }
 }

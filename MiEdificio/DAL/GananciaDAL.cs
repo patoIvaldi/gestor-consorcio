@@ -29,6 +29,7 @@ namespace DAL
                 g.ANIO = int.Parse(registro["anio"].ToString());
                 g.MES = int.Parse(registro["mes"].ToString());
                 g.GANANCIA = double.Parse(registro["ganancia"].ToString());
+                g.IDV = registro["idv"].ToString();
 
                 ganancias.Add(g);
             }
@@ -48,6 +49,17 @@ namespace DAL
                 anios.Add(valor);
             }
             return anios;
+        }
+
+        public Boolean ActualizarIDVGanancia(BE.Ganancia ganancia, string idv)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@idv", idv));
+            parametros.Add(acceso.crearParametro("@anio", ganancia.ANIO));
+            parametros.Add(acceso.crearParametro("@mes", ganancia.MES));
+            int modificados = acceso.escribir("ACTUALIZAR_IDV_GANANCIA", parametros);
+
+            return modificados != 0 ? true : false;
         }
 
     }

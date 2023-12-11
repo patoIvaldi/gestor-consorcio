@@ -81,6 +81,13 @@ namespace BE
 			set { feedback = value; }
 		}
 
+        private string idv;
 
-	}
+        public string IDV
+        {
+            get { return idv; }
+            set { idv = value; }
+        }
+
+    }
 }

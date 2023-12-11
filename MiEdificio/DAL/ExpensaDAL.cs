@@ -32,6 +32,7 @@ namespace DAL
                 e.ID = int.Parse(registro["id"].ToString());
                 e.ESTA_PAGA = Boolean.Parse(registro["esta_paga"].ToString());
                 e.DNI = dni;
+                e.IDV = registro["idv"].ToString();
 
                 SegmentoDAL gestorSegmentos = new SegmentoDAL();
 
@@ -55,6 +56,7 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@periodo", exp.PERIODO));
             parametros.Add(acceso.crearParametro("@fvencimiento", exp.DTTM_1ER_VENCIMIENTO));
             parametros.Add(acceso.crearParametro("@svencimiento", exp.DTTM_2DO_VENCIMIENTO));
+            parametros.Add(acceso.crearParametro("@idv", exp.IDV));
 
             modificados = acceso.escribir("INSERTAR_EXPENSA", parametros);
 
@@ -77,6 +79,7 @@ namespace DAL
                 e = new BE.Expensa(DateTime.Parse(registro["fecha_emision"].ToString()));
                 e.ID = int.Parse(registro["id"].ToString());
                 e.ESTA_PAGA = Boolean.Parse(registro["esta_paga"].ToString());
+                e.IDV = registro["idv"].ToString();
             }
 
             return e;
@@ -110,6 +113,7 @@ namespace DAL
                 e.ID = int.Parse(registro["id"].ToString());
                 e.ESTA_PAGA = Boolean.Parse(registro["esta_paga"].ToString());
                 e.DNI = long.Parse(registro["dni"].ToString());
+                e.IDV = registro["idv"].ToString();
 
                 SegmentoDAL gestorSegmentos = new SegmentoDAL();
 
@@ -128,6 +132,39 @@ namespace DAL
             parametros.Add(acceso.crearParametro("@ordenamiento", ordenDescendente));
 
             return acceso.leer("LISTAR_RECAUDACION", parametros);
+        }
+
+        public List<BE.Expensa> ListarTodas()
+        {
+            List<BE.Expensa> expensas = new List<BE.Expensa>();
+
+            DataTable tabla = acceso.leer("LISTAR_EXPENSAS_TODAS", null);
+            foreach (DataRow registro in tabla.Rows)
+            {
+                BE.Expensa e = new BE.Expensa(DateTime.Parse(registro["fecha_emision"].ToString()));
+                e.ID = int.Parse(registro["id"].ToString());
+                e.ESTA_PAGA = Boolean.Parse(registro["esta_paga"].ToString());
+                e.DNI = Int64.Parse(registro["dni"].ToString());
+                e.IDV = registro["idv"].ToString();
+
+                SegmentoDAL gestorSegmentos = new SegmentoDAL();
+
+                //buscar segmentos
+                e.agregarSegmentos(gestorSegmentos.ObtenerSegmentosExpensa(e.ID));
+
+                expensas.Add(e);
+            }
+            return expensas;
+        }
+
+        public Boolean ActualizarIDVExpensa(BE.Expensa expensa, string idv)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.crearParametro("@idv", idv));
+            parametros.Add(acceso.crearParametro("@idExpensa", expensa.ID));
+            int modificados = acceso.escribir("ACTUALIZAR_IDV_EXPENSA", parametros);
+
+            return modificados != 0 ? true : false;
         }
 
     }

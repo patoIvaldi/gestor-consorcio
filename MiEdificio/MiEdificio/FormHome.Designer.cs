@@ -297,6 +297,7 @@
             ayudaEnLineaToolStripMenuItem.Name = "ayudaEnLineaToolStripMenuItem";
             ayudaEnLineaToolStripMenuItem.Size = new Size(180, 22);
             ayudaEnLineaToolStripMenuItem.Text = "Ayuda en linea";
+            ayudaEnLineaToolStripMenuItem.Click += ayudaEnLineaToolStripMenuItem_Click;
             // 
             // FormHome
             // 

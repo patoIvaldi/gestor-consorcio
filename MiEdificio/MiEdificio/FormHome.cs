@@ -1,5 +1,6 @@
 using BE;
 using System.Diagnostics;
+using System.Text;
 using UI;
 
 namespace MiEdificio
@@ -48,15 +49,60 @@ namespace MiEdificio
         private void chequearIDVSistema()
         {
             Boolean sistemaOK = true;
+            StringBuilder tablasAfectadas = new StringBuilder();
 
             //validamos que el hash de la tabla USUARIO este correcto.
             sistemaOK = BLL.HashGlobalBLL.Instance.ExisteHash(
                 BLL.UsuarioBLL.Instance.RecalcularHashGlobalUsuarios());
 
+            if (!sistemaOK) { tablasAfectadas.Append(Enumerador.TablaIDV.USUARIO.ToString()); };
+
+            //validamos que el hash de la tabla AREA_COMUN este correcto.
+            sistemaOK = BLL.HashGlobalBLL.Instance.ExisteHash(
+                BLL.AreaComunBLL.Instance.RecalcularHashGlobalAreasComunes());
+
+            if (!sistemaOK) { tablasAfectadas.Append(Enumerador.TablaIDV.AREA_COMUN.ToString()); };
+
+            //validamos que el hash de la tabla GANANCIA este correcto.
+            sistemaOK = BLL.HashGlobalBLL.Instance.ExisteHash(
+                BLL.GananciaBLL.Instance.RecalcularHashGlobalGanancias());
+
+            if (!sistemaOK) { tablasAfectadas.Append(Enumerador.TablaIDV.GANANCIA.ToString()); };
+
+            //validamos que el hash de la tabla METRICA este correcto.
+            sistemaOK = BLL.HashGlobalBLL.Instance.ExisteHash(
+                BLL.MetricaBLL.Instance.RecalcularHashGlobalMetricas());
+
+            if (!sistemaOK) { tablasAfectadas.Append(Enumerador.TablaIDV.METRICA.ToString()); };
+
+            //validamos que el hash de la tabla EXPENSA este correcto.
+            sistemaOK = BLL.HashGlobalBLL.Instance.ExisteHash(
+                BLL.ExpensaBLL.Instance.RecalcularHashGlobalExpensas());
+
+            if (!sistemaOK) { tablasAfectadas.Append(Enumerador.TablaIDV.EXPENSA.ToString()); };
+
+            //validamos que el hash de la tabla PAGO este correcto.
+            sistemaOK = BLL.HashGlobalBLL.Instance.ExisteHash(
+                BLL.PagoBLL.Instance.RecalcularHashGlobalPagos());
+
+            if (!sistemaOK) { tablasAfectadas.Append(Enumerador.TablaIDV.PAGO.ToString()); };
+
+            //validamos que el hash de la tabla SEGMENTO este correcto.
+            sistemaOK = BLL.HashGlobalBLL.Instance.ExisteHash(
+                BLL.SegmentoBLL.Instance.RecalcularHashGlobalSegmentos());
+
+            if (!sistemaOK) { tablasAfectadas.Append(Enumerador.TablaIDV.SEGMENTO.ToString()); };
+
+            //validamos que el hash de la tabla RESERVA este correcto.
+            sistemaOK = BLL.HashGlobalBLL.Instance.ExisteHash(
+                BLL.ReservasBLL.Instance.RecalcularHashGlobalReservas());
+
+            if (!sistemaOK) { tablasAfectadas.Append(Enumerador.TablaIDV.RESERVA.ToString()); };
+
             if (!sistemaOK)
             {
                 //bloqueamos el sistema y disparamos pop-up con accionar
-                MessageBox.Show("Se detectó una vulneración en el sistema. Por favor, proceda a solucionarlo según el siguiente menú de opciones.");
+                MessageBox.Show("Se detectó una vulneración en el sistema sobre las siguientes tablas: [" + tablasAfectadas.ToString() + "]. Por favor, proceda a solucionarlo con el siguiente menú de opciones.");
                 FormRecuperarSistema formRecuperacion = new FormRecuperarSistema(this);
                 formRecuperacion.ShowDialog();
             }
@@ -246,10 +292,55 @@ namespace MiEdificio
         {
             try
             {
-                string rutaArchivoPDF = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\Manual.pdf";
+                //string rutaArchivoPDF = "C:\\Users\\Pato\\Desktop\\Facultad\\Trabajo de Campo\\Proyecto\\MiEdificio\\MiEdificio\\Resources\\archivos\\Manual.pdf";
+
+                DirectoryInfo directorioPadre = Directory.GetParent(Application.StartupPath);
+                DirectoryInfo directorioAbuelo = Directory.GetParent(directorioPadre.FullName);
+                DirectoryInfo directorioBisAbuelo = Directory.GetParent(directorioAbuelo.FullName);
+                DirectoryInfo directorioTataraAbuelo = Directory.GetParent(directorioBisAbuelo.FullName);
+                string rutaArchivoPDF = Path.Combine(directorioTataraAbuelo.FullName, "Resources", "archivos", "Manual.pdf");
 
                 // Abrir el manual en PDF con el programa predeterminado del sistema
                 Process.Start(new ProcessStartInfo(rutaArchivoPDF) { UseShellExecute = true });
+
+                BE.Evento evento = new Evento();
+                evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                evento.DETALLE = "El usuario abrió el manual de usuario";
+                evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+                evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                evento.MODULO = Enumerador.Modulo.Ayuda.ToString();
+
+                BLL.EventoBLL.Instance.AgregarEvento(evento);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir el archivo PDF: " + ex.Message);
+            }
+        }
+
+        private void ayudaEnLineaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                DirectoryInfo directorioPadre = Directory.GetParent(Application.StartupPath);
+                DirectoryInfo directorioAbuelo = Directory.GetParent(directorioPadre.FullName);
+                DirectoryInfo directorioBisAbuelo = Directory.GetParent(directorioAbuelo.FullName);
+                DirectoryInfo directorioTataraAbuelo = Directory.GetParent(directorioBisAbuelo.FullName);
+                string rutaArchivoPDF = Path.Combine(directorioTataraAbuelo.FullName, "Resources", "archivos", "Ayuda.pdf");
+
+                // Abrir la ayuda en PDF con el programa predeterminado del sistema
+                Process.Start(new ProcessStartInfo(rutaArchivoPDF) { UseShellExecute = true });
+
+                BE.Evento evento = new Evento();
+                evento.USUARIO = Services.ServiceSesion.Instance.USER;
+                evento.DETALLE = "El usuario abrió la ayuda en linea";
+                evento.CRITICIDAD = Enumerador.Criticidad.Baja.ToString();
+                evento.OPERACION = Enumerador.Operacion.Insertar.ToString();
+                evento.MODULO = Enumerador.Modulo.Ayuda.ToString();
+
+                BLL.EventoBLL.Instance.AgregarEvento(evento);
             }
             catch (Exception ex)
             {

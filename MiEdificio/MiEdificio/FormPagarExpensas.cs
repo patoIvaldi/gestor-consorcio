@@ -149,6 +149,7 @@ namespace UI
             dgv_expensas.DataSource = null;
             dgv_expensas.DataSource = BLL.ExpensaBLL.Instance.ListarExpensas(persona.DNI);
             dgv_expensas.Columns["DNI"].Visible = false;
+            dgv_expensas.Columns["IDV"].Visible = false;
 
             // Dar formato de moneda a la columna de 'recaudacion'
             DataGridViewCellStyle currencyStyle = new DataGridViewCellStyle();
@@ -167,6 +168,7 @@ namespace UI
             dgv_pagos.Columns["NRO_TARJETA"].Visible = false;
             dgv_pagos.Columns["FECHA_VENC_TARJETA"].Visible = false;
             dgv_pagos.Columns["NOMBRE_TARJETA"].Visible = false;
+            dgv_pagos.Columns["IDV"].Visible = false;
 
             // Dar formato de moneda a la columna de 'recaudacion'
             DataGridViewCellStyle currencyStyle = new DataGridViewCellStyle();
